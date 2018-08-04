@@ -1,6 +1,9 @@
 login:
     path: /login
     controller: App\Controller\User\LoginController::login
+register:
+    path: /register
+    controller: App\Controller\User\RegisterController::register
 
 #index:
 #    path: /
