@@ -33,7 +33,6 @@ class RegisterController extends Controller
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
 
-            // 4) save the User!
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -42,7 +41,6 @@ class RegisterController extends Controller
         }
 
         return $this->render('user/register/register.html.twig', [
-            'controller_name' => 'RegisterController',
             'form' => $form->createView(),
         ]);
     }

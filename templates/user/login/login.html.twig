@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}Logowanie{% endblock %}
 
 {% block body %}
 <style>
@@ -9,20 +9,10 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Logowanie ✅</h1>
 
     {{ form_start(form) }}
-    {{ form_label(form.username) }}
-    <br>
-    {{ form_widget(form.username) }}
-    <br>
-    {{ form_label(form.password) }}
-    <br>
-    {{ form_widget(form.password) }}
-    <br>
-    {{  form_label(form.login) }}
-    {{ form_widget(form.login) }}
-    <br>
+    {{ form_widget(form) }}
     {{ form_end(form) }}
 </div>
 {% endblock %}
