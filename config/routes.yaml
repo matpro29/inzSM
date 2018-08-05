@@ -1,6 +1,9 @@
 login:
     path: /login
     controller: App\Controller\User\LoginController::login
+logout:
+    path: /logout
+    controller: App\Controller\User\LogoutController::logout
 register:
     path: /register
     controller: App\Controller\User\RegisterController::register

@@ -94,6 +94,11 @@ class User implements UserInterface, \Serializable
         return $this->roles;
     }
 
+    public function setRoles($roles)
+    {
+        $this->roles = array($roles);
+    }
+
     public function eraseCredentials()
     {
     }
@@ -104,6 +109,7 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
+            $this->roles,
         ));
     }
 
@@ -113,6 +119,7 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
+            $this->roles,
             ) = unserialize($serialized);
     }
 }
