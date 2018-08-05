@@ -12,13 +12,13 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: false
+            anonymous: ~
             form_login:
                 login_path: login
                 check_path: login
                 provider: my_provider
-                username_parameter: "form[username]"
-                password_parameter: "form[password]"
+                username_parameter: "login_form[username]"
+                password_parameter: "login_form[password]"
             logout:
                 path: logout
                 target: login

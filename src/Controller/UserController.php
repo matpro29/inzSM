@@ -3,11 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\User\LoginForm;
+use App\Form\User\RegisterForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -23,12 +21,8 @@ class UserController extends Controller
     public function login(AuthenticationUtils $authenticationUtils)
     {
         $user = new User();
+        $form = $this->createForm(LoginForm::class, $user);
 
-        $form = $this->createFormBuilder($user)
-            ->add('username', TextType::class, array('label' => 'Nazwa użytkownika: '))
-            ->add('password', PasswordType::class, array('label' => 'Hasło: '))
-            ->add('login', SubmitType::class, array('label' => 'Zaloguj'))
-            ->getForm();
 
         $error = $authenticationUtils->getLastAuthenticationError();
 
@@ -52,7 +46,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/register", name="register")
+     * @Route("/register", name="register", methods="GET|POST")
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -60,18 +54,9 @@ class UserController extends Controller
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $user = new User();
-
-        $form = $this->createFormBuilder($user)
-            ->add('username', TextType::class, array('label' => 'Nazwa użytkownika: '))
-            ->add('plainPassword', RepeatedType::class, array(
-                'type' => PasswordType::class,
-                'first_options' => array('label' => 'Hasło: '),
-                'second_options' =>  array('label' => 'Powtórz hasło: '),
-            ))
-            ->add('register', SubmitType::class, array('label' => 'Zarejestruj'))
-            ->getForm();
-
+        $form = $this->createForm(RegisterForm::class, $user);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
