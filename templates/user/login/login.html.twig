@@ -11,8 +11,8 @@
 <div class="example-wrapper">
     <h1>Logowanie ✅</h1>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+    {{ include('user/form/_login_form.html.twig') }}
+    </br>
+    <a href="{{ path('index') }}">Index</a>
 </div>
 {% endblock %}

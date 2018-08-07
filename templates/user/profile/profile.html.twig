@@ -21,14 +21,11 @@
                 <td>{{ user.username }}</td>
             </tr>
             <tr>
-                <th>Hasło</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
                 <th>Role</th>
                 <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
             </tr>
         </tbody>
-    </table>
+    </table></br>
+    <a href="{{ path('index') }}">Index</a>
 </div>
 {% endblock %}

@@ -31,7 +31,7 @@ class User implements UserInterface, \Serializable
     private $plainPassword;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=96)
      */
     private $password;
 
@@ -43,6 +43,7 @@ class User implements UserInterface, \Serializable
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
+        $this->salt = md5(uniqid('', true));
     }
 
     public function getId()
@@ -70,23 +71,14 @@ class User implements UserInterface, \Serializable
         $this->plainPassword = $password;
     }
 
-    public function getPassword(): ?string
+    public function getPassword()
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword($password)
     {
         $this->password = $password;
-
-        return $this;
-    }
-
-    public function getSalt()
-    {
-        // The bcrypt and argon2i algorithms don't require a separate salt.
-        // You *may* need a real salt if you choose a different encoder.
-        return null;
     }
 
     public function getRoles()
@@ -97,6 +89,11 @@ class User implements UserInterface, \Serializable
     public function setRoles($roles)
     {
         $this->roles = array($roles);
+    }
+
+    public function getSalt()
+    {
+        return null;
     }
 
     public function eraseCredentials()

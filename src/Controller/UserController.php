@@ -12,6 +12,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * @Route("/")
+ */
 class UserController extends Controller
 {
     /**
@@ -30,7 +33,7 @@ class UserController extends Controller
         return $this->render('user/login/login.html.twig', [
             'form' => $form->createView(),
             'last_username' => $lastUsername,
-            'error'         => $error,
+            'error' => $error,
         ]);
     }
 
@@ -42,6 +45,15 @@ class UserController extends Controller
         return $this->render('user/logout/logout.html.twig', [
             'controller_name' => 'LogoutController',
         ]);
+    }
+
+    /**
+     * @Route("/profile", name="profile")
+     */
+    public function profile(UserInterface $user)
+    {
+        return $this->render('user/profile/profile.html.twig', [
+            'user' => $user]);
     }
 
     /**
@@ -67,14 +79,5 @@ class UserController extends Controller
         return $this->render('user/register/register.html.twig', [
             'form' => $form->createView(),
         ]);
-    }
-
-    /**
-     * @Route("/profile", name="profile")
-     */
-    public function profile(UserInterface $user)
-    {
-        return $this->render('user/profile/profile.html.twig', [
-            'user' => $user]);
     }
 }
