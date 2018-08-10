@@ -30,7 +30,7 @@ class UserController extends Controller
 
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('user/login/login.html.twig', [
+        return $this->render('user/login.html.twig', [
             'form' => $form->createView(),
             'last_username' => $lastUsername,
             'error' => $error,
@@ -42,7 +42,7 @@ class UserController extends Controller
      */
     public function logout()
     {
-        return $this->render('user/logout/logout.html.twig', [
+        return $this->render('user/logout.html.twig', [
             'controller_name' => 'LogoutController',
         ]);
     }
@@ -52,12 +52,12 @@ class UserController extends Controller
      */
     public function profile(UserInterface $user)
     {
-        return $this->render('user/profile/profile.html.twig', [
+        return $this->render('user/profile.html.twig', [
             'user' => $user]);
     }
 
     /**
-     * @Route("/register", name="register")
+     * @Route("/register", name="register", methods="GET|POST")
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -76,7 +76,7 @@ class UserController extends Controller
             return $this->redirectToRoute('login');
         }
 
-        return $this->render('user/register/register.html.twig', [
+        return $this->render('user/register.html.twig', [
             'form' => $form->createView(),
         ]);
     }

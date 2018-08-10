@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Użytkownicy{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="example-wrapper">
+        <h1>Użytkownicy ✅</h1>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Użytkownik</th>
+                <th>Role</th>
+                <th>Akcje</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in user %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
+                    <td>
+                        <a href="{{ path('admin_users_show', {'id': user.id}) }}">Pokaż</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">Nie znaleziono użytkowników!</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </br>
+        <a href="{{ path('admin') }}">Wróć</a>
+    </div>
+{% endblock %}

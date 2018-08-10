@@ -17,6 +17,42 @@ use Symfony\Component\Routing\Annotation\Route;
 class SubjectController extends Controller
 {
     /**
+     * @Route("/{id}", name="subject_delete", methods="DELETE")
+     */
+    public function delete(Request $request, Subject $subject): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$subject->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($subject);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('subject_index');
+    }
+
+    /**
+     * @Route("/{id}/edit", name="subject_edit", methods="GET|POST")
+     */
+    public function edit(Request $request, Subject $subject)
+    {
+        $form = $this->createForm(NewForm::class, $subject);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('subject_edit', [
+                'id' => $subject->getId()
+            ]);
+        }
+
+        return $this->render('subject/edit.html.twig', [
+            'subject' => $subject,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/", name="subject_index", methods="GET")
      */
     public function index(SubjectRepository $subjectRepository)
@@ -57,45 +93,5 @@ class SubjectController extends Controller
         return $this->render('subject/show.html.twig', [
             'subject' => $subject]
         );
-    }
-
-    /**
-     * @Route("/{id}/edit", name="subject_edit", methods="GET|POST")
-     */
-    public function edit(Request $request, Subject $subject)
-    {
-        $form = $this->createForm(NewForm::class, $subject);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('subject_edit', [
-                'id' => $subject->getId()
-            ]);
-        }
-
-        return $this->render('subject/edit.html.twig', [
-            'subject' => $subject,
-            'form' => $form->createView(),
-        ]);
-    }
-
-
-
-
-
-    /**
-     * @Route("/{id}", name="subject_delete", methods="DELETE")
-     */
-    public function delete(Request $request, Subject $subject): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$subject->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($subject);
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('subject_index');
     }
 }

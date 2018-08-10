@@ -12,19 +12,21 @@
         <h1>Użytkownik ✅</h1>
         <table>
             <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ user.id }}</td>
-                </tr>
-                <tr>
-                    <th>Użytkownik</th>
-                    <td>{{ user.username }}</td>
-                </tr>
-                <tr>
-                    <th>Role</th>
-                    <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
-                </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Użytkownik</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
+            </tr>
             </tbody>
         </table>
+        </br>
+        <a href="{{ path('admin_users') }}">Wróć</a>
     </div>
 {% endblock %}
