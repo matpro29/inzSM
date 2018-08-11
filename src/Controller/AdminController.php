@@ -28,7 +28,7 @@ class AdminController extends Controller
     public function users(UserRepository $userRepository)
     {
         return $this->render('admin/users/users.html.twig', [
-            'user' => $userRepository->findAll(),
+            'user' => $userRepository->findAll()
         ]);
     }
 
@@ -45,7 +45,7 @@ class AdminController extends Controller
         }
 
         return $this->render('admin/users/users_show.html.twig', [
-            'user' => $user,
+            'user' => $user
         ]);
     }
 
@@ -55,7 +55,7 @@ class AdminController extends Controller
     public function usersShow(User $user)
     {
         return $this->render('admin/users/users_show.html.twig', [
-                'user' => $user,
+                'user' => $user
         ]);
     }
 }

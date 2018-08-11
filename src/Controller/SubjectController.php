@@ -47,7 +47,7 @@ class SubjectController extends Controller
 
         return $this->render('subject/edit.html.twig', [
             'form' => $form->createView(),
-            'subject' => $subject,
+            'subject' => $subject
         ]);
     }
 
@@ -57,7 +57,7 @@ class SubjectController extends Controller
     public function index(SubjectRepository $subjectRepository)
     {
         return $this->render('subject/index.html.twig', [
-            'subjects' => $subjectRepository->findAll(),
+            'subjects' => $subjectRepository->findAll()
         ]);
     }
 
@@ -80,7 +80,7 @@ class SubjectController extends Controller
 
         return $this->render('subject/new.html.twig', [
             'form' => $form->createView(),
-            'subject' => $subject,
+            'subject' => $subject
         ]);
     }
 
@@ -90,7 +90,7 @@ class SubjectController extends Controller
     public function show(Subject $subject)
     {
         return $this->render('subject/show.html.twig', [
-            'subject' => $subject,
+            'subject' => $subject
         ]);
     }
 }
