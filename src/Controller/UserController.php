@@ -31,9 +31,9 @@ class UserController extends Controller
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('user/login.html.twig', [
+            'error' => $error,
             'form' => $form->createView(),
             'last_username' => $lastUsername,
-            'error' => $error,
         ]);
     }
 
@@ -53,7 +53,8 @@ class UserController extends Controller
     public function profile(UserInterface $user)
     {
         return $this->render('user/profile.html.twig', [
-            'user' => $user]);
+            'user' => $user,
+        ]);
     }
 
     /**

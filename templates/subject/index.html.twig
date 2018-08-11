@@ -30,7 +30,9 @@
                     <td>{{ subject.ects }}</td>
                     <td>
                         <a href="{{ path('subject_show', {'id': subject.id}) }}">Pokaż</a>
-                        <a href="{{ path('subject_edit', {'id': subject.id}) }}">Edytuj</a>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER') %}
+                            <a href="{{ path('subject_edit', {'id': subject.id}) }}">Edytuj</a>
+                        {% endif %}
                     </td>
                 </tr>
             {% else %}
@@ -40,8 +42,10 @@
             {% endfor %}
             </tbody>
         </table>
-        </br>
-        <a href="{{ path('subject_new') }}">Dodaj przedmiot</a>
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER') %}
+            </br>
+            <a href="{{ path('subject_new') }}">Dodaj przedmiot</a>
+        {% endif %}
         </br>
         <a href="{{ path('index') }}">Wróć</a>
     </div>
