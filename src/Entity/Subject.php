@@ -72,6 +72,11 @@ class Subject
         return $this->name;
     }
 
+    public function getSubjectName()
+    {
+        return $this->id . ' ' . $this->name . ' ' . $this->type;
+    }
+
     public function getType()
     {
         return $this->type;

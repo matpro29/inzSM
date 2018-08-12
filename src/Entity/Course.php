@@ -112,17 +112,22 @@ class Course
 
     public function setIdOwner($id_owner)
     {
-        $this->idOwner = $id_owner;
+        $this->id_owner = $id_owner;
     }
 
     public function setIdSubject($id_subject)
     {
-        $this->idSubject = $id_subject;
+        $this->id_subject = $id_subject;
     }
 
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
     }
 
     public function setPassword($password)
@@ -133,5 +138,10 @@ class Course
     public function setPlainPassword($password)
     {
         $this->plainPassword = $password;
+    }
+
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
     }
 }

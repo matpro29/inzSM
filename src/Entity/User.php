@@ -66,6 +66,11 @@ class User implements UserInterface, \Serializable
         return $this->id;
     }
 
+    public function getOwnerName()
+    {
+        return $this->id . ' ' . $this->username;
+    }
+
     public function getPassword()
     {
         return $this->password;
@@ -110,7 +115,6 @@ class User implements UserInterface, \Serializable
     {
         $this->plainPassword = $password;
     }
-
 
     public function setRoles($roles)
     {
