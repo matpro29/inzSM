@@ -3,8 +3,10 @@
 namespace App\Form\Subject;
 
 use App\Entity\Subject;
+use App\Entity\Type;
+use App\Repository\TypeRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -26,13 +28,13 @@ class NewForm extends AbstractType
             ->add('ects', NumberType::class, array(
                 'label' => 'ECTS: ',
             ))
-            ->add('type', ChoiceType::class, array(
-                'choices' => array(
-                    'Ćwiczenia' => 'Ćwiczenia',
-                    'Laboratorium' => 'Laboratorium',
-                    'Wykład' => 'Wykład',
-                ),
+            ->add('type', EntityType::class, array(
+                'choice_label' => 'name',
+                'class' => Type::class,
                 'label' => 'Typ: ',
+                'query_builder' => function (TypeRepository $typeRepository) {
+                    return $typeRepository->findAllTypes();
+                },
             ))
             ->add('add', SubmitType::class, array(
                 'label' => 'Zapisz',

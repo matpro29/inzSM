@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Subject;
 use App\Form\Subject\NewForm;
-use App\Form\SubjectType;
 use App\Repository\SubjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

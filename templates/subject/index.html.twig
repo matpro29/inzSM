@@ -29,12 +29,10 @@
                     <td>{{ subject.name }}</td>
                     <td>{{ subject.description }}</td>
                     <td>{{ subject.ects }}</td>
-                    <td>{{ subject.type }}</td>
+                    <td>{{ subject.type.name }}</td>
                     <td>
                         <a href="{{ path('subject_show', {'id': subject.id}) }}">Pokaż</a>
-                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER') %}
-                            <a href="{{ path('subject_edit', {'id': subject.id}) }}">Edytuj</a>
-                        {% endif %}
+                        <a href="{{ path('subject_edit', {'id': subject.id}) }}">Edytuj</a>
                     </td>
                 </tr>
             {% else %}

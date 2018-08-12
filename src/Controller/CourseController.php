@@ -31,7 +31,7 @@ class CourseController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="course_edit", methods="GET|POST")
+     * @Route("/edit/{id}", name="course_edit", methods="GET|POST")
      */
     public function edit(Request $request, Course $course): Response
     {

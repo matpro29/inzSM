@@ -30,8 +30,7 @@ security:
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/profile, roles: ROLE_USER }
-
-        - { path: ^/subject/new, roles: ROLE_TEACHER }
-        - { path: ^/subject/edit, roles: ROLE_TEACHER }
+#        - { path: ^/admin, roles: ROLE_ADMIN }
+#        - { path: ^/profile, roles: ROLE_USER }
+#        - { path: ^/subject/new, roles: ROLE_TEACHER }
+#        - { path: ^/subject/edit, roles: ROLE_TEACHER }

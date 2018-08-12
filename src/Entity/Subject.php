@@ -33,12 +33,18 @@ class Subject
     private $id;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $id_type;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Type", inversedBy="types")
+     * @ORM\JoinColumn(name="id_type", referencedColumnName="id")
      */
     private $type;
 
@@ -67,6 +73,11 @@ class Subject
         return $this->id;
     }
 
+    public function getIdType()
+    {
+        return $this->id_type;
+    }
+
     public function getName()
     {
         return $this->name;
@@ -74,7 +85,7 @@ class Subject
 
     public function getSubjectName()
     {
-        return $this->id . ' ' . $this->name . ' ' . $this->type;
+        return $this->id . ' ' . $this->name . ' ' . $this->type->getName();
     }
 
     public function getType()
@@ -90,6 +101,11 @@ class Subject
     public function setEcts($ects)
     {
         $this->ects = $ects;
+    }
+
+    public function setIdType($id_type)
+    {
+        $this->id_type = $id_type;
     }
 
     public function setName($name)

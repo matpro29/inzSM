@@ -11,10 +11,8 @@
     <div class="example-wrapper">
         <h1>Index ✅</h1>
 
-        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('admin') }}">Admin</a>
-            </br>
-        {% endif %}
+        <a href="{{ path('admin') }}">Admin</a>
+        </br>
         <a href="{{ path('login') }}">Logowanie</a>
         </br>
         <a href="{{ path('logout') }}">Wylogowanie</a>
@@ -22,6 +20,8 @@
         <a href="{{ path('profile') }}">Profil</a>
         </br>
         <a href="{{ path('register') }}">Rejestracja</a>
+        </br>
+        <a href="{{ path('type_index') }}">Typy</a>
         </br>
         <a href="{{ path('subject_index') }}">Przedmioty</a>
         </br>

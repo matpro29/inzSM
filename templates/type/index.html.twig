@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Kursy{% endblock %}
+{% block title %}Typy{% endblock %}
 
 {% block body %}
     <style>
@@ -9,41 +9,35 @@
     </style>
 
     <div class="example-wrapper">
-        <h1>Kursy ✅</h1>
+        <h1>Typy ✅</h1>
 
         <table class="table">
             <thead>
             <tr>
                 <th>Id</th>
-                <th>Właściciel</th>
-                <th>Przedmiot</th>
                 <th>Nazwa</th>
-                <th>Opis</th>
                 <th>Akcje</th>
             </tr>
             </thead>
             <tbody>
-            {% for course in courses %}
+            {% for type in types %}
                 <tr>
-                    <td>{{ course.id }}</td>
-                    <td>{{ course.owner.username }}</td>
-                    <td>{{ course.subject.name }} {{ course.subject.type.name }}</td>
-                    <td>{{ course.name }}</td>
-                    <td>{{ course.description }}</td>
+                    <td>{{ type.id }}</td>
+                    <td>{{ type.name }}</td>
                     <td>
-                        <a href="{{ path('course_show', {'id': course.id}) }}">Pokaż</a>
-                        <a href="{{ path('course_edit', {'id': course.id}) }}">Edytuj</a>
+                        <a href="{{ path('type_show', {'id': type.id}) }}">Pokaż</a>
+                        <a href="{{ path('type_edit', {'id': type.id}) }}">Edytuj</a>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="6">Nie znaleziono kursów!</td>
+                    <td colspan="3">Nie znaleziono typów!</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
         </br>
-        <a href="{{ path('course_new') }}">Dodaj kurs</a>
+        <a href="{{ path('type_new') }}">Dodaj typ</a>
         </br>
         <a href="{{ path('index') }}">Wróć</a>
     </div>
