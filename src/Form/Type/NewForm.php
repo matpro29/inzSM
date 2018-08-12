@@ -1,28 +1,24 @@
 <?php
 
-namespace App\Form\User;
+namespace App\Form\Type;
 
-use App\Entity\User;
+use App\Entity\Type;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class LoginForm extends AbstractType
+class NewForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, array(
-                'label' => 'Nazwa użytkownika: '
+            ->add('name', TextType::class, array(
+                'label' => 'Nazwa: ',
             ))
-            ->add('password', PasswordType::class, array(
-                'label' => 'Hasło: '
-            ))
-            ->add('login', SubmitType::class, array(
-                'label' => 'Zaloguj'
+            ->add('add', SubmitType::class, array(
+                'label' => 'Zapisz'
             ))
         ;
     }
@@ -30,7 +26,7 @@ class LoginForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class
+            'data_class' => Type::class,
         ]);
     }
 }

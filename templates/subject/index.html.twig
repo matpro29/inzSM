@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Przedmioty{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="example-wrapper">
+        <h1>Przedmioty ✅</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nazwa</th>
+                <th>Opis</th>
+                <th>ECTS</th>
+                <th>Typ</th>
+                <th>Akcje</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for subject in subjects %}
+                <tr>
+                    <td>{{ subject.id }}</td>
+                    <td>{{ subject.name }}</td>
+                    <td>{{ subject.description }}</td>
+                    <td>{{ subject.ects }}</td>
+                    <td>{{ subject.type.name }}</td>
+                    <td>
+                        <a href="{{ path('subject_show', {'id': subject.id}) }}">Pokaż</a>
+                        <a href="{{ path('subject_edit', {'id': subject.id}) }}">Edytuj</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">Nie znaleziono przedmiotów!</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER') %}
+            </br>
+            <a href="{{ path('subject_new') }}">Dodaj przedmiot</a>
+        {% endif %}
+        </br>
+        <a href="{{ path('index') }}">Wróć</a>
+    </div>
+{% endblock %}

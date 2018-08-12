@@ -16,20 +16,28 @@ class RegisterForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, array('label' => 'Nazwa użytkownika: '))
+            ->add('username', TextType::class, array(
+                'label' => 'Nazwa użytkownika: '
+            ))
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
-                'first_options' => array('label' => 'Hasło: '),
-                'second_options' =>  array('label' => 'Powtórz hasło: '),
+                'first_options' => array(
+                    'label' => 'Hasło: '
+                ),
+                'second_options' =>  array(
+                    'label' => 'Powtórz hasło: '
+                )
             ))
-            ->add('register', SubmitType::class, array('label' => 'Zarejestruj'))
+            ->add('register', SubmitType::class, array(
+                'label' => 'Zarejestruj'
+            ))
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => User::class
         ]);
     }
 }

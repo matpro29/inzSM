@@ -7,6 +7,7 @@ use App\Form\User\LoginForm;
 use App\Form\User\RegisterForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -20,7 +21,7 @@ class UserController extends Controller
     /**
      * @Route("/login", name="login")
      */
-    public function login(AuthenticationUtils $authenticationUtils)
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
         $user = new User();
         $form = $this->createForm(LoginForm::class, $user);
@@ -30,36 +31,37 @@ class UserController extends Controller
 
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('user/login/login.html.twig', [
-            'form' => $form->createView(),
-            'last_username' => $lastUsername,
+        return $this->render('user/login.html.twig', [
             'error' => $error,
+            'form' => $form->createView(),
+            'last_username' => $lastUsername
         ]);
     }
 
     /**
      * @Route("/logout", name="logout")
      */
-    public function logout()
+    public function logout(): Response
     {
-        return $this->render('user/logout/logout.html.twig', [
-            'controller_name' => 'LogoutController',
+        return $this->render('user/logout.html.twig', [
+            'controller_name' => 'LogoutController'
         ]);
     }
 
     /**
      * @Route("/profile", name="profile")
      */
-    public function profile(UserInterface $user)
+    public function profile(UserInterface $user): Response
     {
-        return $this->render('user/profile/profile.html.twig', [
-            'user' => $user]);
+        return $this->render('user/profile.html.twig', [
+            'user' => $user
+        ]);
     }
 
     /**
-     * @Route("/register", name="register")
+     * @Route("/register", name="register", methods="GET|POST")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
         $form = $this->createForm(RegisterForm::class, $user);
@@ -76,8 +78,8 @@ class UserController extends Controller
             return $this->redirectToRoute('login');
         }
 
-        return $this->render('user/register/register.html.twig', [
-            'form' => $form->createView(),
+        return $this->render('user/register.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }

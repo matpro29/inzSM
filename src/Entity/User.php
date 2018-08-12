@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -13,6 +14,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface, \Serializable
 {
     /**
+     * @ORM\OneToMany(targetEntity="Course", mappedBy="owner")
+     */
+    private $courses_own;
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -20,9 +26,9 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=64, unique=true)
+     * @ORM\Column(type="string", length=96)
      */
-    private $username;
+    private $password;
 
     /**
      * @Assert\NotBlank()
@@ -31,19 +37,28 @@ class User implements UserInterface, \Serializable
     private $plainPassword;
 
     /**
-     * @ORM\Column(type="string", length=96)
-     */
-    private $password;
-
-    /**
      * @ORM\Column(type="array")
      */
     private $roles;
 
+    /**
+     * @ORM\Column(type="string", length=64, unique=true)
+     */
+    private $username;
+
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
-        $this->salt = md5(uniqid('', true));
+        $this->courses_own = new ArrayCollection();
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function getCoursesOwn()
+    {
+        return $this->courses_own;
     }
 
     public function getId()
@@ -51,24 +66,9 @@ class User implements UserInterface, \Serializable
         return $this->id;
     }
 
-    public function getUsername()
+    public function getOwnerName()
     {
-        return $this->username;
-    }
-
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
-
-    public function getPlainPassword()
-    {
-        return $this->plainPassword;
-    }
-
-    public function setPlainPassword($password)
-    {
-        $this->plainPassword = $password;
+        return $this->id . ' ' . $this->username;
     }
 
     public function getPassword()
@@ -76,9 +76,9 @@ class User implements UserInterface, \Serializable
         return $this->password;
     }
 
-    public function setPassword($password)
+    public function getPlainPassword()
     {
-        $this->password = $password;
+        return $this->plainPassword;
     }
 
     public function getRoles()
@@ -86,18 +86,14 @@ class User implements UserInterface, \Serializable
         return $this->roles;
     }
 
-    public function setRoles($roles)
-    {
-        $this->roles = array($roles);
-    }
-
     public function getSalt()
     {
         return null;
     }
 
-    public function eraseCredentials()
+    public function getUsername()
     {
+        return $this->username;
     }
 
     public function serialize()
@@ -108,6 +104,26 @@ class User implements UserInterface, \Serializable
             $this->password,
             $this->roles,
         ));
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
+    }
+
+    public function setRoles($roles)
+    {
+        $this->roles = array($roles);
+    }
+
+    public function setUsername($username)
+    {
+        $this->username = $username;
     }
 
     public function unserialize($serialized)
