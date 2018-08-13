@@ -63,6 +63,16 @@ class TypeController extends Controller
     }
 
     /**
+     * @Route("/info/{id}", name="type_info", methods="GET")
+     */
+    public function info(Type $type): Response
+    {
+        return $this->render('type/show.html.twig', [
+            'type' => $type
+        ]);
+    }
+
+    /**
      * @Route("/new", name="type_new", methods="GET|POST")
      */
     public function new(Request $request): Response
@@ -83,16 +93,6 @@ class TypeController extends Controller
             'form' => $form->createView(),
             'type' => $type
 
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="type_show", methods="GET")
-     */
-    public function show(Type $type): Response
-    {
-        return $this->render('type/show.html.twig', [
-            'type' => $type
         ]);
     }
 }
