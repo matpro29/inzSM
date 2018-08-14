@@ -67,7 +67,7 @@ class TypeController extends Controller
      */
     public function info(Type $type): Response
     {
-        return $this->render('type/show.html.twig', [
+        return $this->render('info.html.twig', [
             'type' => $type
         ]);
     }

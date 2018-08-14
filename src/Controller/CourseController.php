@@ -67,7 +67,7 @@ class CourseController extends Controller
      */
     public function info(Course $course): Response
     {
-        return $this->render('course/show.html.twig', [
+        return $this->render('info.html.twig', [
             'course' => $course
         ]);
     }

@@ -14,6 +14,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface, \Serializable
 {
     /**
+     * @ORM\OneToMany(targetEntity="UserCourse", mappedBy="user")
+     */
+    private $courses;
+
+    /**
      * @ORM\OneToMany(targetEntity="Course", mappedBy="owner")
      */
     private $courses_own;
@@ -48,12 +53,18 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
-        $this->roles = array('ROLE_USER');
         $this->courses_own = new ArrayCollection();
+        $this->roles = array('ROLE_USER');
+        $this->courses = new ArrayCollection();
     }
 
     public function eraseCredentials()
     {
+    }
+
+    public function getCourses()
+    {
+        return $this->courses;
     }
 
     public function getCoursesOwn()
