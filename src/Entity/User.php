@@ -77,7 +77,7 @@ class User implements UserInterface, \Serializable
         return $this->id;
     }
 
-    public function getOwnerName()
+    public function getOwnerFormLabel()
     {
         return $this->id . ' ' . $this->username;
     }
@@ -100,6 +100,11 @@ class User implements UserInterface, \Serializable
     public function getSalt()
     {
         return null;
+    }
+
+    public function getUserFormLabel()
+    {
+        return $this->id . ' ' . $this->username;
     }
 
     public function getUsername()

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kurs użytkownika{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="example-wrapper">
+        <h1>Kurs użytkownika ✅</h1>
+
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user_course.id }}</td>
+            </tr>
+            <tr>
+                <th>Kurs</th>
+                <td>{{ user_course.course.name }}</td>
+            </tr>
+            <tr>
+                <th>Użytkownik</th>
+                <td>{{ user_course.user.username }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ user_course.status }}</td>
+            </tr>
+            </tbody>
+        </table>
+        {{ include('user_course/form/_delete_form.html.twig') }}
+        </br>
+        <a href="{{ path('user_course_edit', {'id': user_course.id}) }}">Edytuj</a>
+        </br>
+        <a href="{{ path('user_course_index') }}">Wróć</a>
+    </div>
+{% endblock %}

@@ -75,7 +75,7 @@ class CourseController extends Controller
     /**
      * @Route("/new", name="course_new", methods="GET|POST")
      */
-    public function new(Request $request, UserInterface $user): Response
+    public function new(Request $request): Response
     {
         $course = new Course();
         $form = $this->createForm(NewAdminForm::class, $course);

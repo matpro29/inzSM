@@ -71,6 +71,11 @@ class Course
         $this->users = new ArrayCollection();
     }
 
+    public function getCourseFormLabel()
+    {
+        return $this->id . ' ' . $this->name;
+    }
+
     public function getDescription()
     {
         return $this->description;
