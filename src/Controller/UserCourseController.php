@@ -21,9 +21,9 @@ class UserCourseController extends Controller
     public function delete(Request $request, UserCourse $userCourse): Response
     {
         if ($this->isCsrfTokenValid('delete'.$userCourse->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($userCourse);
-            $em->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($userCourse);
+            $entityManager->flush();
         }
 
         return $this->redirectToRoute('user_course_index');
@@ -40,7 +40,9 @@ class UserCourseController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('user_course_edit', ['id' => $userCourse->getId()]);
+            return $this->redirectToRoute('user_course_edit', [
+                'id' => $userCourse->getId()
+            ]);
         }
 
         return $this->render('user_course/edit.html.twig', [

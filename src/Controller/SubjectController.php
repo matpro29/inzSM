@@ -66,7 +66,7 @@ class SubjectController extends Controller
      */
     public function info(Subject $subject): Response
     {
-        return $this->render('info.html.twig', [
+        return $this->render('subject/info.html.twig', [
             'subject' => $subject
         ]);
     }

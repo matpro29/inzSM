@@ -22,9 +22,9 @@ class CourseController extends Controller
     public function delete(Request $request, Course $course): Response
     {
         if ($this->isCsrfTokenValid('delete'.$course->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($course);
-            $em->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($course);
+            $entityManager->flush();
         }
 
         return $this->redirectToRoute('course_index');
@@ -67,7 +67,7 @@ class CourseController extends Controller
      */
     public function info(Course $course): Response
     {
-        return $this->render('info.html.twig', [
+        return $this->render('course/info.html.twig', [
             'course' => $course
         ]);
     }
