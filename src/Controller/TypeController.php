@@ -21,9 +21,9 @@ class TypeController extends Controller
     public function delete(Request $request, Type $type): Response
     {
         if ($this->isCsrfTokenValid('delete'.$type->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($type);
-            $em->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($type);
+            $entityManager->flush();
         }
 
         return $this->redirectToRoute('type_index');
