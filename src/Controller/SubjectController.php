@@ -62,6 +62,16 @@ class SubjectController extends Controller
     }
 
     /**
+     * @Route("/info/{id}", name="subject_info", methods="GET")
+     */
+    public function info(Subject $subject): Response
+    {
+        return $this->render('subject/info.html.twig', [
+            'subject' => $subject
+        ]);
+    }
+
+    /**
      * @Route("/new", name="subject_new", methods="GET|POST")
      */
     public function new(Request $request): Response
@@ -80,16 +90,6 @@ class SubjectController extends Controller
 
         return $this->render('subject/new.html.twig', [
             'form' => $form->createView(),
-            'subject' => $subject
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="subject_show", methods="GET")
-     */
-    public function show(Subject $subject): Response
-    {
-        return $this->render('subject/show.html.twig', [
             'subject' => $subject
         ]);
     }

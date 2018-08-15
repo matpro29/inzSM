@@ -22,9 +22,9 @@ class CourseController extends Controller
     public function delete(Request $request, Course $course): Response
     {
         if ($this->isCsrfTokenValid('delete'.$course->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($course);
-            $em->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($course);
+            $entityManager->flush();
         }
 
         return $this->redirectToRoute('course_index');
@@ -63,9 +63,19 @@ class CourseController extends Controller
     }
 
     /**
+     * @Route("/info/{id}", name="course_info", methods="GET")
+     */
+    public function info(Course $course): Response
+    {
+        return $this->render('course/info.html.twig', [
+            'course' => $course
+        ]);
+    }
+
+    /**
      * @Route("/new", name="course_new", methods="GET|POST")
      */
-    public function new(Request $request, UserInterface $user): Response
+    public function new(Request $request): Response
     {
         $course = new Course();
         $form = $this->createForm(NewAdminForm::class, $course);
@@ -84,16 +94,6 @@ class CourseController extends Controller
         return $this->render('course/new.html.twig', [
             'course' => $course,
             'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="course_show", methods="GET")
-     */
-    public function show(Course $course): Response
-    {
-        return $this->render('course/show.html.twig', [
-            'course' => $course
         ]);
     }
 }

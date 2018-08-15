@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -60,6 +61,21 @@ class Course
      */
     private $subject;
 
+    /**
+     * @ORM\OneToMany(targetEntity="UserCourse", mappedBy="course")
+     */
+    private $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
+
+    public function getCourseFormLabel()
+    {
+        return $this->id . ' ' . $this->name;
+    }
+
     public function getDescription()
     {
         return $this->description;
@@ -103,6 +119,11 @@ class Course
     public function getSubject()
     {
         return $this->subject;
+    }
+
+    public function getUsers()
+    {
+        return $this->users;
     }
 
     public function setDescription($description)

@@ -39,7 +39,7 @@ class NewAdminForm extends AbstractType
                 )
             ))
             ->add('owner', EntityType::class, array(
-                'choice_label' => 'ownerName',
+                'choice_label' => 'ownerFormLabel',
                 'class' => User::class,
                 'label' => 'Właścicel: ',
                 'query_builder' => function (UserRepository $userRepository) {
