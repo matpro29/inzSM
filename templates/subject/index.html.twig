@@ -31,8 +31,8 @@
                     <td>{{ subject.ects }}</td>
                     <td>{{ subject.type.name }}</td>
                     <td>
-                        <a href="{{ path('subject_info', {'id': subject.id}) }}">Pokaż</a>
                         <a href="{{ path('subject_edit', {'id': subject.id}) }}">Edytuj</a>
+                        <a href="{{ path('subject_info', {'id': subject.id}) }}">Pokaż</a>
                     </td>
                 </tr>
             {% else %}

@@ -43,7 +43,7 @@ class NewAdminForm extends AbstractType
                 'class' => User::class,
                 'label' => 'Właścicel: ',
                 'query_builder' => function (UserRepository $userRepository) {
-                    return $userRepository->findAllUsersByRole('ROLE_TEACHER');
+                    return $userRepository->findAllByRoleQB('ROLE_TEACHER');
                 },
             ))
             ->add('subject', EntityType::class, array(
@@ -51,13 +51,12 @@ class NewAdminForm extends AbstractType
                 'class' => Subject::class,
                 'label' => 'Przedmiot: ',
                 'query_builder' => function (SubjectRepository $subjectRepository) {
-                    return $subjectRepository->findAllSubjects();
+                    return $subjectRepository->findAllQB();
                 },
             ))
             ->add('add', SubmitType::class, array(
                 'label' => 'Zapisz'
-            ))
-        ;
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

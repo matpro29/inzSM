@@ -30,8 +30,7 @@ class RegisterForm extends AbstractType
             ))
             ->add('register', SubmitType::class, array(
                 'label' => 'Zarejestruj'
-            ))
-        ;
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

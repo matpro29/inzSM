@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Course;
+use App\Entity\UserCourse;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,10 +20,30 @@ class CourseRepository extends ServiceEntityRepository
         parent::__construct($registry, Course::class);
     }
 
-    public function findAllCourses()
+    public function findAllQB()
     {
-        return $this->createQueryBuilder('u')
-            ->orderBy('u.id', 'ASC');
-        ;
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'ASC');
+    }
+
+    public function findAllByOwnerId($id)
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.id_owner = :id')
+            ->setParameter('id', $id)
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllByUserId($id)
+    {
+        return $this->createQueryBuilder('c')
+            ->innerJoin('c.users', 'uc')
+            ->where('uc.id_user = :id')
+            ->setParameter('id', $id)
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 }

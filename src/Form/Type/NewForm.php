@@ -19,8 +19,7 @@ class NewForm extends AbstractType
             ))
             ->add('add', SubmitType::class, array(
                 'label' => 'Zapisz'
-            ))
-        ;
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

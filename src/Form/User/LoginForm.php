@@ -23,8 +23,7 @@ class LoginForm extends AbstractType
             ))
             ->add('login', SubmitType::class, array(
                 'label' => 'Zaloguj'
-            ))
-        ;
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -33,13 +33,12 @@ class NewForm extends AbstractType
                 'class' => Type::class,
                 'label' => 'Typ: ',
                 'query_builder' => function (TypeRepository $typeRepository) {
-                    return $typeRepository->findAllTypes();
+                    return $typeRepository->findAllQB();
                 },
             ))
             ->add('add', SubmitType::class, array(
                 'label' => 'Zapisz',
-            ))
-        ;
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -16,6 +17,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class CourseController extends Controller
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     /**
      * @Route("/{id}", name="course_delete", methods="DELETE")
      */
@@ -55,10 +63,18 @@ class CourseController extends Controller
     /**
      * @Route("/", name="course_index", methods="GET")
      */
-    public function index(CourseRepository $courseRepository): Response
+    public function index(CourseRepository $courseRepository, UserInterface $user): Response
     {
+        $courses = null;
+
+        if($this->security->isGranted('ROLE_USER')) {
+            $courses = $courseRepository->findAllByUserId($user->getId());
+        } elseif($this->security->isGranted('ROLE_TEACHER')) {
+            $courses = $courseRepository->findAllByOwnerId($user->getId());
+        }
+
         return $this->render('course/index.html.twig', [
-            'courses' => $courseRepository->findAll()
+            'courses' => $courses
         ]);
     }
 
@@ -94,6 +110,26 @@ class CourseController extends Controller
         return $this->render('course/new.html.twig', [
             'course' => $course,
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/search", name="course_search", methods="GET")
+     */
+    public function search(CourseRepository $courseRepository)
+    {
+        return $this->render('course/search.html.twig', [
+            'courses' => $courseRepository->findAll()
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="course_show", methods="GET")
+     */
+    public function show(Course $course): Response
+    {
+        return $this->render('course/show.html.twig', [
+            'course' => $course
         ]);
     }
 }
