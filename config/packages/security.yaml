@@ -28,5 +28,6 @@ security:
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/course/info, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/course/search, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/course/new, roles: [ROLE_ADMIN, ROLE_TEACHER] }
         - { path: ^/course, roles: [ROLE_TEACHER, ROLE_USER] }
         - { path: ^/profile, roles: [ROLE_TEACHER, ROLE_USER] }

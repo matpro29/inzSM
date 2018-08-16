@@ -26,6 +26,16 @@ class CourseRepository extends ServiceEntityRepository
             ->orderBy('c.id', 'ASC');
     }
 
+    public function findAllBySearchForm($name)
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.name LIKE :name')
+            ->setParameter('name', '%'.$name.'%')
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findAllByOwnerId($id)
     {
         return $this->createQueryBuilder('c')

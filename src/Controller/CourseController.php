@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Course;
+use App\Entity\CourseSearch;
 use App\Entity\UserCourse;
 use App\Form\Course\EnterForm;
 use App\Form\Course\NewAdminForm;
+use App\Form\Course\NewTeacherForm;
+use App\Form\Course\SearchForm;
 use App\Repository\CourseRepository;
 use App\Repository\UserCourseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -70,10 +73,10 @@ class CourseController extends Controller
     {
         $courses = null;
 
-        if ($this->security->isGranted('ROLE_USER')) {
-            $courses = $courseRepository->findAllByUserId($user->getId());
-        } elseif($this->security->isGranted('ROLE_TEACHER')) {
+        if ($this->security->isGranted('ROLE_TEACHER')) {
             $courses = $courseRepository->findAllByOwnerId($user->getId());
+        } else {
+            $courses = $courseRepository->findAllByUserId($user->getId());
         }
 
         return $this->render('course/index.html.twig', [
@@ -94,10 +97,16 @@ class CourseController extends Controller
     /**
      * @Route("/new", name="course_new", methods="GET|POST")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, UserInterface $user): Response
     {
         $course = new Course();
-        $form = $this->createForm(NewAdminForm::class, $course);
+
+        $form = null;
+        if ($this->security->isGranted('ROLE_ADMIN')) {
+            $form = $this->createForm(NewAdminForm::class, $course);
+        } else {
+            $form = $this->createForm(NewTeacherForm::class, $course);
+        }
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -106,11 +115,19 @@ class CourseController extends Controller
             ]);
             $course->setPassword($password);
 
+            if ($this->security->isGranted('ROLE_TEACHER')) {
+                $course->setOwner($user);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($course);
             $entityManager->flush();
 
-            return $this->redirectToRoute('course_index');
+            if ($this->security->isGranted('ROLE_ADMIN')) {
+                return $this->redirectToRoute('course_search');
+            } else {
+                return $this->redirectToRoute('course_index');
+            }
         }
 
         return $this->render('course/new.html.twig', [
@@ -120,19 +137,32 @@ class CourseController extends Controller
     }
 
     /**
-     * @Route("/search", name="course_search", methods="GET")
+     * @Route("/search", name="course_search", methods="GET|POST")
      */
-    public function search(CourseRepository $courseRepository): Response
+    public function search(CourseRepository $courseRepository, Request $request): Response
     {
+        $courseSearch = new CourseSearch();
+
+        $form = $this->createForm(SearchForm::class, $courseSearch);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() && $courseSearch->getName()) {
+            return $this->render('course/search.html.twig', [
+                'courses' => $courseRepository->findAllBySearchForm($courseSearch->getName()),
+                'form' => $form->createView()
+            ]);
+        }
+
         return $this->render('course/search.html.twig', [
-            'courses' => $courseRepository->findAll()
+            'courses' => $courseRepository->findAll(),
+            'form' => $form->createView()
         ]);
     }
 
     /**
      * @Route("/{id}", name="course_show", methods="GET|POST")
      */
-    public function show(Course $course, CourseRepository $courseRepository, Request $request, UserCourseRepository $userCourseRepository, UserInterface $user): Response
+    public function show(Course $course, Request $request, UserCourseRepository $userCourseRepository, UserInterface $user): Response
     {
         if ($userCourseRepository->getOneByIdCourseIdUser($course->getId(), $user->getId())) {
             return $this->render('course/show.html.twig', [
@@ -142,7 +172,7 @@ class CourseController extends Controller
             $form = $this->createForm(EnterForm::class, $course);
             $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid() && $user) {
+            if ($form->isSubmitted() && $form->isValid()) {
                 if (password_verify($course->getPlainPassword(), $course->getPassword())) {
                     $userCourse = new UserCourse();
                     $userCourse->setCourse($course);
