@@ -199,28 +199,4 @@ class CourseController extends Controller
             ]);
         }
     }
-
-    /**
-     * @Route("/course/users/info/{id_course}/{id_user}", name="course_user_info")
-     * @ParamConverter("course", options={"id": "id_course"})
-     * @ParamConverter("user", options={"id": "id_user"})
-     */
-    public function userInfo(Course $course, User $user): Response
-    {
-        return $this->render('course/user_info.html.twig', [
-            'course' => $course,
-            'user' => $user
-        ]);
-    }
-
-    /**
-     * @Route("/users/{id}", name="course_users", methods="GET|POST")
-     */
-    public function users(Course $course, UserRepository $userRepository): Response
-    {
-        return $this->render('course/users.html.twig', [
-            'course' => $course,
-            'users' => $userRepository->findAllByCourse($course->getId())
-        ]);
-    }
 }
