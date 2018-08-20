@@ -27,6 +27,17 @@ class UserRepository extends ServiceEntityRepository
             ->orderBy('u.id', 'ASC');
     }
 
+    public function findAllByCourse($id_course)
+    {
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.courses','uc')
+            ->where('uc.id_course = :id_course')
+            ->setParameter('id_course', $id_course)
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findById($id)
     {
         return $this->createQueryBuilder('u')

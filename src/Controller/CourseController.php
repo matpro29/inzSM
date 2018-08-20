@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Course;
 use App\Entity\CourseSearch;
+use App\Entity\User;
 use App\Entity\UserCourse;
 use App\Form\Course\EnterForm;
 use App\Form\Course\NewAdminForm;
@@ -11,6 +12,8 @@ use App\Form\Course\NewTeacherForm;
 use App\Form\Course\SearchForm;
 use App\Repository\CourseRepository;
 use App\Repository\UserCourseRepository;
+use App\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -164,7 +167,8 @@ class CourseController extends Controller
      */
     public function show(Course $course, Request $request, UserCourseRepository $userCourseRepository, UserInterface $user): Response
     {
-        if ($userCourseRepository->getOneByIdCourseIdUser($course->getId(), $user->getId())) {
+        if ($user->getId() == $course->getIdOwner()
+            || $userCourseRepository->getOneByIdCourseIdUser($course->getId(), $user->getId())) {
             return $this->render('course/show.html.twig', [
                 'course' => $course
             ]);
@@ -194,5 +198,29 @@ class CourseController extends Controller
                 'form' => $form->createView()
             ]);
         }
+    }
+
+    /**
+     * @Route("/course/users/info/{id_course}/{id_user}", name="course_user_info")
+     * @ParamConverter("course", options={"id": "id_course"})
+     * @ParamConverter("user", options={"id": "id_user"})
+     */
+    public function userInfo(Course $course, User $user): Response
+    {
+        return $this->render('course/user_info.html.twig', [
+            'course' => $course,
+            'user' => $user
+        ]);
+    }
+
+    /**
+     * @Route("/users/{id}", name="course_users", methods="GET|POST")
+     */
+    public function users(Course $course, UserRepository $userRepository): Response
+    {
+        return $this->render('course/users.html.twig', [
+            'course' => $course,
+            'users' => $userRepository->findAllByCourse($course->getId())
+        ]);
     }
 }
