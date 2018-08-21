@@ -1,4 +1,8 @@
 
+###> PhpStorm ###
+/.idea/
+###< PhpStorm ###
+
 ###> symfony/framework-bundle ###
 /.env
 /public/bundles/
