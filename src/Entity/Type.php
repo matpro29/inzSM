@@ -11,16 +11,16 @@ use Doctrine\ORM\Mapping as ORM;
 class Type
 {
     /**
+     * @ORM\OneToMany(targetEntity="Course", mappedBy="type")
+     */
+    private $courses;
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Subject", mappedBy="types")
-     */
-    private $subjects;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -29,7 +29,7 @@ class Type
 
     public function __construct()
     {
-        $this->subjects = new ArrayCollection();
+        $this->courses = new ArrayCollection();
     }
 
     public function getId()
@@ -42,9 +42,9 @@ class Type
         return $this->name;
     }
 
-    public function getSubjects()
+    public function getCourses()
     {
-        return $this->subjects;
+        return $this->courses;
     }
 
     public function setName($name): void

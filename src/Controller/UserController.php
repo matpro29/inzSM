@@ -22,57 +22,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  */
 class UserController extends Controller
 {
-    private $security;
-
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
-    }
-
-    /**
-     * @Route("/admin/user/{id}", name="admin_user_info", methods="GET")
-     */
-    public function adminUserInfo(User $user): Response
-    {
-        return $this->render('admin/user_info.html.twig', [
-            'user' => $user
-        ]);
-    }
-
-    /**
-     * @Route("/admin/users", name="admin_users", methods="GET")
-     */
-    public function adminUsers(UserRepository $userRepository): Response
-    {
-        return $this->render('admin/users.html.twig', [
-            'user' => $userRepository->findAll()
-        ]);
-    }
-
-    /**
-     * @Route("/course/user/info/{id_course}/{id_user}", name="course_user_info")
-     * @ParamConverter("course", options={"id": "id_course"})
-     * @ParamConverter("user", options={"id": "id_user"})
-     */
-    public function courseUserInfo(Course $course, User $user): Response
-    {
-        return $this->render('course/user_info.html.twig', [
-            'course' => $course,
-            'user' => $user
-        ]);
-    }
-
-    /**
-     * @Route("/course/users/{id}", name="course_users", methods="GET|POST")
-     */
-    public function courseUsers(Course $course, UserRepository $userRepository): Response
-    {
-        return $this->render('course/users.html.twig', [
-            'course' => $course,
-            'users' => $userRepository->findAllByCourse($course->getId())
-        ]);
-    }
-
     /**
      * @Route("/login", name="login")
      */

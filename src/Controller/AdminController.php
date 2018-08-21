@@ -23,6 +23,16 @@ class AdminController extends Controller
     }
 
     /**
+     * @Route("/user/{id}", name="admin_user_info", methods="GET")
+     */
+    public function userInfo(User $user): Response
+    {
+        return $this->render('admin/user_info.html.twig', [
+            'user' => $user
+        ]);
+    }
+
+    /**
      * @Route("/user/{id}", name="admin_user_promote", methods="PROMOTE")
      */
     public function userPromote(Request $request, User $user): Response
@@ -37,6 +47,16 @@ class AdminController extends Controller
 
         return $this->render('admin/user_info.html.twig', [
             'user' => $user
+        ]);
+    }
+
+    /**
+     * @Route("/users", name="admin_users", methods="GET")
+     */
+    public function users(UserRepository $userRepository): Response
+    {
+        return $this->render('admin/users.html.twig', [
+            'users' => $userRepository->findAll()
         ]);
     }
 }

@@ -144,7 +144,7 @@ class CourseController extends Controller
      */
     public function search(CourseRepository $courseRepository, Request $request): Response
     {
-        $courseSearch = new CourseSearch();
+        $courseSearch = new Course();
 
         $form = $this->createForm(SearchForm::class, $courseSearch);
         $form->handleRequest($request);
@@ -168,7 +168,8 @@ class CourseController extends Controller
     public function show(Course $course, Request $request, UserCourseRepository $userCourseRepository, UserInterface $user): Response
     {
         if ($user->getId() == $course->getIdOwner()
-            || $userCourseRepository->getOneByIdCourseIdUser($course->getId(), $user->getId())) {
+            || $userCourseRepository->getOneByIdCourseIdUser($course->getId(), $user->getId())
+            || $this->security->isGranted('ROLE_ADMIN')) {
             return $this->render('course/show.html.twig', [
                 'course' => $course
             ]);
@@ -198,5 +199,29 @@ class CourseController extends Controller
                 'form' => $form->createView()
             ]);
         }
+    }
+
+    /**
+     * @Route("/user/info/{id_course}/{id_user}", name="course_user_info")
+     * @ParamConverter("course", options={"id": "id_course"})
+     * @ParamConverter("user", options={"id": "id_user"})
+     */
+    public function userInfo(Course $course, User $user): Response
+    {
+        return $this->render('course/user_info.html.twig', [
+            'course' => $course,
+            'user' => $user
+        ]);
+    }
+
+    /**
+     * @Route("/users/{id}", name="course_users", methods="GET|POST")
+     */
+    public function users(Course $course, UserRepository $userRepository): Response
+    {
+        return $this->render('course/users.html.twig', [
+            'course' => $course,
+            'users' => $userRepository->findAllByCourse($course->getId())
+        ]);
     }
 }

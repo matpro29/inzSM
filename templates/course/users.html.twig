@@ -11,11 +11,12 @@
     <div class="example-wrapper">
         <h1>Użytkownicy kursu ✅</h1>
 
-        <table class="table">
+        <table>
             <thead>
             <tr>
                 <th>Id</th>
                 <th>Użytkownik</th>
+                <th>Role</th>
                 <th>Akcje</th>
             </tr>
             </thead>
@@ -24,13 +25,14 @@
                 <tr>
                     <td>{{ user.id }}</td>
                     <td>{{ user.username }}</td>
+                    <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
                     <td>
-                        <a href="{{ path('course_user_info', {'id_course': course.id, 'id_user': user.id}) }}">Pokaż</a>
+                        <a href="{{ path('course_user_info', {'id': user.id}) }}">Pokaż</a>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="6">Nie znaleziono kursów!</td>
+                    <td colspan="5">Nie znaleziono użytkowników!</td>
                 </tr>
             {% endfor %}
             </tbody>

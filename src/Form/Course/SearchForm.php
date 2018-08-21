@@ -2,14 +2,12 @@
 
 namespace App\Form\Course;
 
-
-use App\Entity\CourseSearch;
+use App\Entity\Course;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 
 class SearchForm extends AbstractType
 {
@@ -17,7 +15,7 @@ class SearchForm extends AbstractType
     {
         $builder
             ->add('name', TextType::class, array(
-                'label' => 'Nazwa: ',
+                'label' => 'Nazwa: '
             ))
             ->add('search', SubmitType::class, array(
                 'label' => 'Szukaj'
@@ -27,7 +25,7 @@ class SearchForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => CourseSearch::class,
+            'data_class' => Course::class,
         ]);
     }
 }

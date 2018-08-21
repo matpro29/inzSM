@@ -17,8 +17,6 @@
                 <th>Id</th>
                 <th>Nazwa</th>
                 <th>Opis</th>
-                <th>ECTS</th>
-                <th>Typ</th>
                 <th>Akcje</th>
             </tr>
             </thead>
@@ -28,8 +26,6 @@
                     <td>{{ subject.id }}</td>
                     <td>{{ subject.name }}</td>
                     <td>{{ subject.description }}</td>
-                    <td>{{ subject.ects }}</td>
-                    <td>{{ subject.type.name }}</td>
                     <td>
                         <a href="{{ path('subject_edit', {'id': subject.id}) }}">Edytuj</a>
                         <a href="{{ path('subject_info', {'id': subject.id}) }}">Pokaż</a>

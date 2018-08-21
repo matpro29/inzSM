@@ -1,12 +1,15 @@
 security:
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/course/info, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/course/search, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/course/new, roles: [ROLE_ADMIN, ROLE_TEACHER] }
+        - { path: ^/course, roles: [ROLE_TEACHER, ROLE_USER] }
+        - { path: ^/profile, roles: [ROLE_TEACHER, ROLE_USER] }
     encoders:
         App\Entity\User:
             algorithm: bcrypt
-    providers:
-        my_provider:
-            entity:
-                class: App\Entity\User
-                property: username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -23,11 +26,12 @@ security:
             logout:
                 path: logout
                 target: public
-    access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/course/info, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/course/search, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/course/new, roles: [ROLE_ADMIN, ROLE_TEACHER] }
-        - { path: ^/course, roles: [ROLE_TEACHER, ROLE_USER] }
-        - { path: ^/profile, roles: [ROLE_TEACHER, ROLE_USER] }
+    providers:
+        my_provider:
+            entity:
+                class: App\Entity\User
+                property: username
+    role_hierarchy:
+            ROLE_ADMIN: ROLE_TEACHER
+
+

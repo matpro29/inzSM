@@ -17,6 +17,7 @@
                 <th>Id</th>
                 <th>Właściciel</th>
                 <th>Przedmiot</th>
+                <th>Typ</th>
                 <th>Nazwa</th>
                 <th>Opis</th>
                 <th>Akcje</th>
@@ -27,7 +28,8 @@
                 <tr>
                     <td>{{ course.id }}</td>
                     <td>{{ course.owner.username }}</td>
-                    <td>{{ course.subject.name }} {{ course.subject.type.name }}</td>
+                    <td>{{ course.subject.name }}</td>
+                    <td>{{ course.type.name }}</td>
                     <td>{{ course.name }}</td>
                     <td>{{ course.description }}</td>
                     <td>

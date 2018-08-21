@@ -17,6 +17,11 @@ class Course
     private $description;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $ects;
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -32,6 +37,11 @@ class Course
      * @ORM\Column(type="integer")
      */
     private $id_subject;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $id_type;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -50,7 +60,6 @@ class Course
     private $password;
 
     /**
-     * @Assert\NotBlank()
      * @Assert\Length(max=4096)
      */
     private $plainPassword;
@@ -60,6 +69,12 @@ class Course
      * @ORM\JoinColumn(name="id_subject", referencedColumnName="id")
      */
     private $subject;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Type", inversedBy="courses")
+     * @ORM\JoinColumn(name="id_type", referencedColumnName="id")
+     */
+    private $type;
 
     /**
      * @ORM\OneToMany(targetEntity="UserCourse", mappedBy="course")
@@ -81,6 +96,11 @@ class Course
         return $this->description;
     }
 
+    public function getEcts()
+    {
+        return $this->ects;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -94,6 +114,11 @@ class Course
     public function getIdSubject()
     {
         return $this->id_subject;
+    }
+
+    public function getIdType()
+    {
+        return $this->id_type;
     }
 
     public function getName()
@@ -121,6 +146,11 @@ class Course
         return $this->subject;
     }
 
+    public function getType()
+    {
+        return $this->type;
+    }
+
     public function getUsers()
     {
         return $this->users;
@@ -131,6 +161,11 @@ class Course
         $this->description = $description;
     }
 
+    public function setEcts($ects)
+    {
+        $this->ects = $ects;
+    }
+
     public function setIdOwner($id_owner)
     {
         $this->id_owner = $id_owner;
@@ -139,6 +174,11 @@ class Course
     public function setIdSubject($id_subject)
     {
         $this->id_subject = $id_subject;
+    }
+
+    public function setIdType($id_type)
+    {
+        $this->id_type = $id_type;
     }
 
     public function setName($name)
@@ -164,5 +204,10 @@ class Course
     public function setSubject($subject)
     {
         $this->subject = $subject;
+    }
+
+    public function setType($type)
+    {
+        $this->type = $type;
     }
 }
