@@ -118,8 +118,8 @@ class CourseController extends Controller
             ]);
             $course->setPassword($password);
 
-            if ($this->security->isGranted('ROLE_TEACHER')) {
-                $course->setOwner($user);
+            if (!$this->security->isGranted('ROLE_ADMIN')) {
+                $course->setOwner($this->getUser());
             }
 
             $entityManager = $this->getDoctrine()->getManager();

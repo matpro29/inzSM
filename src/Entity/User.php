@@ -76,11 +76,6 @@ class User implements UserInterface, \Serializable
         return $this->id;
     }
 
-    public function getOwnerFormLabel()
-    {
-        return $this->id . ' ' . $this->username;
-    }
-
     public function getPassword()
     {
         return $this->password;
