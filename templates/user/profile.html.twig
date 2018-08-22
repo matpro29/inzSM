@@ -25,6 +25,10 @@
                     <th>Role</th>
                     <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
                 </tr>
+                <tr>
+                    <th>Hasło</th>
+                    <td>{{ user.password }}</td>
+                </tr>
             </tbody>
         </table>
         </br>
