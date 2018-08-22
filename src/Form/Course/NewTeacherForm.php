@@ -5,10 +5,8 @@ namespace App\Form\Course;
 use App\Entity\Course;
 use App\Entity\Subject;
 use App\Entity\Type;
-use App\Entity\User;
 use App\Repository\SubjectRepository;
 use App\Repository\TypeRepository;
-use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -20,7 +18,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class NewAdminForm extends AbstractType
+
+class NewTeacherForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -42,14 +41,6 @@ class NewAdminForm extends AbstractType
                 'second_options' =>  array(
                     'label' => 'Powtórz hasło: '
                 )
-            ))
-            ->add('owner', EntityType::class, array(
-                'choice_label' => 'username',
-                'class' => User::class,
-                'label' => 'Właścicel: ',
-                'query_builder' => function (UserRepository $userRepository) {
-                    return $userRepository->findAllByRoleQB('ROLE_TEACHER');
-                },
             ))
             ->add('subject', EntityType::class, array(
                 'choice_label' => 'name',

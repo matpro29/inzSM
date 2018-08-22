@@ -1,31 +1,31 @@
 <?php
 
-namespace App\Form\Type;
+namespace App\Form\Course;
 
-use App\Entity\Type;
+use App\Entity\Course;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class NewForm extends AbstractType
+class EnterForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, array(
-                'label' => 'Nazwa: ',
+            ->add('plainPassword', PasswordType::class, array(
+                'label' => 'Hasło: '
             ))
-            ->add('add', SubmitType::class, array(
-                'label' => 'Zapisz'
+            ->add('login', SubmitType::class, array(
+                'label' => 'Zapisz mnie'
             ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Type::class,
+            'data_class' => Course::class
         ]);
     }
 }

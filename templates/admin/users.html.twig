@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Typy{% endblock %}
+{% block title %}Użytkownicy{% endblock %}
 
 {% block body %}
     <style>
@@ -9,36 +9,35 @@
     </style>
 
     <div class="example-wrapper">
-        <h1>Typy ✅</h1>
+        <h1>Użytkownicy ✅</h1>
 
-        <table class="table">
+        <table>
             <thead>
             <tr>
                 <th>Id</th>
-                <th>Nazwa</th>
+                <th>Użytkownik</th>
+                <th>Role</th>
                 <th>Akcje</th>
             </tr>
             </thead>
             <tbody>
-            {% for type in types %}
+            {% for user in users %}
                 <tr>
-                    <td>{{ type.id }}</td>
-                    <td>{{ type.name }}</td>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
                     <td>
-                        <a href="{{ path('type_edit', {'id': type.id}) }}">Edytuj</a>
-                        <a href="{{ path('type_info', {'id': type.id}) }}">Pokaż</a>
+                        <a href="{{ path('admin_user_info', {'id': user.id}) }}">Pokaż</a>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3">Nie znaleziono typów!</td>
+                    <td colspan="5">Nie znaleziono użytkowników!</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
         </br>
-        <a href="{{ path('type_new') }}">Dodaj typ</a>
-        </br>
-        <a href="{{ path('index') }}">Wróć</a>
+        <a href="{{ path('admin') }}">Wróć</a>
     </div>
 {% endblock %}

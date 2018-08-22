@@ -16,11 +16,6 @@ class Subject
     private $courses;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $ects;
-
-    /**
      * @ORM\Column(type="string", length=4096)
      */
     private $description;
@@ -33,20 +28,9 @@ class Subject
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $id_type;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Type", inversedBy="types")
-     * @ORM\JoinColumn(name="id_type", referencedColumnName="id")
-     */
-    private $type;
 
     public function __construct()
     {
@@ -63,19 +47,9 @@ class Subject
         return $this->description;
     }
 
-    public function getEcts()
-    {
-        return $this->ects;
-    }
-
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getIdType()
-    {
-        return $this->id_type;
     }
 
     public function getName()
@@ -83,38 +57,13 @@ class Subject
         return $this->name;
     }
 
-    public function getSubjectName()
-    {
-        return $this->id . ' ' . $this->name . ' ' . $this->type->getName();
-    }
-
-    public function getType()
-    {
-        return $this->type;
-    }
-
     public function setDescription($description)
     {
         $this->description = $description;
     }
 
-    public function setEcts($ects)
-    {
-        $this->ects = $ects;
-    }
-
-    public function setIdType($id_type)
-    {
-        $this->id_type = $id_type;
-    }
-
     public function setName($name)
     {
         $this->name = $name;
-    }
-
-    public function setType($type)
-    {
-        $this->type = $type;
     }
 }

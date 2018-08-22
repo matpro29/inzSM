@@ -23,8 +23,8 @@ class NewUserCourse extends AbstractType
                 'choice_label' => 'courseFormLabel',
                 'class' => Course::class,
                 'label' => 'Kurs: ',
-                'query_builder' => function (CourseRepository $userRepository) {
-                    return $userRepository->findAllCourses();
+                'query_builder' => function (CourseRepository $courseRepository) {
+                    return $courseRepository->findAllQB();
                 },
             ))
             ->add('user', EntityType::class, array(
@@ -32,7 +32,7 @@ class NewUserCourse extends AbstractType
                 'class' => User::class,
                 'label' => 'Użytkownik: ',
                 'query_builder' => function (UserRepository $userRepository) {
-                    return $userRepository->findAllUsersByRole('ROLE_USER');
+                    return $userRepository->findAllByRoleQB('ROLE_USER');
                 },
             ))
             ->add('status', TextType::class, array(
@@ -40,8 +40,7 @@ class NewUserCourse extends AbstractType
             ))
             ->add('add', SubmitType::class, array(
                 'label' => 'Zapisz',
-            ))
-        ;
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

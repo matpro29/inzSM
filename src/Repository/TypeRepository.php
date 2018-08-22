@@ -19,10 +19,9 @@ class TypeRepository extends ServiceEntityRepository
         parent::__construct($registry, Type::class);
     }
 
-    public function findAllTypes()
+    public function findAllQB()
     {
-        return $this->createQueryBuilder('u')
-            ->orderBy('u.name', 'ASC');
-        ;
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.name', 'ASC');
     }
 }

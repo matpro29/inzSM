@@ -23,17 +23,17 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/users", name="admin_users", methods="GET")
+     * @Route("/user/{id}", name="admin_user_info", methods="GET")
      */
-    public function users(UserRepository $userRepository): Response
+    public function userInfo(User $user): Response
     {
-        return $this->render('admin/users/users.html.twig', [
-            'user' => $userRepository->findAll()
+        return $this->render('admin/user_info.html.twig', [
+            'user' => $user
         ]);
     }
 
     /**
-     * @Route("/users/{id}", name="admin_users_promote", methods="PROMOTE")
+     * @Route("/user/{id}", name="admin_user_promote", methods="PROMOTE")
      */
     public function userPromote(Request $request, User $user): Response
     {
@@ -45,18 +45,18 @@ class AdminController extends Controller
             $entityManager->flush();
         }
 
-        return $this->render('admin/users/users_show.html.twig', [
+        return $this->render('admin/user_info.html.twig', [
             'user' => $user
         ]);
     }
 
     /**
-     * @Route("/users/{id}", name="admin_users_show", methods="GET")
+     * @Route("/users", name="admin_users", methods="GET")
      */
-    public function usersShow(User $user): Response
+    public function users(UserRepository $userRepository): Response
     {
-        return $this->render('admin/users/users_show.html.twig', [
-                'user' => $user
+        return $this->render('admin/users.html.twig', [
+            'users' => $userRepository->findAll()
         ]);
     }
 }

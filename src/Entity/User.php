@@ -36,7 +36,6 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
-     * @Assert\NotBlank()
      * @Assert\Length(max=4096)
      */
     private $plainPassword;
@@ -75,11 +74,6 @@ class User implements UserInterface, \Serializable
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getOwnerFormLabel()
-    {
-        return $this->id . ' ' . $this->username;
     }
 
     public function getPassword()

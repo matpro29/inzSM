@@ -12,10 +12,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class IndexController extends Controller
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/index", name="index")
      */
     public function index(): Response
     {
         return $this->render('index/index.html.twig', []);
+    }
+
+    /**
+     * @Route("/", name="public")
+     */
+    public function public(): Response
+    {
+        return $this->render('index/public.html.twig', []);
     }
 }

@@ -24,10 +24,13 @@
                 <th>Role</th>
                 <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
             </tr>
+            <tr>
+                <th>Hasło</th>
+                <td>{{ user.password }}</td>
+            </tr>
             </tbody>
         </table>
-        {{ include('admin/form/_promote_form.html.twig') }}
         </br>
-        <a href="{{ path('admin_users') }}">Wróć</a>
+        <a href="{{ path('course_users', {'id': course.id}) }}">Wróć</a>
     </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Twoje kursy{% endblock %}
+{% block title %}Szukaj kursów{% endblock %}
 
 {% block body %}
     <style>
@@ -9,8 +9,10 @@
     </style>
 
     <div class="example-wrapper">
-        <h1>Twoje kursy ✅</h1>
+        <h1>Szukaj kursów ✅</h1>
 
+        {{ include('course/form/_search_form.html.twig') }}
+        </br>
         <table class="table">
             <thead>
             <tr>
@@ -48,6 +50,6 @@
         </br>
         <a href="{{ path('course_new') }}">Dodaj kurs</a>
         </br>
-        <a href="{{ path('index') }}">Wróć</a>
+        <a href="{{ path('course_index') }}">Wróć</a>
     </div>
 {% endblock %}

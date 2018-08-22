@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dodaj kurs użytkownika{% endblock %}
+{% block title %}Dołącz do kursu{% endblock %}
 
 {% block body %}
     <style>
@@ -9,10 +9,8 @@
     </style>
 
     <div class="example-wrapper">
-        <h1>Dodaj kurs użytkownika ✅</h1>
+        <h1>Dołącz do kursu ✅</h1>
 
-        {{ include('user_course/form/_new_form.html.twig') }}
-        </br>
-        <a href="{{ path('user_course_index') }}">Wróć</a>
+        {{ include('course/form/_enter_form.html.twig') }}
     </div>
 {% endblock %}

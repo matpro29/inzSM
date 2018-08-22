@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Index{% endblock %}
+{% block title %}Publiczne{% endblock %}
 
 {% block body %}
     <style>
@@ -9,15 +9,9 @@
     </style>
 
     <div class="example-wrapper">
-        <h1>Index ✅</h1>
+        <h1>Publiczne ✅</h1>
 
-        <a href="{{ path('admin') }}">Admin</a>
-        </br>
-        <a href="{{ path('course_index') }}">Twoje kursy</a>
-        </br>
         <a href="{{ path('login') }}">Logowanie</a>
-        </br>
-        <a href="{{ path('profile') }}">Profil</a>
         </br>
         <a href="{{ path('subject_index') }}">Przedmioty</a>
         </br>
@@ -26,7 +20,5 @@
         <a href="{{ path('type_index') }}">Typy</a>
         </br>
         <a href="{{ path('course_search') }}">Wszystkie kursy</a>
-        </br>
-        <a href="{{ path('logout') }}">Wylogowanie</a>
     </div>
 {% endblock %}
