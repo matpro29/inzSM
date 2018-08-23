@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Course;
-use App\Entity\UserCourse;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 

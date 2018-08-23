@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -29,28 +30,12 @@ class Course
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $id_owner;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $id_subject;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $id_type;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="courses_own")
-     * @ORM\JoinColumn(name="id_owner", referencedColumnName="id")
      */
     private $owner;
 
@@ -66,13 +51,11 @@ class Course
 
     /**
      * @ORM\ManyToOne(targetEntity="Subject", inversedBy="courses")
-     * @ORM\JoinColumn(name="id_subject", referencedColumnName="id")
      */
     private $subject;
 
     /**
      * @ORM\ManyToOne(targetEntity="Type", inversedBy="courses")
-     * @ORM\JoinColumn(name="id_type", referencedColumnName="id")
      */
     private $type;
 
@@ -84,11 +67,6 @@ class Course
     public function __construct()
     {
         $this->users = new ArrayCollection();
-    }
-
-    public function getCourseFormLabel()
-    {
-        return $this->id . ' ' . $this->name;
     }
 
     public function getDescription()
@@ -104,21 +82,6 @@ class Course
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getIdOwner()
-    {
-        return $this->id_owner;
-    }
-
-    public function getIdSubject()
-    {
-        return $this->id_subject;
-    }
-
-    public function getIdType()
-    {
-        return $this->id_type;
     }
 
     public function getName()
@@ -151,62 +114,47 @@ class Course
         return $this->type;
     }
 
-    public function getUsers()
+    public function getUsers(): Collection
     {
         return $this->users;
     }
 
-    public function setDescription($description)
+    public function setDescription($description): void
     {
         $this->description = $description;
     }
 
-    public function setEcts($ects)
+    public function setEcts($ects): void
     {
         $this->ects = $ects;
     }
 
-    public function setIdOwner($id_owner)
-    {
-        $this->id_owner = $id_owner;
-    }
-
-    public function setIdSubject($id_subject)
-    {
-        $this->id_subject = $id_subject;
-    }
-
-    public function setIdType($id_type)
-    {
-        $this->id_type = $id_type;
-    }
-
-    public function setName($name)
+    public function setName($name): void
     {
         $this->name = $name;
     }
 
-    public function setOwner($owner)
+    public function setOwner($owner): void
     {
         $this->owner = $owner;
     }
 
-    public function setPassword($password)
+    public function setPassword($password): void
     {
         $this->password = $password;
     }
 
-    public function setPlainPassword($password)
+    public function setPlainPassword($password): void
     {
         $this->plainPassword = $password;
     }
 
-    public function setSubject($subject)
+    public function setSubject($subject): void
     {
         $this->subject = $subject;
     }
 
-    public function setType($type)
+    public function setType($type): void
     {
         $this->type = $type;
     }

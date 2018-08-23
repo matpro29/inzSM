@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -37,7 +38,7 @@ class Subject
         $this->courses = new ArrayCollection();
     }
 
-    public function getCourses()
+    public function getCourses(): Collection
     {
         return $this->courses;
     }
@@ -57,12 +58,12 @@ class Subject
         return $this->name;
     }
 
-    public function setDescription($description)
+    public function setDescription($description): void
     {
         $this->description = $description;
     }
 
-    public function setName($name)
+    public function setName($name): void
     {
         $this->name = $name;
     }

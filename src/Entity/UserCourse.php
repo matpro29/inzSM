@@ -11,7 +11,6 @@ class UserCourse
 {
     /**
      * @ORM\ManyToOne(targetEntity="Course", inversedBy="users")
-     * @ORM\JoinColumn(name="id_course", referencedColumnName="id")
      */
     private $course;
 
@@ -23,23 +22,12 @@ class UserCourse
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $id_course;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $id_user;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $status;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="courses")
-     * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
      */
     private $user;
 
@@ -53,16 +41,6 @@ class UserCourse
         return $this->id;
     }
 
-    public function getIdCourse()
-    {
-        return $this->id_course;
-    }
-
-    public function getIdUser()
-    {
-        return $this->id_user;
-    }
-
     public function getStatus()
     {
         return $this->status;
@@ -73,27 +51,17 @@ class UserCourse
         return $this->user;
     }
 
-    public function setCourse($course)
+    public function setCourse($course): void
     {
         $this->course = $course;
     }
 
-    public function setIdCourse($id_course)
-    {
-        $this->id_course = $id_course;
-    }
-
-    public function setIdUser($id_user)
-    {
-        $this->id_user = $id_user;
-    }
-
-    public function setStatus($status)
+    public function setStatus($status): void
     {
         $this->status = $status;
     }
 
-    public function setUser($user)
+    public function setUser($user): void
     {
         $this->user = $user;
     }
