@@ -26,11 +26,11 @@ class Message
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", mappedBy="message")
      */
-    private $receivers;
+    private $users;
 
     public function __construct()
     {
-        $this->receivers = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId()
@@ -43,9 +43,9 @@ class Message
         return $this->message;
     }
 
-    public function getReceivers(): Collection
+    public function getUsers(): Collection
     {
-        return $this->receivers;
+        return $this->users;
     }
 
     public function setMessage($message): void

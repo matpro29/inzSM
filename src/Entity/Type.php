@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Type
 {
     /**
-     * @ORM\OneToMany(targetEntity="Course", mappedBy="type")
+     * @ORM\OneToMany(targetEntity="App\Entity\Course", mappedBy="type")
      */
     private $courses;
 

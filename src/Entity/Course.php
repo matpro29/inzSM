@@ -35,7 +35,7 @@ class Course
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="courses_own")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="courses_own")
      */
     private $owner;
 
@@ -50,17 +50,17 @@ class Course
     private $plainPassword;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Subject", inversedBy="courses")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Subject", inversedBy="courses")
      */
     private $subject;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Type", inversedBy="courses")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="courses")
      */
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity="UserCourse", mappedBy="course")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserCourse", mappedBy="course")
      */
     private $users;
 

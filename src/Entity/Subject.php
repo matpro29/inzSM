@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Subject
 {
     /**
-     * @ORM\OneToMany(targetEntity="Course", mappedBy="subject")
+     * @ORM\OneToMany(targetEntity="App\Entity\Course", mappedBy="subject")
      */
     private $courses;
 

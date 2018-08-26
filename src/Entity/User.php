@@ -14,12 +14,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface, \Serializable
 {
     /**
-     * @ORM\OneToMany(targetEntity="UserCourse", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserCourse", mappedBy="user")
      */
     private $courses;
 
     /**
-     * @ORM\OneToMany(targetEntity="Course", mappedBy="owner")
+     * @ORM\OneToMany(targetEntity="App\Entity\Course", mappedBy="owner")
      */
     private $courses_own;
 
@@ -29,6 +29,16 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", mappedBy="user_receiver")
+     */
+    private $message_receive;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", mappedBy="user_sender")
+     */
+    private $message_send;
 
     /**
      * @ORM\Column(type="string", length=96)
@@ -52,9 +62,11 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
+        $this->courses = new ArrayCollection();
         $this->courses_own = new ArrayCollection();
         $this->roles = array('ROLE_USER');
-        $this->courses = new ArrayCollection();
+        $this->message_receive = new ArrayCollection();
+        $this->message_send = new ArrayCollection();
     }
 
     public function eraseCredentials()
@@ -74,6 +86,16 @@ class User implements UserInterface, \Serializable
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getMessageReceive(): Collection
+    {
+        return $this->message_receive;
+    }
+
+    public function getMessageSend(): Collection
+    {
+        return $this->message_send;
     }
 
     public function getPassword()

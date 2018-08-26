@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class UserCourse
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Course", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Course", inversedBy="users")
      */
     private $course;
 
@@ -27,7 +27,7 @@ class UserCourse
     private $status;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="courses")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="courses")
      */
     private $user;
 
