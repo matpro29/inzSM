@@ -19,14 +19,16 @@ class UserCourseRepository extends ServiceEntityRepository
         parent::__construct($registry, UserCourse::class);
     }
 
-    public function getOneByIdCourseIdUser($id_course, $id_user)
+    public function getOneByCourseIdUserId($course_id, $user_id)
     {
         return $this->createQueryBuilder('uc')
-            ->andWhere('uc.id_course = :id_course')
-            ->andWhere('uc.id_user = :id_user')
+            ->innerJoin('uc.course', 'c')
+            ->innerJoin('uc.user', 'u')
+            ->andWhere('c.id = :course_id')
+            ->andWhere('u.id = :user_id')
             ->setParameters(array(
-                'id_course' => $id_course,
-                'id_user' => $id_user
+                'course_id' => $course_id,
+                'user_id' => $user_id
             ))
             ->getQuery()
             ->getResult();

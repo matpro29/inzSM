@@ -21,7 +21,6 @@ class TypeRepository extends ServiceEntityRepository
 
     public function findAllQB()
     {
-        return $this->createQueryBuilder('t')
-            ->orderBy('t.name', 'ASC');
+        return $this->createQueryBuilder('t');
     }
 }

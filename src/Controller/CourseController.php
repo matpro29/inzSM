@@ -167,8 +167,8 @@ class CourseController extends Controller
      */
     public function show(Course $course, Request $request, UserCourseRepository $userCourseRepository, UserInterface $user): Response
     {
-        if ($user->getId() == $course->getIdOwner()
-            || $userCourseRepository->getOneByIdCourseIdUser($course->getId(), $user->getId())
+        if ($user->getId() == $course->getOwner()->getId()
+            || $userCourseRepository->getOneByCourseIdUserId($course->getId(), $user->getId())
             || $this->security->isGranted('ROLE_ADMIN')) {
             return $this->render('course/show.html.twig', [
                 'course' => $course
@@ -221,7 +221,7 @@ class CourseController extends Controller
     {
         return $this->render('course/users.html.twig', [
             'course' => $course,
-            'users' => $userRepository->findAllByCourse($course->getId())
+            'users' => $userRepository->findAllByCourseId($course->getId())
         ]);
     }
 }
