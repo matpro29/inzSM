@@ -18,4 +18,16 @@ class UserMessageRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, UserMessage::class);
     }
+
+    public function findAllByUserId($id)
+    {
+        return $this->createQueryBuilder('um')
+            ->innerJoin('um.user_receiver', 'ur')
+            ->innerJoin('um.user_sender', 'us')
+            ->where('ur.id = :id')
+            ->orWhere('us.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wiadomości{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="example-wrapper">
+        <h1>Wiadomości ✅</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Wiadomość</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for message in messages %}
+                <tr>
+                    <td>{{ message.id }}</td>
+                    <td>{{ message.message }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Nie znaleziono wiadomości!</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </br>
+        <a href="{{ path('message_index') }}">Wróć</a>
+    </div>
+{% endblock %}
