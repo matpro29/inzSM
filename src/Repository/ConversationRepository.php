@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\UserMessage;
+use App\Entity\Conversation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method UserMessage|null find($id, $lockMode = null, $lockVersion = null)
- * @method UserMessage|null findOneBy(array $criteria, array $orderBy = null)
- * @method UserMessage[]    findAll()
- * @method UserMessage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Conversation|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Conversation|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Conversation[]    findAll()
+ * @method Conversation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserMessageRepository extends ServiceEntityRepository
+class ConversationRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, UserMessage::class);
+        parent::__construct($registry, Conversation::class);
     }
 
     public function findAllByUserId($id)

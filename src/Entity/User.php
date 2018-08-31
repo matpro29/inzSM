@@ -14,6 +14,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface, \Serializable
 {
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserConversation", mappedBy="user")
+     */
+    private $conversations;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserCourse", mappedBy="user")
      */
     private $courses;
@@ -31,14 +36,9 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", mappedBy="user_receiver")
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="owner")
      */
-    private $message_receive;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", mappedBy="user_sender")
-     */
-    private $message_send;
+    private $messages_send;
 
     /**
      * @ORM\Column(type="string", length=96)
@@ -62,15 +62,20 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
+        $this->conversations = new ArrayCollection();
         $this->courses = new ArrayCollection();
         $this->courses_own = new ArrayCollection();
         $this->roles = array('ROLE_USER');
-        $this->message_receive = new ArrayCollection();
-        $this->message_send = new ArrayCollection();
+        $this->messages_send = new ArrayCollection();
     }
 
     public function eraseCredentials()
     {
+    }
+
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
     }
 
     public function getCourses(): Collection
@@ -88,14 +93,9 @@ class User implements UserInterface, \Serializable
         return $this->id;
     }
 
-    public function getMessageReceive(): Collection
+    public function getMessagesSend(): Collection
     {
-        return $this->message_receive;
-    }
-
-    public function getMessageSend(): Collection
-    {
-        return $this->message_send;
+        return $this->messages_send;
     }
 
     public function getPassword()

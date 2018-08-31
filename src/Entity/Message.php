@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,6 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Message
 {
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Conversation", inversedBy="messages")
+     */
+    private $conversation;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -24,13 +27,13 @@ class Message
     private $message;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", mappedBy="message")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="messages_send")
      */
-    private $users;
+    private $owner;
 
-    public function __construct()
+    public function getConversation()
     {
-        $this->users = new ArrayCollection();
+        return $this->conversation;
     }
 
     public function getId()
@@ -43,13 +46,23 @@ class Message
         return $this->message;
     }
 
-    public function getUsers(): Collection
+    public function getOwner()
     {
-        return $this->users;
+        return $this->owner;
+    }
+
+    public function setConversation($conversation): void
+    {
+        $this->conversation = $conversation;
     }
 
     public function setMessage($message): void
     {
         $this->message = $message;
+    }
+
+    public function setOwner($owner): void
+    {
+        $this->owner = $owner;
     }
 }

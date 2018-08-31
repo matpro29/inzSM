@@ -37,6 +37,16 @@ class UserRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findAllTeacherByUserIdQB($id)
+    {
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.courses', 'uc')
+            ->innerJoin('uc.course', 'c')
+            ->innerJoin('c.owner', 'o')
+            ->where('u.id = :id')
+            ->setParameter('id', $id);
+    }
+
     public function findById($id)
     {
         return $this->createQueryBuilder('u')
