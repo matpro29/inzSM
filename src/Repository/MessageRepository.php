@@ -19,12 +19,12 @@ class MessageRepository extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
-    public function findAllByUserMessageId($user_message_id)
+    public function findAllByConversationId($conversation_id)
     {
         return $this->createQueryBuilder('m')
-            ->innerJoin('m.users', 'um')
-            ->where('um.id = :user_message_id')
-            ->setParameter('user_message_id', $user_message_id)
+            ->innerJoin('m.conversation', 'c')
+            ->where('c.id = :conversation_id')
+            ->setParameter('conversation_id', $conversation_id)
             ->getQuery()
             ->getResult();
     }

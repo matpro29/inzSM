@@ -21,11 +21,10 @@ class ConversationRepository extends ServiceEntityRepository
 
     public function findAllByUserId($id)
     {
-        return $this->createQueryBuilder('um')
-            ->innerJoin('um.user_receiver', 'ur')
-            ->innerJoin('um.user_sender', 'us')
-            ->where('ur.id = :id')
-            ->orWhere('us.id = :id')
+        return $this->createQueryBuilder('c')
+            ->innerJoin('c.users', 'uc')
+            ->innerJoin('uc.user', 'u')
+            ->where('u.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
             ->getResult();

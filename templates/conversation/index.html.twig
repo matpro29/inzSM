@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rozmowy użytkownika{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="example-wrapper">
+        <h1>Rozmowy użytkownika ✅</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Akcje</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for conversation in conversations %}
+                <tr>
+                    <td>{{ conversation.id }}</td>
+                    <td>
+                        <a href="{{ path('conversation_show', {'id': conversation.id}) }}">Wejdź</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Nie znaleziono rozmów!</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {{ include('conversation/form/_new_form.html.twig', {'button_label': 'Nowa rozmowa'}) }}
+        </br>
+        <a href="{{ path('index') }}">Wróć</a>
+    </div>
+{% endblock %}
