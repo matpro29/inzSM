@@ -55,8 +55,10 @@ class AdminController extends Controller
      */
     public function users(UserRepository $userRepository): Response
     {
+        $users = $userRepository->findAll();
+
         return $this->render('admin/users.html.twig', [
-            'users' => $userRepository->findAll()
+            'users' => $users
         ]);
     }
 }

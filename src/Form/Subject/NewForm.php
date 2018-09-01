@@ -4,7 +4,6 @@ namespace App\Form\Subject;
 
 use App\Entity\Subject;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,13 +15,10 @@ class NewForm extends AbstractType
     {
         $builder
             ->add('name', TextType::class, array(
-                'label' => 'Nazwa: ',
+                'label' => 'Nazwa: '
             ))
             ->add('description', TextareaType::class, array(
-                'label' => 'Opis: ',
-            ))
-            ->add('add', SubmitType::class, array(
-                'label' => 'Zapisz',
+                'label' => 'Opis: '
             ));
     }
 

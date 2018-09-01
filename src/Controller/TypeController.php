@@ -57,8 +57,10 @@ class TypeController extends Controller
      */
     public function index(TypeRepository $typeRepository): Response
     {
+        $types = $typeRepository->findAll();
+
         return $this->render('type/index.html.twig', [
-            'types' => $typeRepository->findAll()
+            'types' => $types
         ]);
     }
 

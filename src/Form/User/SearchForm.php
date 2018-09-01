@@ -4,7 +4,6 @@ namespace App\Form\User;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,17 +14,14 @@ class SearchForm extends AbstractType
     {
         $builder
             ->add('username', TextType::class, array(
-                'label' => 'Nazwa: ',
-            ))
-            ->add('search', SubmitType::class, array(
-                'label' => 'Szukaj'
+                'label' => 'Nazwa: '
             ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => User::class
         ]);
     }
 }

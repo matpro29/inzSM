@@ -156,8 +156,10 @@ class CourseController extends Controller
             ]);
         }
 
+        $courses = $courseRepository->findAll();
+
         return $this->render('course/search.html.twig', [
-            'courses' => $courseRepository->findAll(),
+            'courses' => $courses,
             'form' => $form->createView()
         ]);
     }
@@ -219,9 +221,11 @@ class CourseController extends Controller
      */
     public function users(Course $course, UserRepository $userRepository): Response
     {
+        $users = $userRepository->findAllByCourseId($course->getId());
+
         return $this->render('course/users.html.twig', [
             'course' => $course,
-            'users' => $userRepository->findAllByCourseId($course->getId())
+            'users' => $users
         ]);
     }
 }

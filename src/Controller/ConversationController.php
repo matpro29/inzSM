@@ -50,10 +50,9 @@ class ConversationController extends Controller
         }
 
         $messages = $messageRepository->findAllByConversationId($conversation->getId());
-        $form = $form->createView();
 
         return $this->render('conversation/show.html.twig', [
-            'form' => $form,
+            'form' => $form->createView(),
             'messages' => $messages
         ]);
     }

@@ -11,7 +11,7 @@
     <div class="example-wrapper">
         <h1>Dodaj przedmiot ✅</h1>
 
-        {{ include('subject/form/_new_form.html.twig') }}
+        {{ include('subject/form/_new_form.html.twig', {'button_label': 'Dodaj przedmiot'}) }}
         </br>
         <a href="{{ path('subject_index') }}">Wróć</a>
     </div>

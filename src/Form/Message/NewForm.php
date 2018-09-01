@@ -21,7 +21,7 @@ class NewForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Message::class,
+            'data_class' => Message::class
         ]);
     }
 }

@@ -56,8 +56,10 @@ class SubjectController extends Controller
      */
     public function index(SubjectRepository $subjectRepository): Response
     {
+        $subjects = $subjectRepository->findAll();
+
         return $this->render('subject/index.html.twig', [
-            'subjects' => $subjectRepository->findAll()
+            'subjects' => $subjects
         ]);
     }
 
