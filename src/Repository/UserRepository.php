@@ -23,19 +23,28 @@ class UserRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.roles LIKE :role')
-            ->setParameter('role', '%'.$role.'%')
-            ->orderBy('u.id', 'ASC');
+            ->setParameter('role', '%'.$role.'%');
     }
 
-    public function findAllByCourse($id_course)
+    public function findAllByCourseId($course_id)
     {
         return $this->createQueryBuilder('u')
             ->innerJoin('u.courses','uc')
-            ->where('uc.id_course = :id_course')
-            ->setParameter('id_course', $id_course)
-            ->orderBy('u.id', 'ASC')
+            ->innerJoin('uc.course', 'c')
+            ->where('c.id = :course_id')
+            ->setParameter('course_id', $course_id)
             ->getQuery()
             ->getResult();
+    }
+
+    public function findAllTeacherByUserIdQB($id)
+    {
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.courses', 'uc')
+            ->innerJoin('uc.course', 'c')
+            ->innerJoin('c.owner', 'o')
+            ->where('u.id = :id')
+            ->setParameter('id', $id);
     }
 
     public function findById($id)

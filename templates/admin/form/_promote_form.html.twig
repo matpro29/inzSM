@@ -1,5 +1,5 @@
 <form method="post" action="{{ path('admin_user_promote', {'id': user.id}) }}" onsubmit="return confirm('Are you sure you want to promote this user?');">
     <input type="hidden" name="_method" value="PROMOTE">
     <input type="hidden" name="_token" value="{{ csrf_token('promote' ~ user.id) }}">
-    <button class="btn">PROMOTE</button>
+    <button class="btn">{{ button_label }}</button>
 </form>

@@ -21,7 +21,6 @@ class SubjectRepository extends ServiceEntityRepository
 
     public function findAllQB()
     {
-        return $this->createQueryBuilder('s')
-            ->orderBy('s.id', 'ASC');
+        return $this->createQueryBuilder('s');
     }
 }

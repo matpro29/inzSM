@@ -23,7 +23,7 @@
             </tr>
             </tbody>
         </table>
-        {{ include('type/form/_delete_form.html.twig') }}
+        {{ include('type/form/_delete_form.html.twig', {'button_label': 'Usuń typ'}) }}
         </br>
         <a href="{{ path('type_edit', {'id': type.id}) }}">Edytuj</a>
         </br>

@@ -31,7 +31,7 @@
             </tr>
             </tbody>
         </table>
-        {{ include('admin/form/_promote_form.html.twig') }}
+        {{ include('admin/form/_promote_form.html.twig', {'button_label': 'Awansuj użytkownika'}) }}
         </br>
         <a href="{{ path('admin_users') }}">Wróć</a>
     </div>

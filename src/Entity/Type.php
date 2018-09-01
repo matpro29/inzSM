@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Type
 {
     /**
-     * @ORM\OneToMany(targetEntity="Course", mappedBy="type")
+     * @ORM\OneToMany(targetEntity="App\Entity\Course", mappedBy="type")
      */
     private $courses;
 
@@ -42,7 +43,7 @@ class Type
         return $this->name;
     }
 
-    public function getCourses()
+    public function getCourses(): Collection
     {
         return $this->courses;
     }

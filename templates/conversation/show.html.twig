@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Typy{% endblock %}
+{% block title %}Wiadomości{% endblock %}
 
 {% block body %}
     <style>
@@ -9,36 +9,32 @@
     </style>
 
     <div class="example-wrapper">
-        <h1>Typy ✅</h1>
+        <h1>Wiadomości ✅</h1>
 
         <table class="table">
             <thead>
             <tr>
                 <th>Id</th>
-                <th>Nazwa</th>
-                <th>Akcje</th>
+                <th>Użytkownik</th>
+                <th>Wiadomość</th>
             </tr>
             </thead>
             <tbody>
-            {% for type in types %}
+            {% for message in messages %}
                 <tr>
-                    <td>{{ type.id }}</td>
-                    <td>{{ type.name }}</td>
-                    <td>
-                        <a href="{{ path('type_edit', {'id': type.id}) }}">Edytuj</a>
-                        <a href="{{ path('type_info', {'id': type.id}) }}">Pokaż</a>
-                    </td>
+                    <td>{{ message.id }}</td>
+                    <td>{{ message.owner.username }}</td>
+                    <td>{{ message.message }}</td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3">Nie znaleziono typów!</td>
+                    <td colspan="3">Nie znaleziono wiadomości!</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+        {{ include('conversation/form/_message_new_form.html.twig', {'button_label': 'Napisz'}) }}
         </br>
-        <a href="{{ path('type_new') }}">Dodaj typ</a>
-        </br>
-        <a href="{{ path('index') }}">Wróć</a>
+        <a href="{{ path('conversation_index') }}">Wróć</a>
     </div>
 {% endblock %}

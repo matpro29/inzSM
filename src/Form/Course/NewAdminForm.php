@@ -14,7 +14,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,13 +25,13 @@ class NewAdminForm extends AbstractType
     {
         $builder
             ->add('name', TextType::class, array(
-                'label' => 'Nazwa: ',
+                'label' => 'Nazwa: '
             ))
             ->add('description', TextareaType::class, array(
-                'label' => 'Opis: ',
+                'label' => 'Opis: '
             ))
             ->add('ects', NumberType::class, array(
-                'label' => 'ECTS: ',
+                'label' => 'ECTS: '
             ))
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
@@ -49,7 +48,7 @@ class NewAdminForm extends AbstractType
                 'label' => 'Właścicel: ',
                 'query_builder' => function (UserRepository $userRepository) {
                     return $userRepository->findAllByRoleQB('ROLE_TEACHER');
-                },
+                }
             ))
             ->add('subject', EntityType::class, array(
                 'choice_label' => 'name',
@@ -57,7 +56,7 @@ class NewAdminForm extends AbstractType
                 'label' => 'Przedmiot: ',
                 'query_builder' => function (SubjectRepository $subjectRepository) {
                     return $subjectRepository->findAllQB();
-                },
+                }
             ))
             ->add('type', EntityType::class, array(
                 'choice_label' => 'name',
@@ -65,17 +64,14 @@ class NewAdminForm extends AbstractType
                 'label' => 'Typ: ',
                 'query_builder' => function (TypeRepository $typeRepository) {
                     return $typeRepository->findAllQB();
-                },
-            ))
-            ->add('add', SubmitType::class, array(
-                'label' => 'Zapisz'
+                }
             ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Course::class,
+            'data_class' => Course::class
         ]);
     }
 }

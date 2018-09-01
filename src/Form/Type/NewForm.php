@@ -4,7 +4,6 @@ namespace App\Form\Type;
 
 use App\Entity\Type;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,17 +14,14 @@ class NewForm extends AbstractType
     {
         $builder
             ->add('name', TextType::class, array(
-                'label' => 'Nazwa: ',
-            ))
-            ->add('add', SubmitType::class, array(
-                'label' => 'Zapisz'
+                'label' => 'Nazwa: '
             ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Type::class,
+            'data_class' => Type::class
         ]);
     }
 }

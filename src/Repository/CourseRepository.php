@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Course;
-use App\Entity\UserCourse;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -22,8 +21,7 @@ class CourseRepository extends ServiceEntityRepository
 
     public function findAllQB()
     {
-        return $this->createQueryBuilder('c')
-            ->orderBy('c.id', 'ASC');
+        return $this->createQueryBuilder('c');
     }
 
     public function findAllBySearchForm($name)
@@ -31,28 +29,27 @@ class CourseRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
             ->where('c.name LIKE :name')
             ->setParameter('name', '%'.$name.'%')
-            ->orderBy('c.id', 'ASC')
             ->getQuery()
             ->getResult();
     }
 
-    public function findAllByOwnerId($id)
+    public function findAllByOwnerId($owner_id)
     {
         return $this->createQueryBuilder('c')
-            ->where('c.id_owner = :id')
-            ->setParameter('id', $id)
-            ->orderBy('c.id', 'ASC')
+            ->innerJoin('c.owner', 'o')
+            ->where('o.id = :owner_id')
+            ->setParameter('owner_id', $owner_id)
             ->getQuery()
             ->getResult();
     }
 
-    public function findAllByUserId($id)
+    public function findAllByUserId($user_id)
     {
         return $this->createQueryBuilder('c')
             ->innerJoin('c.users', 'uc')
-            ->where('uc.id_user = :id')
-            ->setParameter('id', $id)
-            ->orderBy('c.id', 'ASC')
+            ->innerJoin('uc.user', 'u')
+            ->where('u.id = :user_id')
+            ->setParameter('user_id', $user_id)
             ->getQuery()
             ->getResult();
     }

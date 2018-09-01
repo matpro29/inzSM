@@ -3,9 +3,9 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -14,12 +14,17 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface, \Serializable
 {
     /**
-     * @ORM\OneToMany(targetEntity="UserCourse", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserConversation", mappedBy="user")
+     */
+    private $conversations;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserCourse", mappedBy="user")
      */
     private $courses;
 
     /**
-     * @ORM\OneToMany(targetEntity="Course", mappedBy="owner")
+     * @ORM\OneToMany(targetEntity="App\Entity\Course", mappedBy="owner")
      */
     private $courses_own;
 
@@ -29,6 +34,11 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="owner")
+     */
+    private $messages_send;
 
     /**
      * @ORM\Column(type="string", length=96)
@@ -52,21 +62,28 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
+        $this->conversations = new ArrayCollection();
+        $this->courses = new ArrayCollection();
         $this->courses_own = new ArrayCollection();
         $this->roles = array('ROLE_USER');
-        $this->courses = new ArrayCollection();
+        $this->messages_send = new ArrayCollection();
     }
 
     public function eraseCredentials()
     {
     }
 
-    public function getCourses()
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function getCourses(): Collection
     {
         return $this->courses;
     }
 
-    public function getCoursesOwn()
+    public function getCoursesOwn(): Collection
     {
         return $this->courses_own;
     }
@@ -74,6 +91,11 @@ class User implements UserInterface, \Serializable
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getMessagesSend(): Collection
+    {
+        return $this->messages_send;
     }
 
     public function getPassword()
@@ -96,11 +118,6 @@ class User implements UserInterface, \Serializable
         return null;
     }
 
-    public function getUserFormLabel()
-    {
-        return $this->id . ' ' . $this->username;
-    }
-
     public function getUsername()
     {
         return $this->username;
@@ -116,22 +133,22 @@ class User implements UserInterface, \Serializable
         ));
     }
 
-    public function setPassword($password)
+    public function setPassword($password): void
     {
         $this->password = $password;
     }
 
-    public function setPlainPassword($password)
+    public function setPlainPassword($password): void
     {
         $this->plainPassword = $password;
     }
 
-    public function setRoles($roles)
+    public function setRoles($roles): void
     {
         $this->roles = array($roles);
     }
 
-    public function setUsername($username)
+    public function setUsername($username): void
     {
         $this->username = $username;
     }
