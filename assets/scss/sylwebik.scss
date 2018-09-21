@@ -1,0 +1,78 @@
+$red: #fc6a66;
+$white: #fff;
+$red_dark: #973f3c;
+$black: #28314A;
+$grey: #8E939F;
+@import url('https://fonts.googleapis.com/css?family=Barlow:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=latin-ext');
+body{
+ font-family: 'Barlow', sans-serif;
+}
+//ogolny css
+//koniec ogólnego cssa
+//poczatek buttona
+a{
+ color: $black;
+ &:hover, &:active, &:focus, &:visited{
+  color:$red;
+  text-decoration: none;
+ }
+}
+ .btn{
+  text-transform: uppercase;
+  display: inline-block;
+  color: $white;
+  font-size: 14px;
+  line-height: 34px;
+  padding: 5px 35px;
+  letter-spacing: .100em;
+  background-size: 200% 100%;
+  background-color: $red;
+  min-width: 198px;
+  border-bottom: 2px solid $red;
+  border-radius: 50px;
+  transition: background-position .4s, color .4s;
+
+  &:hover,
+  &:focus {
+   background-position: -100% 0;
+   background-image: linear-gradient(to right, $red 50%, $red_dark 50%);
+   color: $white;
+   border-bottom: 2px solid $red;
+  }
+  &:active {
+   background-color: $red;
+   color: $white;
+   border-bottom: 2px solid $red;
+  }
+ }
+
+//koniec buttona
+//inputy:
+
+input, textarea {
+ color: #28314A;
+ font-size: 14px;
+ margin-bottom: 15px;
+ max-height: 180px;
+ line-height: 24px;
+ border: none;
+ border-bottom: 1px solid #8E939F;
+ border-radius: 0px;
+ resize: none;
+ outline: none;
+}
+
+/*--------------
+  HOME SLIDER
+--------------*/
+
+/*--------------
+  CONTACT
+--------------*/
+
+
+/*--------------
+  FOOTER
+--------------*/
+
+
