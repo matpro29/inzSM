@@ -50,6 +50,11 @@ class Course
     private $plainPassword;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Section", mappedBy="course")
+     */
+    private $sections;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Subject", inversedBy="courses")
      */
     private $subject;
@@ -66,6 +71,7 @@ class Course
 
     public function __construct()
     {
+        $this->sections = new ArrayCollection();
         $this->users = new ArrayCollection();
     }
 
@@ -102,6 +108,11 @@ class Course
     public function getPlainPassword()
     {
         return $this->plainPassword;
+    }
+
+    public function getSections(): Collection
+    {
+        return $this->sections;
     }
 
     public function getSubject()
