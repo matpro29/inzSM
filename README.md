@@ -13,6 +13,16 @@ Należy wykonać następujące polecenia:
   * cd inzSM
 
   * composer install
+  
+  * yarn install
+  
+  * yarn add bootstrap
+  
+  * yarn add jquery
+  
+  * yarn add popper.js
+  
+  * yarn encore dev
 
   * W .env zamień "DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name"
 
