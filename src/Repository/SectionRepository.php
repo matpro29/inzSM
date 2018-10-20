@@ -18,4 +18,14 @@ class SectionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Section::class);
     }
+
+    public function findAllByCourseId($course_id)
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.course', 'c')
+            ->where('c.id = :course_id')
+            ->setParameter('course_id', $course_id)
+            ->getQuery()
+            ->getResult();
+    }
 }

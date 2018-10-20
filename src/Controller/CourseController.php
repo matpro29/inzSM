@@ -3,14 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Course;
-use App\Entity\CourseSearch;
+use App\Entity\Section;
 use App\Entity\User;
 use App\Entity\UserCourse;
 use App\Form\Course\EnterForm;
 use App\Form\Course\NewAdminForm;
 use App\Form\Course\NewTeacherForm;
 use App\Form\Course\SearchForm;
+use App\Form\SectionNewFom;
 use App\Repository\CourseRepository;
+use App\Repository\SectionRepository;
 use App\Repository\UserCourseRepository;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -165,15 +167,45 @@ class CourseController extends Controller
     }
 
     /**
+     * @Route("/section/new/{id}", name="course_section_new", methods="GET|POST")
+     */
+    public function sectionNew(Course $course, Request $request): Response
+    {
+        $section = new Section();
+        $form = $this->createForm(SectionNewFom::class, $section);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $section->setCourse($course);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($section);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('course_show', [
+                'id' => $course->getId()
+            ]);
+        }
+
+        return $this->render('course/section_new.html.twig', [
+            'section' => $section,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/{id}", name="course_show", methods="GET|POST")
      */
-    public function show(Course $course, Request $request, UserCourseRepository $userCourseRepository, UserInterface $user): Response
+    public function show(Course $course, Request $request, SectionRepository $sectionRepository, UserCourseRepository $userCourseRepository, UserInterface $user): Response
     {
         if ($user->getId() == $course->getOwner()->getId()
             || $userCourseRepository->getOneByCourseIdUserId($course->getId(), $user->getId())
             || $this->security->isGranted('ROLE_ADMIN')) {
+            $sections = $sectionRepository->findAllByCourseId($course->getId());
+
             return $this->render('course/show.html.twig', [
-                'course' => $course
+                'course' => $course,
+                'sections' => $sections
             ]);
         } else {
             $form = $this->createForm(EnterForm::class, $course);

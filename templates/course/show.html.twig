@@ -13,6 +13,17 @@
 
         <a href="{{ path('course_users', {'id': course.id}) }}">Użytkownicy</a>
         </br>
+        <a href="{{ path('course_section_new', {'id': course.id}) }}">Nowa skecja</a>
+        </br>
+        {% for section in sections %}
+            <h3>{{ section.name }}</h3>
+            </br>
+        {% else %}
+            <tr>
+                <td colspan="6">Nie znaleziono sekcji!</td>
+            </tr>
+        {% endfor %}
+        </br>
         <a href="{{ path('course_index') }}">Wróć</a>
     </div>
 {% endblock %}
