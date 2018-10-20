@@ -11,10 +11,10 @@
     <div class="example-wrapper">
         <h1>Edytuj kurs ✅</h1>
 
-        {{ include('course/form/_new_form.html.twig', {'button_label': 'Zapisz zmiany'}) }}
+        {{ include('course/course/form/_new_form.html.twig', {'button_label': 'Zapisz zmiany'}) }}
 
         <a href="{{ path('course_index') }}">Wróć</a>
 
-        {{ include('course/form/_delete_form.html.twig', {'button_label': 'Usuń kurs'}) }}
+        {{ include('course/course/form/_delete_form.html.twig', {'button_label': 'Usuń kurs'}) }}
     </div>
 {% endblock %}

@@ -65,7 +65,7 @@ class CourseController extends Controller
             ]);
         }
 
-        return $this->render('course/edit.html.twig', [
+        return $this->render('course/course/edit.html.twig', [
             'course' => $course,
             'form' => $form->createView()
         ]);
@@ -84,7 +84,7 @@ class CourseController extends Controller
             $courses = $courseRepository->findAllByUserId($user->getId());
         }
 
-        return $this->render('course/index.html.twig', [
+        return $this->render('course/course/index.html.twig', [
             'courses' => $courses
         ]);
     }
@@ -94,7 +94,7 @@ class CourseController extends Controller
      */
     public function info(Course $course): Response
     {
-        return $this->render('course/info.html.twig', [
+        return $this->render('course/course/info.html.twig', [
             'course' => $course
         ]);
     }
@@ -135,7 +135,7 @@ class CourseController extends Controller
             }
         }
 
-        return $this->render('course/new.html.twig', [
+        return $this->render('course/course/new.html.twig', [
             'course' => $course,
             'form' => $form->createView()
         ]);
@@ -152,7 +152,7 @@ class CourseController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() && $courseSearch->getName()) {
-            return $this->render('course/search.html.twig', [
+            return $this->render('course/course/search.html.twig', [
                 'courses' => $courseRepository->findAllBySearchForm($courseSearch->getName()),
                 'form' => $form->createView()
             ]);
@@ -160,7 +160,7 @@ class CourseController extends Controller
 
         $courses = $courseRepository->findAll();
 
-        return $this->render('course/search.html.twig', [
+        return $this->render('course/course/search.html.twig', [
             'courses' => $courses,
             'form' => $form->createView()
         ]);
@@ -176,7 +176,7 @@ class CourseController extends Controller
             || $this->security->isGranted('ROLE_ADMIN')) {
             $sections = $sectionRepository->findAllByCourseId($course->getId());
 
-            return $this->render('course/show.html.twig', [
+            return $this->render('course/course/show.html.twig', [
                 'course' => $course,
                 'sections' => $sections
             ]);
@@ -195,13 +195,13 @@ class CourseController extends Controller
                     $entityManager->persist($userCourse);
                     $entityManager->flush();
 
-                    return $this->render('course/show.html.twig', [
+                    return $this->render('course/course/show.html.twig', [
                         'course' => $course
                     ]);
                 }
             }
 
-            return $this->render('course/join.html.twig', [
+            return $this->render('course/course/join.html.twig', [
                 'course' => $course,
                 'form' => $form->createView()
             ]);
