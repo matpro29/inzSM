@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Section{% endblock %}
+{% block title %}Nowa sekcja{% endblock %}
 
 {% block body %}
     <style>
@@ -11,7 +11,7 @@
     <div class="example-wrapper">
         <h1>Nowa sekcja ✅</h1>
 
-        {{ include('course/form/_section_new_form.html.twig') }}
+        {{ include('course/section/form/_new_form.html.twig') }}
         </br>
         <a href="{{ path('section_index') }}">Wróć</a>
     </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Course;
 
 use App\Entity\Course;
 use App\Entity\Section;
@@ -167,33 +167,6 @@ class CourseController extends Controller
     }
 
     /**
-     * @Route("/section/new/{id}", name="course_section_new", methods="GET|POST")
-     */
-    public function sectionNew(Course $course, Request $request): Response
-    {
-        $section = new Section();
-        $form = $this->createForm(SectionNewFom::class, $section);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $section->setCourse($course);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($section);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('course_show', [
-                'id' => $course->getId()
-            ]);
-        }
-
-        return $this->render('course/section_new.html.twig', [
-            'section' => $section,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * @Route("/{id}", name="course_show", methods="GET|POST")
      */
     public function show(Course $course, Request $request, SectionRepository $sectionRepository, UserCourseRepository $userCourseRepository, UserInterface $user): Response
@@ -233,31 +206,5 @@ class CourseController extends Controller
                 'form' => $form->createView()
             ]);
         }
-    }
-
-    /**
-     * @Route("/user/info/{id_course}/{id_user}", name="course_user_info")
-     * @ParamConverter("course", options={"id": "id_course"})
-     * @ParamConverter("user", options={"id": "id_user"})
-     */
-    public function userInfo(Course $course, User $user): Response
-    {
-        return $this->render('course/user_info.html.twig', [
-            'course' => $course,
-            'user' => $user
-        ]);
-    }
-
-    /**
-     * @Route("/users/{id}", name="course_users", methods="GET|POST")
-     */
-    public function users(Course $course, UserRepository $userRepository): Response
-    {
-        $users = $userRepository->findAllByCourseId($course->getId());
-
-        return $this->render('course/users.html.twig', [
-            'course' => $course,
-            'users' => $users
-        ]);
     }
 }
