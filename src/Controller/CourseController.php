@@ -10,7 +10,7 @@ use App\Form\Course\EnterForm;
 use App\Form\Course\NewAdminForm;
 use App\Form\Course\NewTeacherForm;
 use App\Form\Course\SearchForm;
-use App\Form\SectionNewFom;
+use App\Form\Course\SectionNewFom;
 use App\Repository\CourseRepository;
 use App\Repository\SectionRepository;
 use App\Repository\UserCourseRepository;
