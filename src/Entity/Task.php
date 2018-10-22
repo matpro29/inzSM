@@ -17,6 +17,16 @@ class Task
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=4096)
+     */
+    private $contents;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $file;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -31,6 +41,16 @@ class Task
         return $this->id;
     }
 
+    public function getContents()
+    {
+        return $this->contents;
+    }
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
     public function getName()
     {
         return $this->name;
@@ -39,6 +59,16 @@ class Task
     public function getSection()
     {
         return $this->section;
+    }
+
+    public function setContents($contents): void
+    {
+        $this->contents = $contents;
+    }
+
+    public function setFile($file): void
+    {
+        $this->file = $file;
     }
 
     public function setName($name): void

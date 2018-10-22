@@ -16,12 +16,18 @@
         <a href="{{ path('course_section_new', {'id': course.id}) }}">Nowa skecja</a>
         </br>
         {% for section in sections %}
-            <h3>{{ section.name }}</h3>
+            <h2>{{ section.name }}</h2>
+            <a href="{{ path('course_task_new', {'id': section.id}) }}">Nowe zadanie</a>
+            {{ include('course/section/form/_delete_form.html.twig', {'button_label': 'Usuń sekcje'}) }}
             </br>
+            {% for task in section.tasks %}
+                <h3>{{ task.name }}</h3>
+                {{ task.contents }}
+            {%  else %}
+                <h3>Nie znaleziono zadań!</h3>
+            {% endfor %}
         {% else %}
-            <tr>
-                <td colspan="6">Nie znaleziono sekcji!</td>
-            </tr>
+            <h3>Nie znaleziono sekcji!</h3>
         {% endfor %}
         </br>
         <a href="{{ path('course_index') }}">Wróć</a>
