@@ -35,6 +35,11 @@ class Course
     private $name;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Notice", mappedBy="course")
+     */
+    private $notices;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="courses_own")
      */
     private $owner;
@@ -71,6 +76,7 @@ class Course
 
     public function __construct()
     {
+        $this->notices = new ArrayCollection();
         $this->sections = new ArrayCollection();
         $this->users = new ArrayCollection();
     }
@@ -93,6 +99,11 @@ class Course
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getNotices(): Collection
+    {
+        return $this->notices;
     }
 
     public function getOwner()
