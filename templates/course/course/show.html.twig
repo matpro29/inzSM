@@ -13,6 +13,8 @@
 
         <a href="{{ path('course_user', {'id': course.id}) }}">Użytkownicy</a>
         </br>
+        <a href="{{ path('course_notice_new', {'id': course.id}) }}">Nowe powiadomienie</a>
+        </br>
         <a href="{{ path('course_section_new', {'id': course.id}) }}">Nowa skecja</a>
         </br>
         {% for section in sections %}

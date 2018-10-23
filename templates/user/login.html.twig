@@ -17,6 +17,8 @@
         </div>
         {{ include('user/form/_login_form.html.twig', {'button_label': 'Zaloguj'}) }}
         </br>
+        <a href="{{ path('register') }}">Zarejestruj się</a>
+        </br>
         <a href="{{ path('index') }}">Wróć</a>
     </div>
 {% endblock %}
