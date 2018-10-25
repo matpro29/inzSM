@@ -195,8 +195,11 @@ class CourseController extends Controller
                     $entityManager->persist($userCourse);
                     $entityManager->flush();
 
+                    $sections = $sectionRepository->findAllByCourseId($course->getId());
+
                     return $this->render('course/course/show.html.twig', [
-                        'course' => $course
+                        'course' => $course,
+                        'sections' => $sections
                     ]);
                 }
             }
