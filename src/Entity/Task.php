@@ -19,14 +19,25 @@ class Task
     private $id;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_date;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_file;
+
+
+    /**
      * @ORM\Column(type="string", length=4096)
      */
     private $contents;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="datetime")
      */
-    private $file;
+    private $end_date;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\File", mappedBy="task")
@@ -43,14 +54,14 @@ class Task
      */
     private $section;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $start_date;
+
     public function __construct()
     {
         $this->files = new ArrayCollection();
-    }
-
-    public function getId()
-    {
-        return $this->id;
     }
 
     public function getContents()
@@ -58,14 +69,29 @@ class Task
         return $this->contents;
     }
 
-    public function getFile()
+    public function getEndDate()
     {
-        return $this->file;
+        return $this->end_date;
     }
 
     public function getFiles(): Collection
     {
         return $this->files;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getIsDate()
+    {
+        return $this->is_date;
+    }
+
+    public function getIsFile()
+    {
+        return $this->is_file;
     }
 
     public function getName()
@@ -78,14 +104,29 @@ class Task
         return $this->section;
     }
 
+    public function getStartDate()
+    {
+        return $this->start_date;
+    }
+
     public function setContents($contents): void
     {
         $this->contents = $contents;
     }
 
-    public function setFile($file): void
+    public function setEndDate($end_date): void
     {
-        $this->file = $file;
+        $this->end_date = $end_date;
+    }
+
+    public function setIsDate($is_date): void
+    {
+        $this->is_date = $is_date;
+    }
+
+    public function setIsFile($is_file): void
+    {
+        $this->is_file = $is_file;
     }
 
     public function setName($name): void
@@ -96,5 +137,10 @@ class Task
     public function setSection($section): void
     {
         $this->section = $section;
+    }
+
+    public function setStartDate($start_date): void
+    {
+        $this->start_date = $start_date;
     }
 }
