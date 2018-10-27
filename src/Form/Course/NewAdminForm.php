@@ -24,48 +24,48 @@ class NewAdminForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, array(
+            ->add('name', TextType::class, [
                 'label' => 'Nazwa: '
-            ))
-            ->add('description', TextareaType::class, array(
+            ])
+            ->add('description', TextareaType::class, [
                 'label' => 'Opis: '
-            ))
-            ->add('ects', NumberType::class, array(
+            ])
+            ->add('ects', NumberType::class, [
                 'label' => 'ECTS: '
-            ))
-            ->add('plainPassword', RepeatedType::class, array(
+            ])
+            ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options' => array(
+                'first_options' => [
                     'label' => 'Hasło: '
-                ),
-                'second_options' =>  array(
+                ],
+                'second_options' =>  [
                     'label' => 'Powtórz hasło: '
-                )
-            ))
-            ->add('owner', EntityType::class, array(
+                ]
+            ])
+            ->add('owner', EntityType::class, [
                 'choice_label' => 'username',
                 'class' => User::class,
                 'label' => 'Właścicel: ',
                 'query_builder' => function (UserRepository $userRepository) {
                     return $userRepository->findAllByRoleQB('ROLE_TEACHER');
                 }
-            ))
-            ->add('subject', EntityType::class, array(
+            ])
+            ->add('subject', EntityType::class, [
                 'choice_label' => 'name',
                 'class' => Subject::class,
                 'label' => 'Przedmiot: ',
                 'query_builder' => function (SubjectRepository $subjectRepository) {
                     return $subjectRepository->findAllQB();
                 }
-            ))
-            ->add('type', EntityType::class, array(
+            ])
+            ->add('type', EntityType::class, [
                 'choice_label' => 'name',
                 'class' => Type::class,
                 'label' => 'Typ: ',
                 'query_builder' => function (TypeRepository $typeRepository) {
                     return $typeRepository->findAllQB();
                 }
-            ));
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

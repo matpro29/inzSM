@@ -13,9 +13,9 @@ class EnterForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('plainPassword', PasswordType::class, array(
+            ->add('plainPassword', PasswordType::class, [
                 'label' => 'Hasło: '
-            ));
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

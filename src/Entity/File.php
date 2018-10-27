@@ -24,9 +24,19 @@ class File
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=255))
+     */
+    private $name;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Task", inversedBy="files")
      */
     private $task;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="files")
+     */
+    private $user;
 
     public function getFile()
     {
@@ -38,9 +48,19 @@ class File
         return $this->id;
     }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
     public function getTask()
     {
         return $this->task;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
     }
 
     public function setFile($file): void
@@ -48,8 +68,18 @@ class File
         $this->file = $file;
     }
 
+    public function setName($name): void
+    {
+        $this->name = $name;
+    }
+
     public function setTask($task): void
     {
         $this->task = $task;
+    }
+
+    public function setUser($user): void
+    {
+        $this->user = $user;
     }
 }

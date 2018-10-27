@@ -15,18 +15,18 @@ class RegisterForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, array(
+            ->add('username', TextType::class, [
                 'label' => 'Nazwa użytkownika: '
-            ))
-            ->add('plainPassword', RepeatedType::class, array(
+            ])
+            ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options' => array(
+                'first_options' => [
                     'label' => 'Hasło: '
-                ),
-                'second_options' =>  array(
+                ],
+                'second_options' =>  [
                     'label' => 'Powtórz hasło: '
-                )
-            ));
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

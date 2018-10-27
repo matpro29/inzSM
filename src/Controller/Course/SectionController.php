@@ -4,7 +4,7 @@ namespace App\Controller\Course;
 
 use App\Entity\Course;
 use App\Entity\Section;
-use App\Form\Course\SectionNewFom;
+use App\Form\Section\NewForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +37,7 @@ class SectionController extends Controller
     public function new(Course $course, Request $request): Response
     {
         $section = new Section();
-        $form = $this->createForm(SectionNewFom::class, $section);
+        $form = $this->createForm(NewForm::class, $section);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
