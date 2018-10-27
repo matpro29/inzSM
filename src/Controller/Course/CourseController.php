@@ -3,19 +3,14 @@
 namespace App\Controller\Course;
 
 use App\Entity\Course;
-use App\Entity\Section;
-use App\Entity\User;
 use App\Entity\UserCourse;
 use App\Form\Course\EnterForm;
 use App\Form\Course\NewAdminForm;
 use App\Form\Course\NewTeacherForm;
 use App\Form\Course\SearchForm;
-use App\Form\Course\SectionNewFom;
 use App\Repository\CourseRepository;
 use App\Repository\SectionRepository;
 use App\Repository\UserCourseRepository;
-use App\Repository\UserRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

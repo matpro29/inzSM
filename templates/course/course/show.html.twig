@@ -25,6 +25,8 @@
             {% for task in section.tasks %}
                 <h3>{{ task.name }}</h3>
                 {{ task.contents }}
+                </br>
+                <a href="{{ path('course_file_new', {'id': task.id}) }}">Prześlij plik</a>
             {%  else %}
                 <h3>Nie znaleziono zadań!</h3>
             {% endfor %}

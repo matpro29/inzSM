@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,6 +29,11 @@ class Task
     private $file;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\File", mappedBy="task")
+     */
+    private $files;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -35,6 +42,11 @@ class Task
      * @ORM\ManyToOne(targetEntity="App\Entity\Section", inversedBy="tasks")
      */
     private $section;
+
+    public function __construct()
+    {
+        $this->files = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -49,6 +61,11 @@ class Task
     public function getFile()
     {
         return $this->file;
+    }
+
+    public function getFiles(): Collection
+    {
+        return $this->files;
     }
 
     public function getName()
