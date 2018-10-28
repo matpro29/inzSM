@@ -25,7 +25,13 @@
             {% for task in section.tasks %}
                 <h3>{{ task.name }}</h3>
                 {{ task.contents }}
-                {% if task.file == true %}
+                {% for file in task.files %}
+                    {% if file.user.id == course.owner.id %}
+                        </br>
+                        <a href="{{ asset('files/' ~ file.file) }}">{{ file.name }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if task.getIsFile() == true %}
                     </br>
                     <a href="{{ path('course_file_new', {'id': task.id}) }}">Prześlij plik</a>
                 {% endif %}
