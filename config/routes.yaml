@@ -1,3 +1,8 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+public:
+    path: /{_locale}
+    controller: App\Controller\Index\IndexController::public
+    requirements:
+        _locale: '%app_locales%'
+    defaults:
+        template: index/index/public.html.twig
+        _locale: '%locale%'
