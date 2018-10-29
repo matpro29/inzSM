@@ -20,15 +20,19 @@ class SectionController extends Controller
      */
     public function delete(Request $request, Section $section): Response
     {
+        $course = $section->getCourse();
+
         if ($this->isCsrfTokenValid('delete'.$section->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($section);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('course_show', [
-            'id' => $section->getCourse()->getId()
-        ]);
+        $params = [
+            'id' => $course->getId()
+        ];
+
+        return $this->redirectToRoute('course_show', $params);
     }
 
     /**
@@ -47,15 +51,18 @@ class SectionController extends Controller
             $entityManager->persist($section);
             $entityManager->flush();
 
-            return $this->redirectToRoute('course_show', [
+            $params = [
                 'id' => $course->getId()
-            ]);
+            ];
+
+            return $this->redirectToRoute('course_show', $params);
         }
 
-        return $this->render('course/section/new.html.twig', [
+        $params = [
             'course' => $course,
-            'form' => $form->createView(),
-            'section' => $section
-        ]);
+            'form' => $form->createView()
+        ];
+
+        return $this->render('course/section/new.html.twig', $params);
     }
 }

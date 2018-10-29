@@ -31,15 +31,18 @@ class NoticeController extends Controller
             $entityManager->persist($notice);
             $entityManager->flush();
 
-            return $this->redirectToRoute('course_show', [
+            $params = [
                 'id' => $course->getId()
-            ]);
+            ];
+
+            return $this->redirectToRoute('course_show', $params);
         }
 
-        return $this->render('course/notice/new.html.twig', [
+        $params = [
             'course' => $course,
-            'form' => $form->createView(),
-            'notice' => $notice
-        ]);
+            'form' => $form->createView()
+        ];
+
+        return $this->render('course/notice/new.html.twig', $params);
     }
 }

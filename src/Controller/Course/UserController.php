@@ -22,10 +22,12 @@ class UserController extends Controller
      */
     public function info(Course $course, User $user): Response
     {
-        return $this->render('course/user/info.html.twig', [
+        $params = [
             'course' => $course,
             'user' => $user
-        ]);
+        ];
+
+        return $this->render('course/user/info.html.twig', $params);
     }
 
     /**
@@ -35,9 +37,11 @@ class UserController extends Controller
     {
         $users = $userRepository->findAllByCourseId($course->getId());
 
-        return $this->render('course/user/index.html.twig', [
+        $params = [
             'course' => $course,
             'users' => $users
-        ]);
+        ];
+
+        return $this->render('course/user/index.html.twig', $params);
     }
 }

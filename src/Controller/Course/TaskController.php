@@ -24,6 +24,8 @@ class TaskController extends Controller
         $form = $this->createForm(NewForm::class, $task);
         $form->handleRequest($request);
 
+        $course = $section->getCourse();
+
         if ($form->isSubmitted() && $form->isValid()) {
             $task->setSection($section);
 
@@ -31,15 +33,18 @@ class TaskController extends Controller
             $entityManager->persist($task);
             $entityManager->flush();
 
-            return $this->redirectToRoute('course_show', [
-                'id' => $section->getCourse()->getId()
-            ]);
+            $params = [
+                'id' => $course->getId()
+            ];
+
+            return $this->redirectToRoute('course_show', $params);
         }
 
-        return $this->render('course/task/new.html.twig', [
-            'course' => $section->getCourse(),
-            'form' => $form->createView(),
-            'task' => $task
-        ]);
+        $params = [
+            'course' => $course,
+            'form' => $form->createView()
+        ];
+
+        return $this->render('course/task/new.html.twig', $params);
     }
 }

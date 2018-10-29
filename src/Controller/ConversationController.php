@@ -26,9 +26,11 @@ class ConversationController extends Controller
     {
         $conversations = $conversationRepository->findAllByUserId($user->getId());
 
-        return $this->render('conversation/index.html.twig', [
-            'conversations' => $conversations
-        ]);
+        $params = [
+            'conversation' => $conversations
+        ];
+
+        return $this->render('conversation/index.html.twig', $params);
     }
 
     /**
@@ -51,10 +53,12 @@ class ConversationController extends Controller
 
         $messages = $messageRepository->findAllByConversationId($conversation->getId());
 
-        return $this->render('conversation/show.html.twig', [
+        $params = [
             'form' => $form->createView(),
             'messages' => $messages
-        ]);
+        ];
+
+        return $this->render('conversation/show.html.twig', $params);
     }
 
     /**
@@ -75,9 +79,11 @@ class ConversationController extends Controller
         $conversation_id = $conversation->getId();
         $messages = $messageRepository->findAllByConversationId($conversation_id);
 
-        return $this->redirectToRoute('conversation_show', [
+        $params = [
             'id' => $conversation_id,
             'messages' => $messages
-        ]);
+        ];
+
+        return $this->redirectToRoute('conversation_show', $params);
     }
 }

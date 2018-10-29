@@ -2,7 +2,6 @@
 
 namespace App\Controller\Index;
 
-
 use App\Repository\NoticeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,8 +20,10 @@ class NoticeController extends Controller
     {
         $notices = $noticeRepository->findAllByUserId($user->getId());
 
-        return $this->render('index/notice/index.html.twig', [
+        $params = [
             'notices' => $notices
-        ]);
+        ];
+
+        return $this->render('index/notice/index.html.twig', $params);
     }
 }

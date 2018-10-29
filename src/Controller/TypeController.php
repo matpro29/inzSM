@@ -40,16 +40,19 @@ class TypeController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('type_edit', [
+            $params = [
                 'id' => $type->getId()
-            ]);
+            ];
+
+            return $this->redirectToRoute('type_edit', $params);
         }
 
-        return $this->render('type/edit.html.twig', [
+        $params = [
             'form' => $form->createView(),
             'type' => $type
+        ];
 
-        ]);
+        return $this->render('type/edit.html.twig', $params);
     }
 
     /**
@@ -59,9 +62,11 @@ class TypeController extends Controller
     {
         $types = $typeRepository->findAll();
 
-        return $this->render('type/index.html.twig', [
+        $params = [
             'types' => $types
-        ]);
+        ];
+
+        return $this->render('type/index.html.twig', $params);
     }
 
     /**
@@ -69,9 +74,11 @@ class TypeController extends Controller
      */
     public function info(Type $type): Response
     {
-        return $this->render('type/info.html.twig', [
+        $params = [
             'type' => $type
-        ]);
+        ];
+
+        return $this->render('type/info.html.twig', $params);
     }
 
     /**
@@ -91,10 +98,11 @@ class TypeController extends Controller
             return $this->redirectToRoute('type_index');
         }
 
-        return $this->render('type/new.html.twig', [
+        $params = [
             'form' => $form->createView(),
             'type' => $type
+        ];
 
-        ]);
+        return $this->render('type/new.html.twig', $params);
     }
 }

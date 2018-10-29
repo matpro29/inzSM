@@ -55,15 +55,19 @@ class CourseController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('course_edit', [
+            $params = [
                 'id' => $course->getId()
-            ]);
+            ];
+
+            return $this->redirectToRoute('course_edit', $params);
         }
 
-        return $this->render('course/course/edit.html.twig', [
+        $params = [
             'course' => $course,
             'form' => $form->createView()
-        ]);
+        ];
+
+        return $this->render('course/course/edit.html.twig', $params);
     }
 
     /**
@@ -79,9 +83,11 @@ class CourseController extends Controller
             $courses = $courseRepository->findAllByUserId($user->getId());
         }
 
-        return $this->render('course/course/index.html.twig', [
+        $params = [
             'courses' => $courses
-        ]);
+        ];
+
+        return $this->render('course/course/index.html.twig', $params);
     }
 
     /**
@@ -89,9 +95,11 @@ class CourseController extends Controller
      */
     public function info(Course $course): Response
     {
-        return $this->render('course/course/info.html.twig', [
+        $params = [
             'course' => $course
-        ]);
+        ];
+
+        return $this->render('course/course/info.html.twig', $params);
     }
 
     /**
@@ -130,10 +138,12 @@ class CourseController extends Controller
             }
         }
 
-        return $this->render('course/course/new.html.twig', [
+        $params = [
             'course' => $course,
             'form' => $form->createView()
-        ]);
+        ];
+
+        return $this->render('course/course/new.html.twig', $params);
     }
 
     /**
@@ -147,18 +157,24 @@ class CourseController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() && $courseSearch->getName()) {
-            return $this->render('course/course/search.html.twig', [
-                'courses' => $courseRepository->findAllBySearchForm($courseSearch->getName()),
+            $courses = $courseRepository->findAllBySearchForm($courseSearch->getName());
+
+            $params = [
+                'courses' => $courses,
                 'form' => $form->createView()
-            ]);
+            ];
+
+            return $this->render('course/course/search.html.twig', $params);
         }
 
         $courses = $courseRepository->findAll();
 
-        return $this->render('course/course/search.html.twig', [
+        $params = [
             'courses' => $courses,
             'form' => $form->createView()
-        ]);
+        ];
+
+        return $this->render('course/course/search.html.twig', $params);
     }
 
     /**
@@ -166,15 +182,15 @@ class CourseController extends Controller
      */
     public function show(Course $course, Request $request, SectionRepository $sectionRepository, UserCourseRepository $userCourseRepository, UserInterface $user): Response
     {
+        $params = [
+            'course' => $course
+        ];
+
         if ($user->getId() == $course->getOwner()->getId()
             || $userCourseRepository->getOneByCourseIdUserId($course->getId(), $user->getId())
             || $this->security->isGranted('ROLE_ADMIN')) {
-            $sections = $sectionRepository->findAllByCourseId($course->getId());
 
-            return $this->render('course/course/show.html.twig', [
-                'course' => $course,
-                'sections' => $sections
-            ]);
+            return $this->render('course/course/show.html.twig', $params);
         } else {
             $form = $this->createForm(EnterForm::class, $course);
             $form->handleRequest($request);
@@ -190,19 +206,13 @@ class CourseController extends Controller
                     $entityManager->persist($userCourse);
                     $entityManager->flush();
 
-                    $sections = $sectionRepository->findAllByCourseId($course->getId());
-
-                    return $this->render('course/course/show.html.twig', [
-                        'course' => $course,
-                        'sections' => $sections
-                    ]);
+                    return $this->render('course/course/show.html.twig', $params);
                 }
             }
 
-            return $this->render('course/course/join.html.twig', [
-                'course' => $course,
-                'form' => $form->createView()
-            ]);
+            $params['form'] = $form->createView();
+
+            return $this->render('course/course/join.html.twig', $params);
         }
     }
 }

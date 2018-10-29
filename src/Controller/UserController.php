@@ -2,18 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Course;
 use App\Entity\User;
 use App\Form\User\LoginForm;
 use App\Form\User\RegisterForm;
-use App\Repository\UserRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -35,11 +31,13 @@ class UserController extends Controller
 
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('user/login.html.twig', [
+        $params = [
             'error' => $error,
             'form' => $form->createView(),
             'last_username' => $lastUsername
-        ]);
+        ];
+
+        return $this->render('user/login.html.twig', $params);
     }
 
     /**
@@ -57,9 +55,11 @@ class UserController extends Controller
      */
     public function profile(UserInterface $user): Response
     {
-        return $this->render('user/profile.html.twig', [
+        $params = [
             'user' => $user
-        ]);
+        ];
+
+        return $this->render('user/profile.html.twig', $params);
     }
 
     /**
@@ -82,8 +82,10 @@ class UserController extends Controller
             return $this->redirectToRoute('login');
         }
 
-        return $this->render('user/register.html.twig', [
+        $params = [
             'form' => $form->createView()
-        ]);
+        ];
+
+        return $this->render('user/register.html.twig', $params);
     }
 }

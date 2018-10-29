@@ -40,15 +40,19 @@ class SubjectController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('subject_edit', [
+            $params = [
                 'id' => $subject->getId()
-            ]);
+            ];
+
+            return $this->redirectToRoute('subject_edit', $params);
         }
 
-        return $this->render('subject/edit.html.twig', [
+        $params = [
             'form' => $form->createView(),
             'subject' => $subject
-        ]);
+        ];
+
+        return $this->render('subject/edit.html.twig', $params);
     }
 
     /**
@@ -58,9 +62,11 @@ class SubjectController extends Controller
     {
         $subjects = $subjectRepository->findAll();
 
-        return $this->render('subject/index.html.twig', [
+        $params = [
             'subjects' => $subjects
-        ]);
+        ];
+
+        return $this->render('subject/index.html.twig', $params);
     }
 
     /**
@@ -68,9 +74,11 @@ class SubjectController extends Controller
      */
     public function info(Subject $subject): Response
     {
-        return $this->render('subject/info.html.twig', [
+        $params = [
             'subject' => $subject
-        ]);
+        ];
+
+        return $this->render('subject/info.html.twig', $params);
     }
 
     /**
@@ -90,9 +98,11 @@ class SubjectController extends Controller
             return $this->redirectToRoute('subject_index');
         }
 
-        return $this->render('subject/new.html.twig', [
+        $params = [
             'form' => $form->createView(),
             'subject' => $subject
-        ]);
+        ];
+
+        return $this->render('subject/new.html.twig', $params);
     }
 }

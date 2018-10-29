@@ -20,9 +20,11 @@ class IndexController extends Controller
     {
         $notices = $noticeRepository->findAllByUserIdWithLimit(5,$user->getId());
 
-        return $this->render('index/index/index.html.twig', [
+        $params = [
             'notices' => $notices
-        ]);
+        ];
+
+        return $this->render('index/index/index.html.twig', $params);
     }
 
     /**

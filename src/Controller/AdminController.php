@@ -19,7 +19,7 @@ class AdminController extends Controller
      */
     public function index(): Response
     {
-        return $this->render('admin/index.html.twig', []);
+        return $this->render('admin/index.html.twig');
     }
 
     /**
@@ -27,9 +27,11 @@ class AdminController extends Controller
      */
     public function userInfo(User $user): Response
     {
-        return $this->render('admin/user_info.html.twig', [
+        $params = [
             'user' => $user
-        ]);
+        ];
+
+        return $this->render('admin/user_info.html.twig', $params);
     }
 
     /**
@@ -45,9 +47,11 @@ class AdminController extends Controller
             $entityManager->flush();
         }
 
-        return $this->render('admin/user_info.html.twig', [
+        $params = [
             'user' => $user
-        ]);
+        ];
+
+        return $this->render('admin/user_info.html.twig', $params);
     }
 
     /**
@@ -57,8 +61,10 @@ class AdminController extends Controller
     {
         $users = $userRepository->findAll();
 
-        return $this->render('admin/users.html.twig', [
+        $params = [
             'users' => $users
-        ]);
+        ];
+
+        return $this->render('admin/users.html.twig', $params);
     }
 }
