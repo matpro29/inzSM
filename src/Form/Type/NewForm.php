@@ -13,9 +13,9 @@ class NewForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, array(
+            ->add('name', TextType::class, [
                 'label' => 'Nazwa: '
-            ));
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

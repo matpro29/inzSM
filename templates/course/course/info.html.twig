@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Informacje o kursie{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="example-wrapper">
+        <h1>Informacje o kursie ✅</h1>
+
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ course.id }}</td>
+            </tr>
+            <tr>
+                <th>Id właściciela</th>
+                <td>{{ course.owner.id }}</td>
+            </tr>
+            <tr>
+                <th>Id przedmiotu</th>
+                <td>{{ course.subject.id }}</td>
+            </tr>
+            <tr>
+                <th>Id typu</th>
+                <td>{{ course.type.id }}</td>
+            </tr>
+            <tr>
+                <th>Nazwa</th>
+                <td>{{ course.name }}</td>
+            </tr>
+            <tr>
+                <th>Opis</th>
+                <td>{{ course.description }}</td>
+            </tr>
+            <tr>
+                <th>Hasło</th>
+                <td>{{ course.password }}</td>
+            </tr>
+            </tbody>
+        </table>
+        {{ include('course/course/form/_delete_form.html.twig', {'button_label': 'Usuń kurs'}) }}
+        </br>
+        <a href="{{ path('course_edit', {'id': course.id}) }}">Edytuj</a>
+        </br>
+        <a href="{{ path('course_index') }}">Wróć</a>
+    </div>
+{% endblock %}

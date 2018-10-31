@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kurs{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="example-wrapper">
+        <h1>Kurs ✅</h1>
+
+        <a href="{{ path('course_user', {'id': course.id}) }}">Użytkownicy</a>
+        </br>
+        <a href="{{ path('course_notice_new', {'id': course.id}) }}">Nowe powiadomienie</a>
+        </br>
+        <a href="{{ path('course_section_new', {'id': course.id}) }}">Nowa skecja</a>
+        </br>
+        {% for section in course.sections %}
+            <h2>{{ section.name }}</h2>
+            <a href="{{ path('course_task_new', {'id': section.id}) }}">Nowe zadanie</a>
+            {{ include('course/section/form/_delete_form.html.twig', {'button_label': 'Usuń sekcje'}) }}
+            </br>
+            {% for task in section.tasks %}
+                <h3>{{ task.name }}</h3>
+                {{ task.contents }}
+                {% for file in task.files %}
+                    {% if file.user.id == course.owner.id %}
+                        </br>
+                        <a href="{{ asset('files/' ~ file.file) }}">{{ file.name }}</a>
+                        {{ include('course/file/form/_delete_form.html.twig', {'button_label': 'Usuń plik'}) }}
+                    {% endif %}
+                {% endfor %}
+                {% if task.isFile == true %}
+                    </br>
+                    <a href="{{ path('course_file_new', {'id': task.id}) }}">Prześlij plik</a>
+                {% endif %}
+            {%  else %}
+                <h3>Nie znaleziono zadań!</h3>
+            {% endfor %}
+        {% else %}
+            <h3>Nie znaleziono sekcji!</h3>
+        {% endfor %}
+        </br>
+        <a href="{{ path('course_index') }}">Wróć</a>
+    </div>
+{% endblock %}

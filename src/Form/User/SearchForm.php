@@ -13,9 +13,9 @@ class SearchForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, array(
+            ->add('username', TextType::class, [
                 'label' => 'Nazwa: '
-            ));
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

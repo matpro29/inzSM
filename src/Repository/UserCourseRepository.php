@@ -26,10 +26,10 @@ class UserCourseRepository extends ServiceEntityRepository
             ->innerJoin('uc.user', 'u')
             ->andWhere('c.id = :course_id')
             ->andWhere('u.id = :user_id')
-            ->setParameters(array(
+            ->setParameters([
                 'course_id' => $course_id,
                 'user_id' => $user_id
-            ))
+            ])
             ->getQuery()
             ->getResult();
     }

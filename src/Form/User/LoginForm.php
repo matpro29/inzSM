@@ -14,12 +14,12 @@ class LoginForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, array(
+            ->add('username', TextType::class, [
                 'label' => 'Nazwa użytkownika: '
-            ))
-            ->add('password', PasswordType::class, array(
+            ])
+            ->add('password', PasswordType::class, [
                 'label' => 'Hasło: '
-            ));
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

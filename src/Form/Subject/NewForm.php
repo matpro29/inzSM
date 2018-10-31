@@ -14,12 +14,12 @@ class NewForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, array(
+            ->add('name', TextType::class, [
                 'label' => 'Nazwa: '
-            ))
-            ->add('description', TextareaType::class, array(
+            ])
+            ->add('description', TextareaType::class, [
                 'label' => 'Opis: '
-            ));
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
