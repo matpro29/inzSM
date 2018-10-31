@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Grade;
 use App\Entity\Subject;
 use App\Entity\Type;
 use App\Entity\User;
@@ -43,6 +44,24 @@ class DatabaseFixtures extends Fixture
         $type5 = new Type();
         $type5->setName('Szkolenie');
 
+        $grade1 = new Grade();
+        $grade1->setGrade('2.0');
+
+        $grade2 = new Grade();
+        $grade2->setGrade('3.0');
+
+        $grade3 = new Grade();
+        $grade3->setGrade('3.5');
+
+        $grade4 = new Grade();
+        $grade4->setGrade('4.0');
+
+        $grade5 = new Grade();
+        $grade5->setGrade('4.5');
+
+        $grade6 = new Grade();
+        $grade6->setGrade('5.0');
+
         $user1 = new User();
         $user1->setUsername('admin');
         $user1->setPassword($this->userPasswordEncoder->encodePassword($user1, 'admin'));
@@ -76,6 +95,13 @@ class DatabaseFixtures extends Fixture
         $objectManager->persist($type3);
         $objectManager->persist($type4);
         $objectManager->persist($type5);
+
+        $objectManager->persist($grade1);
+        $objectManager->persist($grade2);
+        $objectManager->persist($grade3);
+        $objectManager->persist($grade4);
+        $objectManager->persist($grade5);
+        $objectManager->persist($grade6);
 
         $objectManager->persist($user1);
         $objectManager->persist($user2);
