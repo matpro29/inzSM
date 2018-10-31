@@ -10,29 +10,29 @@ use Doctrine\ORM\Mapping as ORM;
 class Grade
 {
     /**
+     * @ORM\Column(type="float")
+     */
+    private $grade;
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="grades")
-     */
-    private $user;
+    public function getGrade()
+    {
+        return $this->grade;
+    }
 
     public function getId()
     {
         return $this->id;
     }
 
-    public function getUser()
+    public function setGrade($grade): void
     {
-        return $this->user;
-    }
-
-    public function setUser($user): void
-    {
-        $this->user = $user;
+        $this->grade = $grade;
     }
 }

@@ -26,7 +26,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Course", mappedBy="owner")
      */
-    private $courses_own;
+    private $coursesOwn;
 
     /**
      * @ORM\Id()
@@ -48,7 +48,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="owner")
      */
-    private $messages_send;
+    private $messagesSend;
 
     /**
      * @ORM\Column(type="string", length=96)
@@ -74,11 +74,11 @@ class User implements UserInterface, \Serializable
     {
         $this->conversations = new ArrayCollection();
         $this->courses = new ArrayCollection();
-        $this->courses_own = new ArrayCollection();
+        $this->coursesOwn = new ArrayCollection();
         $this->files = new ArrayCollection();
         $this->grades = new ArrayCollection();
         $this->roles = array('ROLE_USER');
-        $this->messages_send = new ArrayCollection();
+        $this->messagesSend = new ArrayCollection();
     }
 
     public function eraseCredentials()
@@ -97,7 +97,7 @@ class User implements UserInterface, \Serializable
 
     public function getCoursesOwn(): Collection
     {
-        return $this->courses_own;
+        return $this->coursesOwn;
     }
 
     public function getId()
@@ -117,7 +117,7 @@ class User implements UserInterface, \Serializable
 
     public function getMessagesSend(): Collection
     {
-        return $this->messages_send;
+        return $this->messagesSend;
     }
 
     public function getPassword()

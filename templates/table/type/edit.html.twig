@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dodaj typ{% endblock %}
+{% block title %}Edytuj typ{% endblock %}
 
 {% block body %}
     <style>
@@ -9,10 +9,12 @@
     </style>
 
     <div class="example-wrapper">
-        <h1>Dodaj typ ✅</h1>
+        <h1>Edytuj typ ✅</h1>
 
-        {{ include('type/form/_new_form.html.twig', {'button_label': 'Dodaj typ'}) }}
-        </br>
+        {{ include('table/type/form/_new_form.html.twig', {'button_label': 'Zapisz zmiany'}) }}
+
         <a href="{{ path('type_index') }}">Wróć</a>
+
+        {{ include('table/type/form/_delete_form.html.twig', {'button_label': 'Usuń type'}) }}
     </div>
 {% endblock %}

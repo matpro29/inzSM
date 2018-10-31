@@ -33,7 +33,7 @@
             {% endfor %}
             </tbody>
         </table>
-        {{ include('conversation/form/_message_new_form.html.twig', {'button_label': 'Napisz'}) }}
+        {{ include('conversation/conversation/form/_message_new_form.html.twig', {'button_label': 'Napisz'}) }}
         </br>
         <a href="{{ path('conversation_index') }}">Wróć</a>
     </div>

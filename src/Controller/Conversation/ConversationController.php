@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Conversation;
 
 use App\Entity\Conversation;
 use App\Entity\Message;
@@ -30,7 +30,7 @@ class ConversationController extends Controller
             'conversation' => $conversations
         ];
 
-        return $this->render('conversation/index.html.twig', $params);
+        return $this->render('conversation/conversation/index.html.twig', $params);
     }
 
     /**
@@ -58,7 +58,7 @@ class ConversationController extends Controller
             'messages' => $messages
         ];
 
-        return $this->render('conversation/show.html.twig', $params);
+        return $this->render('conversation/conversation/show.html.twig', $params);
     }
 
     /**

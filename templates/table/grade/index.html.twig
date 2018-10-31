@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Rozmowy użytkownika{% endblock %}
+{% block title %}Oceny{% endblock %}
 
 {% block body %}
     <style>
@@ -9,31 +9,35 @@
     </style>
 
     <div class="example-wrapper">
-        <h1>Rozmowy użytkownika ✅</h1>
+        <h1>Oceny ✅</h1>
 
         <table class="table">
             <thead>
             <tr>
                 <th>Id</th>
+                <th>Ocena</th>
                 <th>Akcje</th>
             </tr>
             </thead>
             <tbody>
-            {% for conversation in conversations %}
+            {% for grade in grades %}
                 <tr>
-                    <td>{{ conversation.id }}</td>
+                    <td>{{ grade.id }}</td>
+                    <td>{{ grade.grade }}</td>
                     <td>
-                        <a href="{{ path('conversation_show', {'id': conversation.id}) }}">Wejdź</a>
+                        <a href="{{ path('grade_edit', {'id': grade.id}) }}">Edytuj</a>
+                        <a href="{{ path('grade_info', {'id': grade.id}) }}">Pokaż</a>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3">Nie znaleziono rozmów!</td>
+                    <td colspan="3">Nie znaleziono ocen!</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
-        {{ include('conversation/form/_new_form.html.twig', {'button_label': 'Nowa rozmowa'}) }}
+        </br>
+        <a href="{{ path('grade_new') }}">Dodaj ocenę</a>
         </br>
         <a href="{{ path('index') }}">Wróć</a>
     </div>

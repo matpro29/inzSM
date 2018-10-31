@@ -21,12 +21,12 @@ class Task
     /**
      * @ORM\Column(type="boolean")
      */
-    private $is_date;
+    private $isDate;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $is_file;
+    private $isFile;
 
 
     /**
@@ -37,7 +37,7 @@ class Task
     /**
      * @ORM\Column(type="datetime")
      */
-    private $end_date;
+    private $endDate;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\File", mappedBy="task")
@@ -57,7 +57,7 @@ class Task
     /**
      * @ORM\Column(type="datetime")
      */
-    private $start_date;
+    private $startDate;
 
     public function __construct()
     {
@@ -71,7 +71,7 @@ class Task
 
     public function getEndDate()
     {
-        return $this->end_date;
+        return $this->endDate;
     }
 
     public function getFiles(): Collection
@@ -86,12 +86,12 @@ class Task
 
     public function getIsDate()
     {
-        return $this->is_date;
+        return $this->isDate;
     }
 
     public function getIsFile()
     {
-        return $this->is_file;
+        return $this->isFile;
     }
 
     public function getName()
@@ -106,7 +106,7 @@ class Task
 
     public function getStartDate()
     {
-        return $this->start_date;
+        return $this->startDate;
     }
 
     public function setContents($contents): void
@@ -114,19 +114,19 @@ class Task
         $this->contents = $contents;
     }
 
-    public function setEndDate($end_date): void
+    public function setEndDate($endDate): void
     {
-        $this->end_date = $end_date;
+        $this->endDate = $endDate;
     }
 
-    public function setIsDate($is_date): void
+    public function setIsDate($isDate): void
     {
-        $this->is_date = $is_date;
+        $this->isDate = $isDate;
     }
 
-    public function setIsFile($is_file): void
+    public function setIsFile($isFile): void
     {
-        $this->is_file = $is_file;
+        $this->isFile = $isFile;
     }
 
     public function setName($name): void
@@ -139,8 +139,8 @@ class Task
         $this->section = $section;
     }
 
-    public function setStartDate($start_date): void
+    public function setStartDate($startDate): void
     {
-        $this->start_date = $start_date;
+        $this->startDate = $startDate;
     }
 }

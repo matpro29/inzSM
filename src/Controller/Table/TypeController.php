@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Table;
 
 use App\Entity\Type;
 use App\Form\Type\NewForm;
@@ -52,7 +52,7 @@ class TypeController extends Controller
             'type' => $type
         ];
 
-        return $this->render('type/edit.html.twig', $params);
+        return $this->render('table/type/edit.html.twig', $params);
     }
 
     /**
@@ -66,7 +66,7 @@ class TypeController extends Controller
             'types' => $types
         ];
 
-        return $this->render('type/index.html.twig', $params);
+        return $this->render('table/type/index.html.twig', $params);
     }
 
     /**
@@ -78,7 +78,7 @@ class TypeController extends Controller
             'type' => $type
         ];
 
-        return $this->render('type/info.html.twig', $params);
+        return $this->render('table/type/info.html.twig', $params);
     }
 
     /**
@@ -99,10 +99,9 @@ class TypeController extends Controller
         }
 
         $params = [
-            'form' => $form->createView(),
-            'type' => $type
+            'form' => $form->createView()
         ];
 
-        return $this->render('type/new.html.twig', $params);
+        return $this->render('table/type/new.html.twig', $params);
     }
 }

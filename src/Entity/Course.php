@@ -40,7 +40,7 @@ class Course
     private $notices;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="courses_own")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="coursesOwn")
      */
     private $owner;
 

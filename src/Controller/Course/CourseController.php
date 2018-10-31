@@ -9,7 +9,6 @@ use App\Form\Course\NewAdminForm;
 use App\Form\Course\NewTeacherForm;
 use App\Form\Course\SearchForm;
 use App\Repository\CourseRepository;
-use App\Repository\SectionRepository;
 use App\Repository\UserCourseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -124,7 +123,7 @@ class CourseController extends Controller
             $course->setPassword($password);
 
             if (!$this->security->isGranted('ROLE_ADMIN')) {
-                $course->setOwner($this->getUser());
+                $course->setOwner($user);
             }
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -180,7 +179,7 @@ class CourseController extends Controller
     /**
      * @Route("/{id}", name="course_show", methods="GET|POST")
      */
-    public function show(Course $course, Request $request, SectionRepository $sectionRepository, UserCourseRepository $userCourseRepository, UserInterface $user): Response
+    public function show(Course $course, Request $request, UserCourseRepository $userCourseRepository, UserInterface $user): Response
     {
         $params = [
             'course' => $course

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Table;
 
 use App\Entity\Subject;
 use App\Form\Subject\NewForm;
@@ -52,7 +52,7 @@ class SubjectController extends Controller
             'subject' => $subject
         ];
 
-        return $this->render('subject/edit.html.twig', $params);
+        return $this->render('table/subject/edit.html.twig', $params);
     }
 
     /**
@@ -66,7 +66,7 @@ class SubjectController extends Controller
             'subjects' => $subjects
         ];
 
-        return $this->render('subject/index.html.twig', $params);
+        return $this->render('table/subject/index.html.twig', $params);
     }
 
     /**
@@ -78,7 +78,7 @@ class SubjectController extends Controller
             'subject' => $subject
         ];
 
-        return $this->render('subject/info.html.twig', $params);
+        return $this->render('table/subject/info.html.twig', $params);
     }
 
     /**
@@ -99,10 +99,9 @@ class SubjectController extends Controller
         }
 
         $params = [
-            'form' => $form->createView(),
-            'subject' => $subject
+            'form' => $form->createView()
         ];
 
-        return $this->render('subject/new.html.twig', $params);
+        return $this->render('table/subject/new.html.twig', $params);
     }
 }

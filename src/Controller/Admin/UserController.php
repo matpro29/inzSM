@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
@@ -10,34 +10,40 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
- * @Route("/admin")
+ * @Route("/admin/user")
  */
-class AdminController extends Controller
+class UserController extends Controller
 {
     /**
-     * @Route("/", name="admin")
+     * @Route("/user", name="admin_user_index", methods="GET")
      */
-    public function index(): Response
+    public function index(UserRepository $userRepository): Response
     {
-        return $this->render('admin/index.html.twig');
+        $users = $userRepository->findAll();
+
+        $params = [
+            'users' => $users
+        ];
+
+        return $this->render('admin/user/index.html.twig', $params);
     }
 
     /**
      * @Route("/user/{id}", name="admin_user_info", methods="GET")
      */
-    public function userInfo(User $user): Response
+    public function info(User $user): Response
     {
         $params = [
             'user' => $user
         ];
 
-        return $this->render('admin/user_info.html.twig', $params);
+        return $this->render('admin/user/info.html.twig', $params);
     }
 
     /**
      * @Route("/user/{id}", name="admin_user_promote", methods="PROMOTE")
      */
-    public function userPromote(Request $request, User $user): Response
+    public function promote(Request $request, User $user): Response
     {
         if ($this->isCsrfTokenValid('promote'.$user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -51,20 +57,6 @@ class AdminController extends Controller
             'user' => $user
         ];
 
-        return $this->render('admin/user_info.html.twig', $params);
-    }
-
-    /**
-     * @Route("/users", name="admin_users", methods="GET")
-     */
-    public function users(UserRepository $userRepository): Response
-    {
-        $users = $userRepository->findAll();
-
-        $params = [
-            'users' => $users
-        ];
-
-        return $this->render('admin/users.html.twig', $params);
+        return $this->render('admin/user/info.html.twig', $params);
     }
 }

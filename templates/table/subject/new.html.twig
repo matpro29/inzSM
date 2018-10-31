@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Subject{% endblock %}
+{% block title %}Dodaj przedmiot{% endblock %}
 
 {% block body %}
     <style>
@@ -9,12 +9,10 @@
     </style>
 
     <div class="example-wrapper">
-        <h1>Edytuj przedmiot ✅</h1>
+        <h1>Dodaj przedmiot ✅</h1>
 
-        {{ include('subject/form/_new_form.html.twig', {'button_label': 'Zapisz zmiany'}) }}
-
+        {{ include('table/subject/form/_new_form.html.twig', {'button_label': 'Dodaj przedmiot'}) }}
+        </br>
         <a href="{{ path('subject_index') }}">Wróć</a>
-
-        {{ include('subject/form/_delete_form.html.twig', {'button_label': 'Usuń przedmiot'}) }}
     </div>
 {% endblock %}
