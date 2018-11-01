@@ -19,19 +19,19 @@ class NewForm extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Nazwa: '
             ])
-            ->add('is_file', CheckboxType::class, [
+            ->add('isFile', CheckboxType::class, [
                 'label' => 'Plik: ',
                 'required' => false
             ])
-            ->add('is_date', CheckboxType::class, [
+            ->add('isDate', CheckboxType::class, [
                 'label' => 'Ogranicz czas: ',
                 'required' => false
             ])
-            ->add('start_date', DateTimeType::class, [
+            ->add('startDate', DateTimeType::class, [
                 'label' => 'Data początkowa: ',
                 ''
             ])
-            ->add('end_date', DateTimeType::class, [
+            ->add('endDate', DateTimeType::class, [
                 'label' => 'Data końcowa: '
             ])
             ->add('contents', TextareaType::class, [
