@@ -52,7 +52,7 @@ class FileController extends Controller
         $form = $this->createForm(NewForm::class, $file);
         $form->handleRequest($request);
 
-        $course = $file->getTask()->getSection()->getCourse();
+        $course = $task->getSection()->getCourse();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $targetDirectory = $this->getParameter('files_directory');
