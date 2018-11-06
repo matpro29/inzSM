@@ -16,12 +16,14 @@ class IndexController extends Controller
     /**
      * @Route("/index", name="index")
      */
-    public function index(NoticeRepository $noticeRepository, UserInterface $user): Response
+    public function index(NoticeRepository $noticeRepository): Response
     {
+        $user = $this->getUser();
         $notices = $noticeRepository->findAllByUserIdWithLimit(5,$user->getId());
 
         $params = [
-            'notices' => $notices
+            'notices' => $notices,
+            'user' => $user
         ];
 
         return $this->render('index/index/index.html.twig', $params);
