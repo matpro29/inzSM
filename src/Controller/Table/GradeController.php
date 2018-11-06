@@ -47,9 +47,12 @@ class GradeController extends Controller
             return $this->redirectToRoute('grade_edit', $params);
         }
 
+        $user = $this->getUser();
+
         $params = [
             'form' => $form->createView(),
-            'grade' => $grade
+            'grade' => $grade,
+            'user' => $user
         ];
 
         return $this->render('table/grade/edit.html.twig', $params);
@@ -61,9 +64,11 @@ class GradeController extends Controller
     public function index(GradeRepository $gradeRepository): Response
     {
         $grades = $gradeRepository->findAll();
+        $user = $this->getUser();
 
         $params = [
-            'grades' => $grades
+            'grades' => $grades,
+            'user' => $user
         ];
 
         return $this->render('table/grade/index.html.twig', $params);
@@ -74,8 +79,11 @@ class GradeController extends Controller
      */
     public function info(Grade $grade): Response
     {
+        $user = $this->getUser();
+
         $params = [
-            'grade' => $grade
+            'grade' => $grade,
+            'user' => $user
         ];
 
         return $this->render('table/grade/info.html.twig', $params);
@@ -98,8 +106,11 @@ class GradeController extends Controller
             return $this->redirectToRoute('grade_index');
         }
 
+        $user = $this->getUser();
+
         $params = [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ];
 
         return $this->render('table/grade/new.html.twig', $params);

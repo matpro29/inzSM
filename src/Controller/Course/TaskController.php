@@ -40,9 +40,12 @@ class TaskController extends Controller
             return $this->redirectToRoute('course_show', $params);
         }
 
+        $user = $this->getUser();
+
         $params = [
             'course' => $course,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ];
 
         return $this->render('course/task/new.html.twig', $params);

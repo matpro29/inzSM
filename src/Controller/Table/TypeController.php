@@ -47,9 +47,12 @@ class TypeController extends Controller
             return $this->redirectToRoute('type_edit', $params);
         }
 
+        $user = $this->getUser();
+
         $params = [
             'form' => $form->createView(),
-            'type' => $type
+            'type' => $type,
+            'user' => $user
         ];
 
         return $this->render('table/type/edit.html.twig', $params);
@@ -61,9 +64,11 @@ class TypeController extends Controller
     public function index(TypeRepository $typeRepository): Response
     {
         $types = $typeRepository->findAll();
+        $user = $this->getUser();
 
         $params = [
-            'types' => $types
+            'types' => $types,
+            'user' => $user
         ];
 
         return $this->render('table/type/index.html.twig', $params);
@@ -74,8 +79,11 @@ class TypeController extends Controller
      */
     public function info(Type $type): Response
     {
+        $user = $this->getUser();
+
         $params = [
-            'type' => $type
+            'type' => $type,
+            'user' => $user
         ];
 
         return $this->render('table/type/info.html.twig', $params);
@@ -98,8 +106,11 @@ class TypeController extends Controller
             return $this->redirectToRoute('type_index');
         }
 
+        $user = $this->getUser();
+
         $params = [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ];
 
         return $this->render('table/type/new.html.twig', $params);

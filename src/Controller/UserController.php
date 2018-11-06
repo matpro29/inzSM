@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
@@ -53,8 +52,10 @@ class UserController extends Controller
     /**
      * @Route("/profile", name="profile")
      */
-    public function profile(UserInterface $user): Response
+    public function profile(): Response
     {
+        $user = $this->getUser();
+
         $params = [
             'user' => $user
         ];
@@ -82,8 +83,11 @@ class UserController extends Controller
             return $this->redirectToRoute('login');
         }
 
+        $user = $this->getUser();
+
         $params = [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ];
 
         return $this->render('user/register.html.twig', $params);

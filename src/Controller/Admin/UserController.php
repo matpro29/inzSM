@@ -19,9 +19,11 @@ class UserController extends Controller
      */
     public function index(UserRepository $userRepository): Response
     {
+        $user = $this->getUser();
         $users = $userRepository->findAll();
 
         $params = [
+            'user' => $user,
             'users' => $users
         ];
 
@@ -31,10 +33,13 @@ class UserController extends Controller
     /**
      * @Route("/user/{id}", name="admin_user_info", methods="GET")
      */
-    public function info(User $user): Response
+    public function info(User $userInfo): Response
     {
+        $user = $this->getUser();
+
         $params = [
-            'user' => $user
+            'user' => $user,
+            'userInfo' => $userInfo
         ];
 
         return $this->render('admin/user/info.html.twig', $params);
@@ -43,18 +48,21 @@ class UserController extends Controller
     /**
      * @Route("/user/{id}", name="admin_user_promote", methods="PROMOTE")
      */
-    public function promote(Request $request, User $user): Response
+    public function promote(Request $request, User $userInfo): Response
     {
-        if ($this->isCsrfTokenValid('promote'.$user->getId(), $request->request->get('_token'))) {
+        $user = $this->getUser();
+
+        if ($this->isCsrfTokenValid('promote'.$userInfo->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
 
-            $user->setRoles('ROLE_TEACHER');
+            $userInfo->setRoles('ROLE_TEACHER');
 
             $entityManager->flush();
         }
 
         $params = [
-            'user' => $user
+            'user' => $user,
+            'userInfo' => $userInfo
         ];
 
         return $this->render('admin/user/info.html.twig', $params);

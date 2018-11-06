@@ -11,7 +11,6 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/course/task/file")
@@ -46,11 +45,12 @@ class FileController extends Controller
     /**
      * @Route("/new/{id}", name="course_file_new", methods="GET|POST")
      */
-    public function new(Request $request, Task $task, UserInterface $user): Response
+    public function new(Request $request, Task $task): Response
     {
         $file = new File();
         $form = $this->createForm(NewForm::class, $file);
         $form->handleRequest($request);
+        $user = $this->getUser();
 
         $course = $task->getSection()->getCourse();
 
@@ -77,7 +77,8 @@ class FileController extends Controller
 
         $params = [
             'course' => $course,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ];
 
         return $this->render('course/file/new.html.twig', $params);

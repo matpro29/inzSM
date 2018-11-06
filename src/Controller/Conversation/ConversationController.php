@@ -12,7 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/conversation")
@@ -22,12 +21,14 @@ class ConversationController extends Controller
     /**
      * @Route("/", name="conversation_index", methods="GET")
      */
-    public function index(ConversationRepository $conversationRepository, UserInterface $user): Response
+    public function index(ConversationRepository $conversationRepository): Response
     {
+        $user = $this->getUser();
         $conversations = $conversationRepository->findAllByUserId($user->getId());
 
         $params = [
-            'conversation' => $conversations
+            'conversations' => $conversations,
+            'user' => $user
         ];
 
         return $this->render('conversation/conversation/index.html.twig', $params);
@@ -36,11 +37,12 @@ class ConversationController extends Controller
     /**
      * @Route("/{id}", name="conversation_show", methods="GET|POST")
      */
-    public function show(Conversation $conversation, MessageRepository $messageRepository, Request $request, UserInterface $user): Response
+    public function show(Conversation $conversation, MessageRepository $messageRepository, Request $request): Response
     {
         $message = new Message();
         $form = $this->createForm(NewForm::class, $message);
         $form->handleRequest($request);
+        $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $message->setConversation($conversation);
@@ -64,9 +66,10 @@ class ConversationController extends Controller
     /**
      * @Route("/", name="conversation_new", methods="NEW")
      */
-    public function new(MessageRepository $messageRepository, UserInterface $user): Response
+    public function new(): Response
     {
         $conversation = new Conversation();
+        $user = $this->getUser();
         $userConversation = new UserConversation();
         $userConversation->setConversation($conversation);
         $userConversation->setUser($user);
@@ -76,12 +79,8 @@ class ConversationController extends Controller
         $entityManager->persist($userConversation);
         $entityManager->flush();
 
-        $conversation_id = $conversation->getId();
-        $messages = $messageRepository->findAllByConversationId($conversation_id);
-
         $params = [
-            'id' => $conversation_id,
-            'messages' => $messages
+            'id' => $conversation->getId()
         ];
 
         return $this->redirectToRoute('conversation_show', $params);

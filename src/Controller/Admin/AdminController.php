@@ -16,6 +16,12 @@ class AdminController extends Controller
      */
     public function index(): Response
     {
-        return $this->render('admin/admin/index.html.twig');
+        $user = $this->getUser();
+
+        $params = [
+            'user' => $user
+        ];
+
+        return $this->render('admin/admin/index.html.twig', $params);
     }
 }

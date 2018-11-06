@@ -20,11 +20,14 @@ class UserController extends Controller
      * @ParamConverter("course", options={"id": "id_course"})
      * @ParamConverter("user", options={"id": "id_user"})
      */
-    public function info(Course $course, User $user): Response
+    public function info(Course $course, User $userInfo): Response
     {
+        $user = $this->getUser();
+
         $params = [
             'course' => $course,
-            'user' => $user
+            'user' => $user,
+            'userInfo' => $userInfo
         ];
 
         return $this->render('course/user/info.html.twig', $params);
@@ -35,10 +38,12 @@ class UserController extends Controller
      */
     public function index(Course $course, UserRepository $userRepository): Response
     {
+        $user = $this->getUser();
         $users = $userRepository->findAllByCourseId($course->getId());
 
         $params = [
             'course' => $course,
+            'user' => $user,
             'users' => $users
         ];
 
