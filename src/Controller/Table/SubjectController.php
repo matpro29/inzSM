@@ -47,9 +47,12 @@ class SubjectController extends Controller
             return $this->redirectToRoute('subject_edit', $params);
         }
 
+        $user = $this->getUser();
+
         $params = [
             'form' => $form->createView(),
-            'subject' => $subject
+            'subject' => $subject,
+            'user' => $user
         ];
 
         return $this->render('table/subject/edit.html.twig', $params);
@@ -61,9 +64,11 @@ class SubjectController extends Controller
     public function index(SubjectRepository $subjectRepository): Response
     {
         $subjects = $subjectRepository->findAll();
+        $user = $this->getUser();
 
         $params = [
-            'subjects' => $subjects
+            'subjects' => $subjects,
+            'user' => $user
         ];
 
         return $this->render('table/subject/index.html.twig', $params);
@@ -74,8 +79,11 @@ class SubjectController extends Controller
      */
     public function info(Subject $subject): Response
     {
+        $user = $this->getUser();
+
         $params = [
-            'subject' => $subject
+            'subject' => $subject,
+            'user' => $user
         ];
 
         return $this->render('table/subject/info.html.twig', $params);
@@ -98,8 +106,11 @@ class SubjectController extends Controller
             return $this->redirectToRoute('subject_index');
         }
 
+        $user = $this->getUser();
+
         $params = [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ];
 
         return $this->render('table/subject/new.html.twig', $params);

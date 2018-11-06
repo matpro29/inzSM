@@ -16,12 +16,14 @@ class NoticeController extends Controller
     /**
      * @Route("/", name="notice_index", methods="GET")
      */
-    public function index(NoticeRepository $noticeRepository, UserInterface $user): Response
+    public function index(NoticeRepository $noticeRepository): Response
     {
+        $user = $this->getUser();
         $notices = $noticeRepository->findAllByUserId($user->getId());
 
         $params = [
-            'notices' => $notices
+            'notices' => $notices,
+            'user' => $user
         ];
 
         return $this->render('index/notice/index.html.twig', $params);
