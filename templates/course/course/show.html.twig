@@ -18,9 +18,9 @@
         <a href="{{ path('course_section_new', {'id': course.id}) }}">Nowa skecja</a>
         </br>
         {% for section in course.sections %}
-            <h2>{{ section.name }}</h2>
+            <h2>{{ section.name }}</h2> {{ include('course/section/form/_delete_form.html.twig', {'button_label': '<span>&#10006;</span>'}) }}
             <a href="{{ path('course_task_new', {'id': section.id}) }}">Nowe zadanie</a>
-            {{ include('course/section/form/_delete_form.html.twig', {'button_label': 'Usuń sekcje'}) }}
+
             </br>
             {% for task in section.tasks %}
                 <h3>{{ task.name }}</h3>
