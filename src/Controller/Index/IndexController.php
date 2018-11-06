@@ -34,6 +34,12 @@ class IndexController extends Controller
      */
     public function public(): Response
     {
-        return $this->render('index/index/public.html.twig');
+        $user = $this->getUser();
+
+        $params = [
+            'user' => $user
+        ];
+
+        return $this->render('index/index/public.html.twig', $params);
     }
 }

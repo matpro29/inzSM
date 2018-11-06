@@ -51,6 +51,7 @@ class CourseController extends Controller
         $form = $this->createForm(NewAdminForm::class, $course);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -61,9 +62,12 @@ class CourseController extends Controller
             return $this->redirectToRoute('course_edit', $params);
         }
 
+        $user = $this->getUser();
+
         $params = [
             'course' => $course,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ];
 
         return $this->render('course/course/edit.html.twig', $params);
@@ -72,9 +76,10 @@ class CourseController extends Controller
     /**
      * @Route("/", name="course_index", methods="GET")
      */
-    public function index(CourseRepository $courseRepository, UserInterface $user): Response
+    public function index(CourseRepository $courseRepository): Response
     {
         $courses = null;
+        $user = $this->getUser();
 
         if ($this->security->isGranted('ROLE_TEACHER')) {
             $courses = $courseRepository->findAllByOwnerId($user->getId());
@@ -83,7 +88,8 @@ class CourseController extends Controller
         }
 
         $params = [
-            'courses' => $courses
+            'courses' => $courses,
+            'user' => $user
         ];
 
         return $this->render('course/course/index.html.twig', $params);
@@ -94,8 +100,11 @@ class CourseController extends Controller
      */
     public function info(Course $course): Response
     {
+        $user = $this->getUser();
+
         $params = [
-            'course' => $course
+            'course' => $course,
+            'user' => $user
         ];
 
         return $this->render('course/course/info.html.twig', $params);
@@ -104,9 +113,10 @@ class CourseController extends Controller
     /**
      * @Route("/new", name="course_new", methods="GET|POST")
      */
-    public function new(Request $request, UserInterface $user): Response
+    public function new(Request $request): Response
     {
         $course = new Course();
+        $user = $this->getUser();
 
         $form = null;
         if ($this->security->isGranted('ROLE_ADMIN')) {
@@ -139,7 +149,8 @@ class CourseController extends Controller
 
         $params = [
             'course' => $course,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ];
 
         return $this->render('course/course/new.html.twig', $params);
@@ -155,12 +166,15 @@ class CourseController extends Controller
         $form = $this->createForm(SearchForm::class, $courseSearch);
         $form->handleRequest($request);
 
+        $user = $this->getUser();
+
         if ($form->isSubmitted() && $form->isValid() && $courseSearch->getName()) {
             $courses = $courseRepository->findAllBySearchForm($courseSearch->getName());
 
             $params = [
                 'courses' => $courses,
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'user' => $user
             ];
 
             return $this->render('course/course/search.html.twig', $params);
@@ -170,7 +184,8 @@ class CourseController extends Controller
 
         $params = [
             'courses' => $courses,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ];
 
         return $this->render('course/course/search.html.twig', $params);
@@ -179,10 +194,13 @@ class CourseController extends Controller
     /**
      * @Route("/{id}", name="course_show", methods="GET|POST")
      */
-    public function show(Course $course, Request $request, UserCourseRepository $userCourseRepository, UserInterface $user): Response
+    public function show(Course $course, Request $request, UserCourseRepository $userCourseRepository): Response
     {
+        $user = $this->getUser();
+
         $params = [
-            'course' => $course
+            'course' => $course,
+            'user' => $user
         ];
 
         if ($user->getId() == $course->getOwner()->getId()
