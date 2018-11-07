@@ -5,16 +5,29 @@ namespace App\Controller\Course;
 use App\Entity\Course;
 use App\Entity\Notice;
 use App\Form\Notice\NewForm;
+use App\Repository\NoticeRepository;
+use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/course/notice")
  */
 class NoticeController extends Controller
 {
+    private $security;
+    private $parameter;
+
+    public function __construct(NoticeRepository $noticeRepository, Security $security)
+    {
+        $this->security = $security;
+        $this->parameter = new Parameter($noticeRepository, $security);
+    }
+
+
     /**
      * @Route("/new/{id}", name="course_notice_new", methods="GET|POST")
      */
@@ -27,6 +40,10 @@ class NoticeController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $notice->setCourse($course);
 
+            $startDate = new \DateTime();
+            $notice->setStartDate($startDate);
+            $notice->setEndDate($startDate);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($notice);
             $entityManager->flush();
@@ -38,13 +55,12 @@ class NoticeController extends Controller
             return $this->redirectToRoute('course_show', $params);
         }
 
-        $user = $this->getUser();
-
         $params = [
             'course' => $course,
-            'form' => $form->createView(),
-            'user' => $user
+            'form' => $form->createView()
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('course/notice/new.html.twig', $params);
     }

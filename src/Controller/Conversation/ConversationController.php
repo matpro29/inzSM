@@ -8,28 +8,35 @@ use App\Entity\UserConversation;
 use App\Form\Message\NewForm;
 use App\Repository\ConversationRepository;
 use App\Repository\MessageRepository;
+use App\Repository\NoticeRepository;
+use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/conversation")
  */
 class ConversationController extends Controller
 {
+    private $security;
+    private $parameter;
+
+    public function __construct(NoticeRepository $noticeRepository, Security $security)
+    {
+        $this->security = $security;
+        $this->parameter = new Parameter($noticeRepository, $security);
+    }
+
     /**
      * @Route("/", name="conversation_index", methods="GET")
      */
     public function index(ConversationRepository $conversationRepository): Response
     {
-        $user = $this->getUser();
-        $conversations = $conversationRepository->findAllByUserId($user->getId());
-
-        $params = [
-            'conversations' => $conversations,
-            'user' => $user
-        ];
+        $params = $this->parameter->getParams($this, []);
+        $params['conversations'] = $conversationRepository->findAllByUserId($params['user']->getId());
 
         return $this->render('conversation/conversation/index.html.twig', $params);
     }
@@ -42,11 +49,10 @@ class ConversationController extends Controller
         $message = new Message();
         $form = $this->createForm(NewForm::class, $message);
         $form->handleRequest($request);
-        $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $message->setConversation($conversation);
-            $message->setOwner($user);
+            $message->setOwner($this->getUser());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($message);
@@ -59,6 +65,8 @@ class ConversationController extends Controller
             'form' => $form->createView(),
             'messages' => $messages
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('conversation/conversation/show.html.twig', $params);
     }

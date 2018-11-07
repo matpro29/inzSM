@@ -5,18 +5,30 @@ namespace App\Controller\Course;
 use App\Entity\File;
 use App\Entity\Task;
 use App\Form\File\NewForm;
+use App\Repository\NoticeRepository;
 use App\Service\FileUploader;
+use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/course/task/file")
  */
 class FileController extends Controller
 {
+    private $security;
+    private $parameter;
+
+    public function __construct(NoticeRepository $noticeRepository, Security $security)
+    {
+        $this->security = $security;
+        $this->parameter = new Parameter($noticeRepository, $security);
+    }
+
     /**
      * @Route("/{id}", name="course_file_delete", methods="DELETE")
      */
@@ -50,7 +62,6 @@ class FileController extends Controller
         $file = new File();
         $form = $this->createForm(NewForm::class, $file);
         $form->handleRequest($request);
-        $user = $this->getUser();
 
         $course = $task->getSection()->getCourse();
 
@@ -59,6 +70,7 @@ class FileController extends Controller
             $fileUploader = new FileUploader($targetDirectory);
 
             $fileName = $fileUploader->upload($file->getFile());
+            $user = $this->getUser();
 
             $file->setFile($fileName);
             $file->setTask($task);
@@ -77,9 +89,10 @@ class FileController extends Controller
 
         $params = [
             'course' => $course,
-            'form' => $form->createView(),
-            'user' => $user
+            'form' => $form->createView()
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('course/file/new.html.twig', $params);
     }
