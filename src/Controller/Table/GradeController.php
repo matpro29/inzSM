@@ -5,16 +5,28 @@ namespace App\Controller\Table;
 use App\Entity\Grade;
 use App\Form\Grade\NewForm;
 use App\Repository\GradeRepository;
+use App\Repository\NoticeRepository;
+use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/grade")
  */
 class GradeController extends Controller
 {
+    private $security;
+    private $parameter;
+
+    public function __construct(NoticeRepository $noticeRepository, Security $security)
+    {
+        $this->security = $security;
+        $this->parameter = new Parameter($noticeRepository, $security);
+    }
+
     /**
      * @Route("/{id}", name="grade_delete", methods="DELETE")
      */
@@ -47,13 +59,12 @@ class GradeController extends Controller
             return $this->redirectToRoute('grade_edit', $params);
         }
 
-        $user = $this->getUser();
-
         $params = [
             'form' => $form->createView(),
-            'grade' => $grade,
-            'user' => $user
+            'grade' => $grade
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('table/grade/edit.html.twig', $params);
     }
@@ -64,12 +75,12 @@ class GradeController extends Controller
     public function index(GradeRepository $gradeRepository): Response
     {
         $grades = $gradeRepository->findAll();
-        $user = $this->getUser();
 
         $params = [
-            'grades' => $grades,
-            'user' => $user
+            'grades' => $grades
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('table/grade/index.html.twig', $params);
     }
@@ -79,12 +90,11 @@ class GradeController extends Controller
      */
     public function info(Grade $grade): Response
     {
-        $user = $this->getUser();
-
         $params = [
-            'grade' => $grade,
-            'user' => $user
+            'grade' => $grade
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('table/grade/info.html.twig', $params);
     }
@@ -106,12 +116,11 @@ class GradeController extends Controller
             return $this->redirectToRoute('grade_index');
         }
 
-        $user = $this->getUser();
-
         $params = [
-            'form' => $form->createView(),
-            'user' => $user
+            'form' => $form->createView()
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('table/grade/new.html.twig', $params);
     }

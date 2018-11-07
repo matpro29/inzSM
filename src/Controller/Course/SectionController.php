@@ -5,16 +5,29 @@ namespace App\Controller\Course;
 use App\Entity\Course;
 use App\Entity\Section;
 use App\Form\Section\NewForm;
+use App\Repository\NoticeRepository;
+use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/course/section")
  */
 class SectionController extends Controller
 {
+    private $security;
+    private $parameter;
+
+    public function __construct(NoticeRepository $noticeRepository, Security $security)
+    {
+        $this->security = $security;
+        $this->parameter = new Parameter($noticeRepository, $security);
+    }
+
+
     /**
      * @Route("/{id}", name="course_section_delete", methods="DELETE")
      */
@@ -62,6 +75,8 @@ class SectionController extends Controller
             'course' => $course,
             'form' => $form->createView()
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('course/section/new.html.twig', $params);
     }

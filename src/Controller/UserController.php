@@ -5,11 +5,14 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\User\LoginForm;
 use App\Form\User\RegisterForm;
+use App\Repository\NoticeRepository;
+use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
@@ -17,6 +20,15 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  */
 class UserController extends Controller
 {
+    private $security;
+    private $parameter;
+
+    public function __construct(NoticeRepository $noticeRepository, Security $security)
+    {
+        $this->security = $security;
+        $this->parameter = new Parameter($noticeRepository, $security);
+    }
+
     /**
      * @Route("/login", name="login")
      */
@@ -54,11 +66,7 @@ class UserController extends Controller
      */
     public function profile(): Response
     {
-        $user = $this->getUser();
-
-        $params = [
-            'user' => $user
-        ];
+        $params = $this->parameter->getParams($this, []);
 
         return $this->render('user/profile.html.twig', $params);
     }
@@ -75,6 +83,9 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
+
+            $dateTime = new \DateTime();
+            $user->setNoticeDate($dateTime);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

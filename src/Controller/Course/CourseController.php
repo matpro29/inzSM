@@ -9,7 +9,9 @@ use App\Form\Course\NewAdminForm;
 use App\Form\Course\NewTeacherForm;
 use App\Form\Course\SearchForm;
 use App\Repository\CourseRepository;
+use App\Repository\NoticeRepository;
 use App\Repository\UserCourseRepository;
+use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,10 +24,12 @@ use Symfony\Component\Security\Core\Security;
 class CourseController extends Controller
 {
     private $security;
+    private $parameter;
 
-    public function __construct(Security $security)
+    public function __construct(NoticeRepository $noticeRepository, Security $security)
     {
         $this->security = $security;
+        $this->parameter = new Parameter($noticeRepository, $security);
     }
 
     /**
@@ -61,13 +65,12 @@ class CourseController extends Controller
             return $this->redirectToRoute('course_edit', $params);
         }
 
-        $user = $this->getUser();
-
         $params = [
             'course' => $course,
-            'form' => $form->createView(),
-            'user' => $user
+            'form' => $form->createView()
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('course/course/edit.html.twig', $params);
     }
@@ -78,18 +81,13 @@ class CourseController extends Controller
     public function index(CourseRepository $courseRepository): Response
     {
         $courses = null;
-        $user = $this->getUser();
+        $params = $this->parameter->getParams($this, []);
 
         if ($this->security->isGranted('ROLE_TEACHER')) {
-            $courses = $courseRepository->findAllByOwnerId($user->getId());
+            $params['courses'] = $courseRepository->findAllByOwnerId($params['user']->getId());
         } else {
-            $courses = $courseRepository->findAllByUserId($user->getId());
+            $params['courses'] = $courseRepository->findAllByUserId($params['user']->getId());
         }
-
-        $params = [
-            'courses' => $courses,
-            'user' => $user
-        ];
 
         return $this->render('course/course/index.html.twig', $params);
     }
@@ -99,12 +97,11 @@ class CourseController extends Controller
      */
     public function info(Course $course): Response
     {
-        $user = $this->getUser();
-
         $params = [
             'course' => $course,
-            'user' => $user
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('course/course/info.html.twig', $params);
     }
@@ -115,7 +112,6 @@ class CourseController extends Controller
     public function new(Request $request): Response
     {
         $course = new Course();
-        $user = $this->getUser();
 
         $form = null;
         if ($this->security->isGranted('ROLE_ADMIN')) {
@@ -132,6 +128,7 @@ class CourseController extends Controller
             $course->setPassword($password);
 
             if (!$this->security->isGranted('ROLE_ADMIN')) {
+                $user = $this->getUser();
                 $course->setOwner($user);
             }
 
@@ -148,9 +145,10 @@ class CourseController extends Controller
 
         $params = [
             'course' => $course,
-            'form' => $form->createView(),
-            'user' => $user
+            'form' => $form->createView()
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('course/course/new.html.twig', $params);
     }
@@ -172,9 +170,10 @@ class CourseController extends Controller
 
             $params = [
                 'courses' => $courses,
-                'form' => $form->createView(),
-                'user' => $user
+                'form' => $form->createView()
             ];
+
+            $params = $this->parameter->getParams($this, $params);
 
             return $this->render('course/course/search.html.twig', $params);
         }
@@ -183,9 +182,10 @@ class CourseController extends Controller
 
         $params = [
             'courses' => $courses,
-            'form' => $form->createView(),
-            'user' => $user
+            'form' => $form->createView()
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('course/course/search.html.twig', $params);
     }
@@ -195,15 +195,10 @@ class CourseController extends Controller
      */
     public function show(Course $course, Request $request, UserCourseRepository $userCourseRepository): Response
     {
-        $user = $this->getUser();
+        $params = $this->parameter->getParams($this, []);
 
-        $params = [
-            'course' => $course,
-            'user' => $user
-        ];
-
-        if ($user->getId() == $course->getOwner()->getId()
-            || $userCourseRepository->getOneByCourseIdUserId($course->getId(), $user->getId())
+        if ($params['user']->getId() == $course->getOwner()->getId()
+            || $userCourseRepository->getOneByCourseIdUserId($course->getId(), $params['user']->getId())
             || $this->security->isGranted('ROLE_ADMIN')) {
 
             return $this->render('course/course/show.html.twig', $params);
@@ -216,7 +211,10 @@ class CourseController extends Controller
                     $userCourse = new UserCourse();
                     $userCourse->setCourse($course);
                     $userCourse->setStatus('Trwa');
-                    $userCourse->setUser($user);
+                    $userCourse->setUser($params['user']);
+
+                    $dateTime = new \DateTime();
+                    $userCourse->setJoinDate($dateTime);
 
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->persist($userCourse);

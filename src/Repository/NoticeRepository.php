@@ -19,27 +19,31 @@ class NoticeRepository extends ServiceEntityRepository
         parent::__construct($registry, Notice::class);
     }
 
-    public function findAllByUserId($user_id)
+    public function findNewByUserId($userId)
     {
         return $this->createQueryBuilder('n')
             ->innerJoin('n.course', 'c')
             ->innerJoin('c.users', 'uc')
             ->innerJoin('uc.user', 'u')
-            ->where('u.id = :user_id')
-            ->setParameter('user_id', $user_id)
+            ->where('u.id = :userId')
+            ->andWhere('n.startDate > u.noticeDate')
+            ->setParameter('userId', $userId)
             ->getQuery()
             ->getResult();
     }
 
-    public function findAllByUserIdWithLimit($limit, $user_id)
+    public function findAllByUserId($userId)
     {
         return $this->createQueryBuilder('n')
             ->innerJoin('n.course', 'c')
             ->innerJoin('c.users', 'uc')
             ->innerJoin('uc.user', 'u')
-            ->where('u.id = :user_id')
-            ->setMaxResults($limit)
-            ->setParameter('user_id', $user_id)
+            ->where('u.id = :userId')
+            ->andWhere('n.endDate > :nowDate')
+            ->setParameters([
+                'nowDate' => new \DateTime(),
+                'userId' => $userId
+            ])
             ->getQuery()
             ->getResult();
     }

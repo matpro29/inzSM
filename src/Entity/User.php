@@ -51,6 +51,11 @@ class User implements UserInterface, \Serializable
     private $messagesSend;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $noticeDate;
+
+    /**
      * @ORM\Column(type="string", length=96)
      */
     private $password;
@@ -120,6 +125,11 @@ class User implements UserInterface, \Serializable
         return $this->messagesSend;
     }
 
+    public function getNoticeDate()
+    {
+        return $this->noticeDate;
+    }
+
     public function getPassword()
     {
         return $this->password;
@@ -153,6 +163,11 @@ class User implements UserInterface, \Serializable
             $this->password,
             $this->roles,
         ));
+    }
+
+    public function setNoticeDate($noticeDate): void
+    {
+        $this->noticeDate = $noticeDate;
     }
 
     public function setPassword($password): void
