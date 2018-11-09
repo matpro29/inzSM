@@ -3,17 +3,29 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Repository\NoticeRepository;
 use App\Repository\UserRepository;
+use App\Service\Parameter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/admin/user")
  */
 class UserController extends Controller
 {
+    private $security;
+    private $parameter;
+
+    public function __construct(NoticeRepository $noticeRepository, Security $security)
+    {
+        $this->security = $security;
+        $this->parameter = new Parameter($noticeRepository, $security);
+    }
+
     /**
      * @Route("/user", name="admin_user_index", methods="GET")
      */
@@ -25,17 +37,21 @@ class UserController extends Controller
             'users' => $users
         ];
 
+        $params = $this->parameter->getParams($this, $params);
+
         return $this->render('admin/user/index.html.twig', $params);
     }
 
     /**
      * @Route("/user/{id}", name="admin_user_info", methods="GET")
      */
-    public function info(User $user): Response
+    public function info(User $userInfo): Response
     {
         $params = [
-            'user' => $user
+            'userInfo' => $userInfo
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('admin/user/info.html.twig', $params);
     }
@@ -43,19 +59,21 @@ class UserController extends Controller
     /**
      * @Route("/user/{id}", name="admin_user_promote", methods="PROMOTE")
      */
-    public function promote(Request $request, User $user): Response
+    public function promote(Request $request, User $userInfo): Response
     {
-        if ($this->isCsrfTokenValid('promote'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('promote'.$userInfo->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
 
-            $user->setRoles('ROLE_TEACHER');
+            $userInfo->setRoles('ROLE_TEACHER');
 
             $entityManager->flush();
         }
 
         $params = [
-            'user' => $user
+            'userInfo' => $userInfo
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('admin/user/info.html.twig', $params);
     }

@@ -22,6 +22,11 @@ class UserCourse
     private $id;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $joinDate;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $status;
@@ -41,6 +46,11 @@ class UserCourse
         return $this->id;
     }
 
+    public function getJoinDate()
+    {
+        return $this->joinDate;
+    }
+
     public function getStatus()
     {
         return $this->status;
@@ -54,6 +64,11 @@ class UserCourse
     public function setCourse($course): void
     {
         $this->course = $course;
+    }
+
+    public function setJoinDate($joinDate): void
+    {
+        $this->joinDate = $joinDate;
     }
 
     public function setStatus($status): void

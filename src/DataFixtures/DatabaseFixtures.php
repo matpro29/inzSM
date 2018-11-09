@@ -21,6 +21,8 @@ class DatabaseFixtures extends Fixture
 
     public function load(ObjectManager $objectManager)
     {
+        $dateTime = new \DateTime();
+
         $subject1 = new Subject();
         $subject1->setName('Teoretyczne Podstawy Informatyki');
         $subject1->setDescription('Poznasz wszystkie runy śródziemia znane przez największego maga, jakgiego zna ten świat.');
@@ -66,26 +68,31 @@ class DatabaseFixtures extends Fixture
         $user1->setUsername('admin');
         $user1->setPassword($this->userPasswordEncoder->encodePassword($user1, 'admin'));
         $user1->setRoles('ROLE_ADMIN');
+        $user1->setNoticeDate($dateTime);
 
         $user2 = new User();
         $user2->setUsername('janek');
         $user2->setPassword($this->userPasswordEncoder->encodePassword($user2, '123'));
         $user2->setRoles('ROLE_TEACHER');
+        $user2->setNoticeDate($dateTime);
 
         $user3 = new User();
         $user3->setUsername('tomek');
         $user3->setPassword($this->userPasswordEncoder->encodePassword($user3, '123'));
         $user3->setRoles('ROLE_TEACHER');
+        $user3->setNoticeDate($dateTime);
 
         $user4 = new User();
         $user4->setUsername('marcin');
         $user4->setPassword($this->userPasswordEncoder->encodePassword($user4, '123'));
         $user4->setRoles('ROLE_USER');
+        $user4->setNoticeDate($dateTime);
 
         $user5 = new User();
         $user5->setUsername('edek');
         $user5->setPassword($this->userPasswordEncoder->encodePassword($user5, '123'));
         $user5->setRoles('ROLE_USER');
+        $user5->setNoticeDate($dateTime);
 
         $objectManager->persist($subject1);
         $objectManager->persist($subject2);

@@ -5,16 +5,28 @@ namespace App\Controller\Course;
 use App\Entity\Section;
 use App\Entity\Task;
 use App\Form\Task\NewForm;
+use App\Repository\NoticeRepository;
+use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/course/section/task")
  */
 class TaskController extends Controller
 {
+    private $security;
+    private $parameter;
+
+    public function __construct(NoticeRepository $noticeRepository, Security $security)
+    {
+        $this->security = $security;
+        $this->parameter = new Parameter($noticeRepository, $security);
+    }
+
     /**
      * @Route("/new/{id}", name="course_task_new", methods="GET|POST")
      */
@@ -44,6 +56,8 @@ class TaskController extends Controller
             'course' => $course,
             'form' => $form->createView()
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('course/task/new.html.twig', $params);
     }

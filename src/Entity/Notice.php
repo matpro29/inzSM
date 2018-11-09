@@ -15,6 +15,11 @@ class Notice
     private $course;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $endDate;
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -26,9 +31,19 @@ class Notice
      */
     public $notice;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $startDate;
+
     public function getCourse()
     {
         return $this->course;
+    }
+
+    public function getEndDate()
+    {
+        return $this->endDate;
     }
 
     public function getId()
@@ -41,13 +56,28 @@ class Notice
         return $this->notice;
     }
 
+    public function getStartDate()
+    {
+        return $this->startDate;
+    }
+
     public function setCourse($course): void
     {
         $this->course = $course;
     }
 
+    public function setEndDate($endDate): void
+    {
+        $this->endDate = $endDate;
+    }
+
     public function setNotice($notice): void
     {
         $this->notice = $notice;
+    }
+
+    public function setStartDate($startDate): void
+    {
+        $this->startDate = $startDate;
     }
 }

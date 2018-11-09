@@ -10,15 +10,8 @@
     <div class="example-wrapper">
         <h1>Index ✅</h1>
 
-        {% for notice in notices %}
-            {{ notice.course.name }}
-            </br>
-            {{ notice.notice }}
-            </br>
-            </br>
-        {% else %}
-            Nie znaleziono powiadomień!
-        {% endfor %}
+        </br>
+        Masz {{ countNewNotices }} nowych powiadomień!
         </br>
         <a href="{{ path('notice_index') }}">Zobacz wszystkie powiadomienia</a>
         </br>

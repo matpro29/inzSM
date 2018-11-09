@@ -4,17 +4,29 @@ namespace App\Controller\Table;
 
 use App\Entity\Subject;
 use App\Form\Subject\NewForm;
+use App\Repository\NoticeRepository;
 use App\Repository\SubjectRepository;
+use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/subject")
  */
 class SubjectController extends Controller
 {
+    private $security;
+    private $parameter;
+
+    public function __construct(NoticeRepository $noticeRepository, Security $security)
+    {
+        $this->security = $security;
+        $this->parameter = new Parameter($noticeRepository, $security);
+    }
+
     /**
      * @Route("/{id}", name="subject_delete", methods="DELETE")
      */
@@ -55,6 +67,8 @@ class SubjectController extends Controller
             'user' => $user
         ];
 
+        $params = $this->parameter->getParams($this, $params);
+
         return $this->render('table/subject/edit.html.twig', $params);
     }
 
@@ -71,6 +85,8 @@ class SubjectController extends Controller
             'user' => $user
         ];
 
+        $params = $this->parameter->getParams($this, $params);
+
         return $this->render('table/subject/index.html.twig', $params);
     }
 
@@ -85,6 +101,8 @@ class SubjectController extends Controller
             'subject' => $subject,
             'user' => $user
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('table/subject/info.html.twig', $params);
     }
@@ -112,6 +130,8 @@ class SubjectController extends Controller
             'form' => $form->createView(),
             'user' => $user
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('table/subject/new.html.twig', $params);
     }

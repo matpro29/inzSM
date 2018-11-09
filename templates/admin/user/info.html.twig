@@ -15,19 +15,19 @@
             <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ user.id }}</td>
+                <td>{{ userInfo.id }}</td>
             </tr>
             <tr>
                 <th>Użytkownik</th>
-                <td>{{ user.username }}</td>
+                <td>{{ userInfo.username }}</td>
             </tr>
             <tr>
                 <th>Role</th>
-                <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
+                <td>{{ userInfo.roles ? userInfo.roles|join(', ') : '' }}</td>
             </tr>
             <tr>
                 <th>Hasło</th>
-                <td>{{ user.password }}</td>
+                <td>{{ userInfo.password }}</td>
             </tr>
             </tbody>
         </table>

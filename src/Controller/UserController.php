@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\User\LoginForm;
 use App\Form\User\RegisterForm;
+use App\Repository\NoticeRepository;
+use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
@@ -18,6 +20,15 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  */
 class UserController extends Controller
 {
+    private $security;
+    private $parameter;
+
+    public function __construct(NoticeRepository $noticeRepository, Security $security)
+    {
+        $this->security = $security;
+        $this->parameter = new Parameter($noticeRepository, $security);
+    }
+
     /**
      * @Route("/login", name="login")
      */
@@ -53,11 +64,9 @@ class UserController extends Controller
     /**
      * @Route("/profile", name="profile")
      */
-    public function profile(UserInterface $user): Response
+    public function profile(): Response
     {
-        $params = [
-            'user' => $user
-        ];
+        $params = $this->parameter->getParams($this, []);
 
         return $this->render('user/profile.html.twig', $params);
     }
@@ -75,6 +84,9 @@ class UserController extends Controller
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
 
+            $dateTime = new \DateTime();
+            $user->setNoticeDate($dateTime);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -82,8 +94,11 @@ class UserController extends Controller
             return $this->redirectToRoute('login');
         }
 
+        $user = $this->getUser();
+
         $params = [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ];
 
         return $this->render('user/register.html.twig', $params);

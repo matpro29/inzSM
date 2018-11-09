@@ -4,17 +4,29 @@ namespace App\Controller\Table;
 
 use App\Entity\Type;
 use App\Form\Type\NewForm;
+use App\Repository\NoticeRepository;
 use App\Repository\TypeRepository;
+use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/type")
  */
 class TypeController extends Controller
 {
+    private $security;
+    private $parameter;
+
+    public function __construct(NoticeRepository $noticeRepository, Security $security)
+    {
+        $this->security = $security;
+        $this->parameter = new Parameter($noticeRepository, $security);
+    }
+
     /**
      * @Route("/{id}", name="type_delete", methods="DELETE")
      */
@@ -52,6 +64,8 @@ class TypeController extends Controller
             'type' => $type
         ];
 
+        $params = $this->parameter->getParams($this, $params);
+
         return $this->render('table/type/edit.html.twig', $params);
     }
 
@@ -66,6 +80,8 @@ class TypeController extends Controller
             'types' => $types
         ];
 
+        $params = $this->parameter->getParams($this, $params);
+
         return $this->render('table/type/index.html.twig', $params);
     }
 
@@ -77,6 +93,8 @@ class TypeController extends Controller
         $params = [
             'type' => $type
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('table/type/info.html.twig', $params);
     }
@@ -101,6 +119,8 @@ class TypeController extends Controller
         $params = [
             'form' => $form->createView()
         ];
+
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('table/type/new.html.twig', $params);
     }
