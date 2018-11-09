@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1">
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('build/layout.css') }}">
+        {#<link rel="stylesheet" href="owl.carousel/dist/assets/owl.carousel.css" />#}
+
     {% endblock %}
     {#<link rel="stylesheet" href="/node_modules/owl.carousel/dist/assets/owl.carousel.min.css" />#}
     {#<script src="/node_modules/jquery/dist/jquery.js"></script>#}
@@ -152,7 +153,8 @@
 {% endif %}
 
 {% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+    {#<script src="owl.carousel/dist/owl.carousel"></script>#}
+{% endblock %}
 </body>
 </html>
-K
