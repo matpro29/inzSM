@@ -81,13 +81,20 @@ class CourseController extends Controller
     public function index(CourseRepository $courseRepository): Response
     {
         $courses = null;
-        $params = $this->parameter->getParams($this, []);
+        $user = $this->getUser();
 
         if ($this->security->isGranted('ROLE_TEACHER')) {
-            $params['courses'] = $courseRepository->findAllByOwnerId($params['user']->getId());
+            $courses = $courseRepository->findAllByOwnerId($user->getId());
         } else {
-            $params['courses'] = $courseRepository->findAllByUserId($params['user']->getId());
+            $courses = $courseRepository->findAllByUserId($user->getId());
         }
+
+        $params = [
+            'user' => $user,
+            'courses' => $courses
+        ];
+
+        $params = $this->parameter->getCountNewNotices($params, $user);
 
         return $this->render('course/course/index.html.twig', $params);
     }
@@ -162,8 +169,6 @@ class CourseController extends Controller
 
         $form = $this->createForm(SearchForm::class, $courseSearch);
         $form->handleRequest($request);
-
-        $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid() && $courseSearch->getName()) {
             $courses = $courseRepository->findAllBySearchForm($courseSearch->getName());

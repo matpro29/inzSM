@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
 /**
- * @Route("/type")
+ * @Route("/table/type")
  */
 class TypeController extends Controller
 {

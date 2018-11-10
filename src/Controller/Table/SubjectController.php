@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
 /**
- * @Route("/subject")
+ * @Route("/table/subject")
  */
 class SubjectController extends Controller
 {

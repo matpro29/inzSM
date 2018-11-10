@@ -18,4 +18,20 @@ class UserSectionGradeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, UserSectionGrade::class);
     }
+
+    public function findAllByCourseIdUserId($courseId, $userId)
+    {
+        return $this->createQueryBuilder('usg')
+            ->innerJoin('usg.user', 'u')
+            ->innerJoin('usg.section', 's')
+            ->innerJoin('s.course', 'c')
+            ->where('c.id = :courseId')
+            ->andWhere('u.id = :userId')
+            ->setParameters([
+                'courseId' => $courseId,
+                'userId' => $userId
+            ])
+            ->getQuery()
+            ->getResult();
+    }
 }

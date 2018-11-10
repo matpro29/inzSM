@@ -17,6 +17,19 @@ class Parameter extends Controller
         $this->security = $security;
     }
 
+    public function getCountNewNotices($params, $user)
+    {
+        if ($user && $this->security->isGranted('ROLE_USER')) {
+            $newNotices = $this->noticeRepository->findNewByUserId($user->getId());
+            $countNewNotices = count($newNotices);
+            $params['countNewNotices'] = $countNewNotices;
+        } else {
+            $params['countNewNotices'] = null;
+        }
+
+        return $params;
+    }
+
     public function getParams($context, $params)
     {
         $user = $context->getUser();

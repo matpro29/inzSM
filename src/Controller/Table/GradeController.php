@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
 /**
- * @Route("/grade")
+ * @Route("/table/grade")
  */
 class GradeController extends Controller
 {
