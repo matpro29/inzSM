@@ -200,7 +200,10 @@ class CourseController extends Controller
      */
     public function show(Course $course, Request $request, UserCourseRepository $userCourseRepository): Response
     {
-        $params = $this->parameter->getParams($this, []);
+        $params = [
+            'course' => $course
+        ];
+        $params = $this->parameter->getParams($this, $params);
 
         if ($params['user']->getId() == $course->getOwner()->getId()
             || $userCourseRepository->getOneByCourseIdUserId($course->getId(), $params['user']->getId())
