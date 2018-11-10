@@ -18,4 +18,9 @@ class GradeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Grade::class);
     }
+
+    public function findAllQB()
+    {
+        return $this->createQueryBuilder('g');
+    }
 }

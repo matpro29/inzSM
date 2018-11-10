@@ -18,4 +18,17 @@ class SectionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Section::class);
     }
+
+    public function findAllByUserIdQB($userId)
+    {
+        return $this->createQueryBuilder('s')
+            ->leftJoin('s.grades', 'usg')
+            ->leftJoin('usg.grade', 'g')
+            ->innerJoin('s.course', 'c')
+            ->innerJoin('c.users', 'uc')
+            ->innerJoin('uc.user', 'u')
+            ->where('u.id = :userId')
+            ->andWhere('g.id IS NULL')
+            ->setParameter('userId', $userId);
+    }
 }
