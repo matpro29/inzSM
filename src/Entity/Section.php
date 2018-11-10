@@ -17,6 +17,11 @@ class Section
     private $course;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserSectionGrade", mappedBy="section")
+     */
+    private $grades;
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -35,12 +40,18 @@ class Section
 
     public function __construct()
     {
+        $this->grades = new ArrayCollection();
         $this->tasks = new ArrayCollection();
     }
 
     public function getCourse()
     {
         return $this->course;
+    }
+
+    public function getGrades(): Collection
+    {
+        return $this->grades;
     }
 
     public function getId()

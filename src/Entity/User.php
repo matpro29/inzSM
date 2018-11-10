@@ -24,6 +24,11 @@ class User implements UserInterface, \Serializable
     private $courses;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserCourseGrade", mappedBy="user")
+     */
+    private $coursesGrades;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Course", mappedBy="owner")
      */
     private $coursesOwn;
@@ -71,6 +76,11 @@ class User implements UserInterface, \Serializable
     private $roles;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserSectionGrade", mappedBy="user")
+     */
+    private $sectionsGrades;
+
+    /**
      * @ORM\Column(type="string", length=64, unique=true)
      */
     private $username;
@@ -79,10 +89,12 @@ class User implements UserInterface, \Serializable
     {
         $this->conversations = new ArrayCollection();
         $this->courses = new ArrayCollection();
+        $this->coursesGrades = new ArrayCollection();
         $this->coursesOwn = new ArrayCollection();
         $this->files = new ArrayCollection();
         $this->grades = new ArrayCollection();
         $this->roles = array('ROLE_USER');
+        $this->sectionsGrades = new ArrayCollection();
         $this->messagesSend = new ArrayCollection();
     }
 
@@ -98,6 +110,11 @@ class User implements UserInterface, \Serializable
     public function getCourses(): Collection
     {
         return $this->courses;
+    }
+
+    public function getCoursesGrades(): Collection
+    {
+        return $this->coursesGrades;
     }
 
     public function getCoursesOwn(): Collection
@@ -148,6 +165,11 @@ class User implements UserInterface, \Serializable
     public function getSalt()
     {
         return null;
+    }
+
+    public function getSectionsGrades(): Collection
+    {
+        return $this->sectionsGrades;
     }
 
     public function getUsername()
