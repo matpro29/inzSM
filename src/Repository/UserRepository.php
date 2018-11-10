@@ -31,7 +31,7 @@ class UserRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('u')
             ->innerJoin('u.courses','uc')
             ->innerJoin('uc.course', 'c')
-            ->where('c.id = :course_id')
+            ->where('c.id = :courseId')
             ->setParameter('courseId', $courseId)
             ->getQuery()
             ->getResult();
