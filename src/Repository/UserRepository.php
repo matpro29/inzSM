@@ -26,13 +26,13 @@ class UserRepository extends ServiceEntityRepository
             ->setParameter('role', '%'.$role.'%');
     }
 
-    public function findAllByCourseId($course_id)
+    public function findAllByCourseId($courseId)
     {
         return $this->createQueryBuilder('u')
             ->innerJoin('u.courses','uc')
             ->innerJoin('uc.course', 'c')
-            ->where('c.id = :course_id')
-            ->setParameter('course_id', $course_id)
+            ->where('c.id = :courseId')
+            ->setParameter('courseId', $courseId)
             ->getQuery()
             ->getResult();
     }

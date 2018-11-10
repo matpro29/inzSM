@@ -28,9 +28,9 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/info/{id_course}/{id_user}", name="course_user_info")
-     * @ParamConverter("course", options={"id": "id_course"})
-     * @ParamConverter("user", options={"id": "id_user"})
+     * @Route("/info/{courseId}/{userId}", name="course_user_info")
+     * @ParamConverter("course", options={"id": "courseId"})
+     * @ParamConverter("userInfo", options={"id": "userId"})
      */
     public function info(Course $course, User $userInfo): Response
     {
