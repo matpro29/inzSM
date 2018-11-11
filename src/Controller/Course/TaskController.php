@@ -29,6 +29,55 @@ class TaskController extends Controller
     }
 
     /**
+     * @Route("/{id}", name="course_task_delete", methods="DELETE")
+     */
+    public function delete(Request $request, Task $task): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$task->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($task);
+            $entityManager->flush();
+        }
+
+        $params = [
+            'id' => $task->getSection()->getCourse()->getId()
+        ];
+
+        return $this->redirectToRoute('course_show', $params);
+    }
+
+    /**
+     * @Route("/edit/{id}", name="course_task_edit", methods="GET|POST")
+     */
+    public function edit(Request $request, Task $task): Response
+    {
+        $form = $this->createForm(NewForm::class, $task);
+        $form->handleRequest($request);
+
+        $courseId = $task->getSection()->getCourse()->getId();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            $params = [
+                'id' => $courseId
+            ];
+
+            return $this->redirectToRoute('course_show', $params);
+        }
+
+        $params = [
+            'courseId' => $courseId,
+            'form' => $form->createView(),
+            'task' => $task
+        ];
+
+        $params = $this->parameter->getParams($this, $params);
+
+        return $this->render('course/task/edit.html.twig', $params);
+    }
+
+    /**
      * @Route("/new/{id}", name="course_task_new", methods="GET|POST")
      */
     public function new(Request $request, Section $section): Response

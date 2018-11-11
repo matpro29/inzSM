@@ -24,6 +24,8 @@
             </br>
             {% for task in section.tasks %}
                 <h3>{{ task.name }}</h3>
+                <a href="{{ path('course_task_edit', {'id': task.id}) }}">Edytuj zadanie</a>
+                {{ include('course/task/form/_delete_form.html.twig', {'button_label': 'Usuń zadanie'}) }}
                 {{ task.contents }}
                 {% for file in task.files %}
                     {% if file.user.id == course.owner.id %}
