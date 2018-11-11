@@ -19,11 +19,15 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    public function findAllByRoleQB($role)
+    public function findAllByConversationId($conversationId)
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.roles LIKE :role')
-            ->setParameter('role', '%'.$role.'%');
+            ->innerJoin('u.conversations', 'uc')
+            ->innerJoin('uc.conversation', 'c')
+            ->where('c.id = :conversationId')
+            ->setParameter('conversationId', $conversationId)
+            ->getQuery()
+            ->getResult();
     }
 
     public function findAllByCourseId($courseId)
@@ -37,6 +41,31 @@ class UserRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findById($id)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllByRoleQB($role)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.roles LIKE :role')
+            ->setParameter('role', '%'.$role.'%');
+    }
+
+    public  function findAllBySearchForm($username)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.username LIKE :username')
+            ->setParameter('username', '%'.$username.'%')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findAllTeacherByUserIdQB($id)
     {
         return $this->createQueryBuilder('u')
@@ -45,14 +74,5 @@ class UserRepository extends ServiceEntityRepository
             ->innerJoin('c.owner', 'o')
             ->where('u.id = :id')
             ->setParameter('id', $id);
-    }
-
-    public function findById($id)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->getResult();
     }
 }

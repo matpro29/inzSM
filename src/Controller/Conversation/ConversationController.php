@@ -63,6 +63,7 @@ class ConversationController extends Controller
         $messages = $messageRepository->findAllByConversationId($conversation->getId());
 
         $params = [
+            'conversation' => $conversation,
             'form' => $form->createView(),
             'messages' => $messages
         ];

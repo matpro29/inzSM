@@ -54,20 +54,20 @@ class TaskController extends Controller
         $form = $this->createForm(NewForm::class, $task);
         $form->handleRequest($request);
 
-        $courseId = $task->getSection()->getCourse()->getId();
+        $course = $task->getSection()->getCourse();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             $params = [
-                'id' => $courseId
+                'id' => $course->getId()
             ];
 
             return $this->redirectToRoute('course_show', $params);
         }
 
         $params = [
-            'courseId' => $courseId,
+            'course' => $course,
             'form' => $form->createView(),
             'task' => $task
         ];
