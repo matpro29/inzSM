@@ -28,7 +28,7 @@ class GradeController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="grade_delete", methods="DELETE")
+     * @Route("/{id}", name="table_grade_delete", methods="DELETE")
      */
     public function delete(Grade $grade, Request $request): Response
     {
@@ -38,11 +38,11 @@ class GradeController extends Controller
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('grade_index');
+        return $this->redirectToRoute('table_grade_index');
     }
 
     /**
-     * @Route("/edit/{id}", name="grade_edit", methods="GET|POST")
+     * @Route("/edit/{id}", name="table_grade_edit", methods="GET|POST")
      */
     public function edit(Grade $grade, Request $request): Response
     {
@@ -56,7 +56,7 @@ class GradeController extends Controller
                 'id' => $grade->getId()
             ];
 
-            return $this->redirectToRoute('grade_edit', $params);
+            return $this->redirectToRoute('table_grade_edit', $params);
         }
 
         $params = [
@@ -70,7 +70,7 @@ class GradeController extends Controller
     }
 
     /**
-     * @Route("/", name="grade_index", methods="GET")
+     * @Route("/", name="table_grade_index", methods="GET")
      */
     public function index(GradeRepository $gradeRepository): Response
     {
@@ -86,7 +86,7 @@ class GradeController extends Controller
     }
 
     /**
-     * @Route("/info/{id}", name="grade_info", methods="GET", requirements={"id"="\d+"})
+     * @Route("/info/{id}", name="table_grade_info", methods="GET", requirements={"id"="\d+"})
      */
     public function info(Grade $grade): Response
     {
@@ -100,7 +100,7 @@ class GradeController extends Controller
     }
 
     /**
-     * @Route("/new", name="grade_new", methods="GET|POST")
+     * @Route("/new", name="table_grade_new", methods="GET|POST")
      */
     public function new(Request $request): Response
     {
@@ -113,7 +113,7 @@ class GradeController extends Controller
             $entityManager->persist($grade);
             $entityManager->flush();
 
-            return $this->redirectToRoute('grade_index');
+            return $this->redirectToRoute('table_grade_index');
         }
 
         $params = [

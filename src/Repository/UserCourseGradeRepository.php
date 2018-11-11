@@ -18,4 +18,20 @@ class UserCourseGradeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, UserCourseGrade::class);
     }
+
+    public function findOneByCourseIdUserId($courseId, $userId)
+    {
+        return $this->createQueryBuilder('ucg')
+            ->innerJoin('ucg.course', 'c')
+            ->innerJoin('ucg.user', 'u')
+            ->where('c.id = :courseId')
+            ->andWhere('u.id = :userId')
+            ->setMaxResults(1)
+            ->setParameters([
+                'courseId' => $courseId,
+                'userId' => $userId
+            ])
+            ->getQuery()
+            ->getResult();
+    }
 }

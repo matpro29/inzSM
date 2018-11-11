@@ -28,7 +28,7 @@ class TypeController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="type_delete", methods="DELETE")
+     * @Route("/{id}", name="table_type_delete", methods="DELETE")
      */
     public function delete(Request $request, Type $type): Response
     {
@@ -38,11 +38,11 @@ class TypeController extends Controller
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('type_index');
+        return $this->redirectToRoute('table_type_index');
     }
 
     /**
-     * @Route("/edit/{id}", name="type_edit", methods="GET|POST")
+     * @Route("/edit/{id}", name="table_type_edit", methods="GET|POST")
      */
     public function edit(Request $request, Type $type): Response
     {
@@ -56,7 +56,7 @@ class TypeController extends Controller
                 'id' => $type->getId()
             ];
 
-            return $this->redirectToRoute('type_edit', $params);
+            return $this->redirectToRoute('table_type_edit', $params);
         }
 
         $params = [
@@ -70,7 +70,7 @@ class TypeController extends Controller
     }
 
     /**
-     * @Route("/", name="type_index", methods="GET")
+     * @Route("/", name="table_type_index", methods="GET")
      */
     public function index(TypeRepository $typeRepository): Response
     {
@@ -86,7 +86,7 @@ class TypeController extends Controller
     }
 
     /**
-     * @Route("/info/{id}", name="type_info", methods="GET")
+     * @Route("/info/{id}", name="table_type_info", methods="GET")
      */
     public function info(Type $type): Response
     {
@@ -100,7 +100,7 @@ class TypeController extends Controller
     }
 
     /**
-     * @Route("/new", name="type_new", methods="GET|POST")
+     * @Route("/new", name="table_type_new", methods="GET|POST")
      */
     public function new(Request $request): Response
     {
@@ -113,7 +113,7 @@ class TypeController extends Controller
             $entityManager->persist($type);
             $entityManager->flush();
 
-            return $this->redirectToRoute('type_index');
+            return $this->redirectToRoute('table_type_index');
         }
 
         $params = [

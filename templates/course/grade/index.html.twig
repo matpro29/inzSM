@@ -31,7 +31,27 @@
             </tbody>
         </table>
         </br>
-        <a href="{{ path('course_user_grade_new', {'courseId': course.id, 'userId': userInfo.id}) }}">Dodaj ocenę</a>
+        {% for section in course.sections %}
+            <h1>{{ section.name }}</h1>
+            {% for grade in section.grades %}
+                {% if grade.user.id == userInfo.id %}
+                    {{ grade.grade.grade }}
+                {% else %}
+                    <a href="{{ path('course_user_grade_new', {'sectionId': section.id, 'userId': userInfo.id}) }}">Dodaj ocenę cząstkową</a>
+                {% endif %}
+            {% endfor %}
+            {% for task in section.tasks %}
+                <h3>{{ task.name }}</h3>
+                {% for file in task.files %}
+                    {% if userInfo.id == file.user.id %}
+                        <a href="{{ asset('files/' ~ file.file) }}">{{ file.name }}</a>
+                        </br>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+        </br>
+        <a href="{{ path('course_user_grade_end', {'courseId': course.id, 'userId': userInfo.id}) }}">Dodaj ocenę końcową</a>
         </br>
         <a href="{{ path('course_user', {'id': course.id}) }}">Wróć</a>
     </div>

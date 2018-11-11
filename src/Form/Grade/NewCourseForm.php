@@ -3,14 +3,14 @@
 namespace App\Form\Grade;
 
 use App\Entity\Grade;
-use App\Entity\UserSectionGrade;
+use App\Entity\UserCourseGrade;
 use App\Repository\GradeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class NewSectionForm extends AbstractType
+class NewCourseForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -28,7 +28,7 @@ class NewSectionForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => UserSectionGrade::class
+            'data_class' => UserCourseGrade::class
         ]);
     }
 }

@@ -206,7 +206,7 @@ class CourseController extends Controller
         $params = $this->parameter->getParams($this, $params);
 
         if ($params['user']->getId() == $course->getOwner()->getId()
-            || $userCourseRepository->getOneByCourseIdUserId($course->getId(), $params['user']->getId())
+            || $userCourseRepository->findOneByCourseIdUserId($course->getId(), $params['user']->getId())
             || $this->security->isGranted('ROLE_ADMIN')) {
 
             return $this->render('course/course/show.html.twig', $params);

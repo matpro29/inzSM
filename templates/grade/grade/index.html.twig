@@ -14,9 +14,10 @@
         {% for grade in sectionsGrades %}
             {{ grade.section.name }} => {{ grade.grade.grade }}
             </br>
-        {% else %}
-            Nie znaleziono ocen!
         {% endfor %}
+        {% if courseGrade is not null %}
+            {{ courseGrade.course.name }} => {{ courseGrade.grade.grade }}
+        {% endif %}
         </br>
         <a href="{{ path('grade_index') }}">Wróć</a>
     </div>

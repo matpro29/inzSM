@@ -25,8 +25,8 @@
         </table>
         {{ include('table/grade/form/_delete_form.html.twig', {'button_label': 'Usuń ocenę'}) }}
         </br>
-        <a href="{{ path('grade_edit', {'id': grade.id}) }}">Edytuj</a>
+        <a href="{{ path('table_grade_edit', {'id': grade.id}) }}">Edytuj</a>
         </br>
-        <a href="{{ path('grade_index') }}">Wróć</a>
+        <a href="{{ path('table_grade_index') }}">Wróć</a>
     </div>
 {% endblock %}

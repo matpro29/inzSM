@@ -51,7 +51,7 @@ class UserCourseGrade
         return $this->user;
     }
 
-    public function setSection($course): void
+    public function setCourse($course): void
     {
         $this->course = $course;
     }

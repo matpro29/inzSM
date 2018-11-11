@@ -38,6 +38,11 @@ class Section
      */
     private $tasks;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $weight;
+
     public function __construct()
     {
         $this->grades = new ArrayCollection();
@@ -69,6 +74,11 @@ class Section
         return $this->tasks;
     }
 
+    public function getWeight()
+    {
+        return $this->weight;
+    }
+
     public function setCourse($course): void
     {
         $this->course = $course;
@@ -77,5 +87,10 @@ class Section
     public function setName($name): void
     {
         $this->name = $name;
+    }
+
+    public function setWeight($weight): void
+    {
+        $this->weight = $weight;
     }
 }

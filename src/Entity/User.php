@@ -46,11 +46,6 @@ class User implements UserInterface, \Serializable
     private $files;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Grade", mappedBy="user")
-     */
-    private $grades;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="owner")
      */
     private $messagesSend;
@@ -92,7 +87,6 @@ class User implements UserInterface, \Serializable
         $this->coursesGrades = new ArrayCollection();
         $this->coursesOwn = new ArrayCollection();
         $this->files = new ArrayCollection();
-        $this->grades = new ArrayCollection();
         $this->roles = array('ROLE_USER');
         $this->sectionsGrades = new ArrayCollection();
         $this->messagesSend = new ArrayCollection();
@@ -130,11 +124,6 @@ class User implements UserInterface, \Serializable
     public function getFiles(): Collection
     {
         return $this->files;
-    }
-
-    public function getGrades(): Collection
-    {
-        return $this->grades;
     }
 
     public function getMessagesSend(): Collection

@@ -4,6 +4,7 @@ namespace App\Controller\Grade;
 
 use App\Entity\Course;
 use App\Repository\NoticeRepository;
+use App\Repository\UserCourseGradeRepository;
 use App\Repository\UserSectionGradeRepository;
 use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -28,13 +29,20 @@ class GradeController extends Controller
     /**
      * @Route("/{id}", name="grade_course_index", methods="GET")
      */
-    public function index(Course $course, UserSectionGradeRepository $userSectionGradeRepository): Response
+    public function index(Course $course, UserCourseGradeRepository $userCourseGradeRepository, UserSectionGradeRepository $userSectionGradeRepository): Response
     {
         $user = $this->getUser();
 
+        $courseGrade = $userCourseGradeRepository->findOneByCourseIdUserId($course->getId(), $user->getId());
         $sectionsGrades = $userSectionGradeRepository->findAllByCourseIdUserId($course->getId(), $user->getId());
+        if ($courseGrade && $courseGrade[0]) {
+            $courseGrade = $courseGrade[0];
+        } else {
+            $courseGrade = null;
+        }
 
         $params = [
+            'courseGrade' => $courseGrade,
             'sectionsGrades' => $sectionsGrades,
             'user' => $user
         ];

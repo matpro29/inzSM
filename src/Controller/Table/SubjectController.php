@@ -28,7 +28,7 @@ class SubjectController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="subject_delete", methods="DELETE")
+     * @Route("/{id}", name="table_subject_delete", methods="DELETE")
      */
     public function delete(Request $request, Subject $subject): Response
     {
@@ -38,11 +38,11 @@ class SubjectController extends Controller
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('subject_index');
+        return $this->redirectToRoute('table_subject_index');
     }
 
     /**
-     * @Route("/edit/{id}", name="subject_edit", methods="GET|POST")
+     * @Route("/edit/{id}", name="table_subject_edit", methods="GET|POST")
      */
     public function edit(Request $request, Subject $subject): Response
     {
@@ -56,7 +56,7 @@ class SubjectController extends Controller
                 'id' => $subject->getId()
             ];
 
-            return $this->redirectToRoute('subject_edit', $params);
+            return $this->redirectToRoute('table_subject_edit', $params);
         }
 
         $params = [
@@ -70,7 +70,7 @@ class SubjectController extends Controller
     }
 
     /**
-     * @Route("/", name="subject_index", methods="GET")
+     * @Route("/", name="table_subject_index", methods="GET")
      */
     public function index(SubjectRepository $subjectRepository): Response
     {
@@ -86,7 +86,7 @@ class SubjectController extends Controller
     }
 
     /**
-     * @Route("/info/{id}", name="subject_info", methods="GET")
+     * @Route("/info/{id}", name="table_subject_info", methods="GET")
      */
     public function info(Subject $subject): Response
     {
@@ -100,7 +100,7 @@ class SubjectController extends Controller
     }
 
     /**
-     * @Route("/new", name="subject_new", methods="GET|POST")
+     * @Route("/new", name="table_subject_new", methods="GET|POST")
      */
     public function new(Request $request): Response
     {
@@ -113,7 +113,7 @@ class SubjectController extends Controller
             $entityManager->persist($subject);
             $entityManager->flush();
 
-            return $this->redirectToRoute('subject_index');
+            return $this->redirectToRoute('table_subject_index');
         }
 
         $params = [
