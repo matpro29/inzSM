@@ -11,6 +11,7 @@
     <div class="example-wrapper">
         <h1>Powiadomienia ✅</h1>
 
+        {% if not is_granted('ROLE_TEACHER') %}
         <table class="table">
             <thead>
                 <tr>
@@ -22,6 +23,26 @@
             {% for notice in notices %}
                 <tr>
                     <td>{{ notice.course.name }}</td>
+                    <td>{{ notice.notice }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </br>
+        {% endif %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Powiadomienie</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for notice in noticesAdmin %}
+                <tr>
                     <td>{{ notice.notice }}</td>
                 </tr>
             {% else %}

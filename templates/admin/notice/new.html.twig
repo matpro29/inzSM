@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin{% endblock %}
+{% block title %}Nowe powiadomienie{% endblock %}
 
 {% block body %}
     <style>
@@ -9,12 +9,11 @@
     </style>
 
     <div class="example-wrapper">
-        <h1>Admin ✅</h1>
+        <h1>Nowe powiadomienie ✅</h1>
 
-        <a href="{{ path('admin_user_index') }}">Użytkownicy</a>
+        {{ include('admin/notice/form/_new_form.html.twig') }}
         </br>
-        <a href="{{ path('admin_notice_new') }}">Nowe powiadomienie</a>
-        </br>
-        <a href="{{ path('index') }}">Wróć</a>
+        <a href="{{ path('course_index') }}">Wróć</a>
     </div>
 {% endblock %}
+

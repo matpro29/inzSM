@@ -6,6 +6,7 @@ use App\Entity\Subject;
 use App\Form\Subject\NewForm;
 use App\Repository\NoticeRepository;
 use App\Repository\SubjectRepository;
+use App\Repository\UserRepository;
 use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,10 +22,10 @@ class SubjectController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(NoticeRepository $noticeRepository, Security $security)
+    public function __construct(NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
     {
         $this->security = $security;
-        $this->parameter = new Parameter($noticeRepository, $security);
+        $this->parameter = new Parameter($noticeRepository, $security, $userRepository);
     }
 
     /**

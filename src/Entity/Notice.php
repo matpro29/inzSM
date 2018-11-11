@@ -11,6 +11,7 @@ class Notice
 {
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Course", inversedBy="notices")
+     * @ORM\JoinColumn(name="course_id", referencedColumnName="id", nullable=true)
      */
     private $course;
 

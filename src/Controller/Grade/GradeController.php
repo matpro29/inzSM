@@ -5,6 +5,7 @@ namespace App\Controller\Grade;
 use App\Entity\Course;
 use App\Repository\NoticeRepository;
 use App\Repository\UserCourseGradeRepository;
+use App\Repository\UserRepository;
 use App\Repository\UserSectionGradeRepository;
 use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,10 +21,10 @@ class GradeController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(NoticeRepository $noticeRepository, Security $security)
+    public function __construct(NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
     {
         $this->security = $security;
-        $this->parameter = new Parameter($noticeRepository, $security);
+        $this->parameter = new Parameter($noticeRepository, $security, $userRepository);
     }
 
     /**

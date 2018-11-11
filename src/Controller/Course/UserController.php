@@ -19,10 +19,10 @@ class UserController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(NoticeRepository $noticeRepository, Security $security)
+    public function __construct(NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
     {
         $this->security = $security;
-        $this->parameter = new Parameter($noticeRepository, $security);
+        $this->parameter = new Parameter($noticeRepository, $security, $userRepository);
     }
 
     /**

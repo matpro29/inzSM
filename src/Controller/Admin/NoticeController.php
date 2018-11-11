@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Controller\Course;
+namespace App\Controller\Admin;
 
-use App\Entity\Section;
-use App\Entity\Task;
-use App\Form\Task\NewForm;
+use App\Entity\Notice;
+use App\Form\Notice\NewForm;
 use App\Repository\NoticeRepository;
 use App\Repository\UserRepository;
 use App\Service\Parameter;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Security;
 
 /**
- * @Route("/course/section/task")
+ * @Route("/admin/notice")
  */
-class TaskController extends Controller
+class NoticeController extends Controller
 {
     private $security;
     private $parameter;
@@ -29,37 +28,33 @@ class TaskController extends Controller
     }
 
     /**
-     * @Route("/new/{id}", name="course_task_new", methods="GET|POST")
+     * @Route("/new", name="admin_notice_new", methods="GET|POST")
      */
-    public function new(Request $request, Section $section): Response
+    public function new(Request $request): Response
     {
-        $task = new Task();
-        $form = $this->createForm(NewForm::class, $task);
+        $notice = new Notice();
+        $form = $this->createForm(NewForm::class, $notice);
         $form->handleRequest($request);
 
-        $course = $section->getCourse();
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $task->setSection($section);
+
+            $startDate = new \DateTime();
+            $notice->setStartDate($startDate);
+            $notice->setEndDate($startDate);
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($task);
+            $entityManager->persist($notice);
             $entityManager->flush();
 
-            $params = [
-                'id' => $course->getId()
-            ];
-
-            return $this->redirectToRoute('course_show', $params);
+            return $this->redirectToRoute('admin_index');
         }
 
         $params = [
-            'course' => $course,
             'form' => $form->createView()
         ];
 
         $params = $this->parameter->getParams($this, $params);
 
-        return $this->render('course/task/new.html.twig', $params);
+        return $this->render('admin/notice/new.html.twig', $params);
     }
 }
