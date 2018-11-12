@@ -13,7 +13,7 @@ Encore
     // .enableSassLoader()
     // .enableSourceMaps(!Encore.isProduction())
     .createSharedEntry('/build', './assets/js/layout.js')
-    .createSharedEntry('app', './assets/js/layout.js')
+    // .createSharedEntry('app', './assets/js/layout.js')
     /*
      * ENTRY CONFIG
      *
