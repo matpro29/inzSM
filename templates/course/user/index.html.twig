@@ -27,7 +27,7 @@
                     <td>{{ user.username }}</td>
                     <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
                     <td>
-                        <a href="{{ path('course_user_info', {'courseId': course.id, 'userId': user.id}) }}">Pokaż</a>
+                        <a href="{{ path('course_user_grade', {'courseId': course.id, 'userId': user.id}) }}">Pokaż</a>
                     </td>
                 </tr>
             {% else %}

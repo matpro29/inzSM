@@ -15,6 +15,11 @@ class UserCourse
     private $course;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $endDate;
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -24,7 +29,7 @@ class UserCourse
     /**
      * @ORM\Column(type="datetime")
      */
-    private $joinDate;
+    private $startDate;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -41,14 +46,19 @@ class UserCourse
         return $this->course;
     }
 
+    public function getEndDate()
+    {
+        return $this->endDate;
+    }
+
     public function getId()
     {
         return $this->id;
     }
 
-    public function getJoinDate()
+    public function getStartDate()
     {
-        return $this->joinDate;
+        return $this->startDate;
     }
 
     public function getStatus()
@@ -66,9 +76,14 @@ class UserCourse
         $this->course = $course;
     }
 
-    public function setJoinDate($joinDate): void
+    public function setEndDate($endDate): void
     {
-        $this->joinDate = $joinDate;
+        $this->endDate = $endDate;
+    }
+
+    public function setStartDate($startDate): void
+    {
+        $this->startDate = $startDate;
     }
 
     public function setStatus($status): void

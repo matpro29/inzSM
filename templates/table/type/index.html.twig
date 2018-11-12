@@ -25,8 +25,8 @@
                     <td>{{ type.id }}</td>
                     <td>{{ type.name }}</td>
                     <td>
-                        <a href="{{ path('type_edit', {'id': type.id}) }}">Edytuj</a>
-                        <a href="{{ path('type_info', {'id': type.id}) }}">Pokaż</a>
+                        <a href="{{ path('table_type_edit', {'id': type.id}) }}">Edytuj</a>
+                        <a href="{{ path('table_type_info', {'id': type.id}) }}">Pokaż</a>
                     </td>
                 </tr>
             {% else %}
@@ -37,7 +37,7 @@
             </tbody>
         </table>
         </br>
-        <a href="{{ path('type_new') }}">Dodaj typ</a>
+        <a href="{{ path('table_type_new') }}">Dodaj typ</a>
         </br>
         <a href="{{ path('index') }}">Wróć</a>
     </div>

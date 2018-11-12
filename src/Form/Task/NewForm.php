@@ -28,7 +28,7 @@ class NewForm extends AbstractType
                 'required' => false
             ])
             ->add('startDate', DateTimeType::class, [
-                'label' => 'Data początkowa: ',
+                'label' => 'Data początkowa: '
             ])
             ->add('endDate', DateTimeType::class, [
                 'label' => 'Data końcowa: '

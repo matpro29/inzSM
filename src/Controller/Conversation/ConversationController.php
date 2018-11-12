@@ -9,6 +9,7 @@ use App\Form\Message\NewForm;
 use App\Repository\ConversationRepository;
 use App\Repository\MessageRepository;
 use App\Repository\NoticeRepository;
+use App\Repository\UserRepository;
 use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,10 +25,10 @@ class ConversationController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(NoticeRepository $noticeRepository, Security $security)
+    public function __construct(NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
     {
         $this->security = $security;
-        $this->parameter = new Parameter($noticeRepository, $security);
+        $this->parameter = new Parameter($noticeRepository, $security, $userRepository);
     }
 
     /**
@@ -62,6 +63,7 @@ class ConversationController extends Controller
         $messages = $messageRepository->findAllByConversationId($conversation->getId());
 
         $params = [
+            'conversation' => $conversation,
             'form' => $form->createView(),
             'messages' => $messages
         ];

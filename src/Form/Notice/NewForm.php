@@ -4,6 +4,7 @@ namespace App\Form\Notice;
 
 use App\Entity\Notice;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,6 +16,9 @@ class NewForm extends AbstractType
         $builder
             ->add('notice', TextareaType::class, [
                 'label' => 'Treść: '
+            ])
+            ->add('endDate', DateTimeType::class, [
+                'label' => 'Data końcowa: '
             ]);
     }
 

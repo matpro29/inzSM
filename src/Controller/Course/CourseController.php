@@ -11,6 +11,7 @@ use App\Form\Course\SearchForm;
 use App\Repository\CourseRepository;
 use App\Repository\NoticeRepository;
 use App\Repository\UserCourseRepository;
+use App\Repository\UserRepository;
 use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,10 +27,10 @@ class CourseController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(NoticeRepository $noticeRepository, Security $security)
+    public function __construct(NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
     {
         $this->security = $security;
-        $this->parameter = new Parameter($noticeRepository, $security);
+        $this->parameter = new Parameter($noticeRepository, $security, $userRepository);
     }
 
     /**
@@ -81,13 +82,20 @@ class CourseController extends Controller
     public function index(CourseRepository $courseRepository): Response
     {
         $courses = null;
-        $params = $this->parameter->getParams($this, []);
+        $user = $this->getUser();
 
         if ($this->security->isGranted('ROLE_TEACHER')) {
-            $params['courses'] = $courseRepository->findAllByOwnerId($params['user']->getId());
+            $params['courses'] = $courseRepository->findAllByOwnerId($user->getId());
         } else {
-            $params['courses'] = $courseRepository->findAllByUserId($params['user']->getId());
+            $params['courses'] = $courseRepository->findAllByUserId($user->getId());
         }
+
+        $params = [
+            'user' => $user,
+            'courses' => $courses
+        ];
+
+        $params = $this->parameter->getCountNewNotices($params, $user);
 
         return $this->render('course/course/index.html.twig', $params);
     }
@@ -163,8 +171,6 @@ class CourseController extends Controller
         $form = $this->createForm(SearchForm::class, $courseSearch);
         $form->handleRequest($request);
 
-        $user = $this->getUser();
-
         if ($form->isSubmitted() && $form->isValid() && $courseSearch->getName()) {
             $courses = $courseRepository->findAllBySearchForm($courseSearch->getName());
 
@@ -201,7 +207,7 @@ class CourseController extends Controller
         $params = $this->parameter->getParams($this, $params);
 
         if ($params['user']->getId() == $course->getOwner()->getId()
-            || $userCourseRepository->getOneByCourseIdUserId($course->getId(), $params['user']->getId())
+            || $userCourseRepository->findOneByCourseIdUserId($course->getId(), $params['user']->getId())
             || $this->security->isGranted('ROLE_ADMIN')) {
 
             return $this->render('course/course/show.html.twig', $params);

@@ -6,6 +6,7 @@ use App\Entity\Type;
 use App\Form\Type\NewForm;
 use App\Repository\NoticeRepository;
 use App\Repository\TypeRepository;
+use App\Repository\UserRepository;
 use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,21 +15,21 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
 /**
- * @Route("/type")
+ * @Route("/table/type")
  */
 class TypeController extends Controller
 {
     private $security;
     private $parameter;
 
-    public function __construct(NoticeRepository $noticeRepository, Security $security)
+    public function __construct(NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
     {
         $this->security = $security;
-        $this->parameter = new Parameter($noticeRepository, $security);
+        $this->parameter = new Parameter($noticeRepository, $security, $userRepository);
     }
 
     /**
-     * @Route("/{id}", name="type_delete", methods="DELETE")
+     * @Route("/{id}", name="table_type_delete", methods="DELETE")
      */
     public function delete(Request $request, Type $type): Response
     {
@@ -38,11 +39,11 @@ class TypeController extends Controller
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('type_index');
+        return $this->redirectToRoute('table_type_index');
     }
 
     /**
-     * @Route("/edit/{id}", name="type_edit", methods="GET|POST")
+     * @Route("/edit/{id}", name="table_type_edit", methods="GET|POST")
      */
     public function edit(Request $request, Type $type): Response
     {
@@ -56,7 +57,7 @@ class TypeController extends Controller
                 'id' => $type->getId()
             ];
 
-            return $this->redirectToRoute('type_edit', $params);
+            return $this->redirectToRoute('table_type_edit', $params);
         }
 
         $params = [
@@ -70,7 +71,7 @@ class TypeController extends Controller
     }
 
     /**
-     * @Route("/", name="type_index", methods="GET")
+     * @Route("/", name="table_type_index", methods="GET")
      */
     public function index(TypeRepository $typeRepository): Response
     {
@@ -86,7 +87,7 @@ class TypeController extends Controller
     }
 
     /**
-     * @Route("/info/{id}", name="type_info", methods="GET")
+     * @Route("/info/{id}", name="table_type_info", methods="GET")
      */
     public function info(Type $type): Response
     {
@@ -100,7 +101,7 @@ class TypeController extends Controller
     }
 
     /**
-     * @Route("/new", name="type_new", methods="GET|POST")
+     * @Route("/new", name="table_type_new", methods="GET|POST")
      */
     public function new(Request $request): Response
     {
@@ -113,7 +114,7 @@ class TypeController extends Controller
             $entityManager->persist($type);
             $entityManager->flush();
 
-            return $this->redirectToRoute('type_index');
+            return $this->redirectToRoute('table_type_index');
         }
 
         $params = [
