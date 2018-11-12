@@ -13,7 +13,7 @@
 
         {{ include('course/grade/form/_end_form.html.twig') }}
         </br>
-        <a href="{{ path('course_user_grade', {'courseId': course.id, 'userId': userInfo.id}) }}">Wróć</a>
+        <a href="{{ path('course_user_grade', {'courseId': course.id, 'userId': userInfo.id}) }}" class="back">{% trans %}Wróć{% endtrans %}</a>
     </div>
 {% endblock %}
 

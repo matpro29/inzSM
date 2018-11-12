@@ -13,7 +13,7 @@
 
         {{ include('course/task/form/_new_form.html.twig', {'button_label': 'Zapisz zmiany'}) }}
 
-        <a href="{{ path('course_show', {'id': course.id}) }}">Wróć</a>
+        <a href="{{ path('course_show', {'id': course.id}) }}" class="back">{% trans %}Wróć{% endtrans %}</a>
 
         {{ include('course/task/form/_delete_form.html.twig', {'button_label': 'Usuń zadanie'}) }}
     </div>

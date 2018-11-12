@@ -53,6 +53,6 @@
         </br>
         <a href="{{ path('course_user_grade_end', {'courseId': course.id, 'userId': userInfo.id}) }}">Dodaj ocenę końcową</a>
         </br>
-        <a href="{{ path('course_user', {'id': course.id}) }}">Wróć</a>
+        <a href="{{ path('course_user', {'id': course.id}) }}" class="back">{% trans %}Wróć{% endtrans %}</a>
     </div>
 {% endblock %}
