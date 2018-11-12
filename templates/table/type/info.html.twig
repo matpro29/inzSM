@@ -3,30 +3,17 @@
 {% block title %}Informacje o typie{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
+    <div class="container">
+        <h1>{% trans %}Informacje o typie{% endtrans %}</h1>
 
-    <div class="example-wrapper">
-        <h1>Informacje o typie ✅</h1>
-
-        <table class="table">
-            <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ type.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ type.name }}</td>
-            </tr>
-            </tbody>
-        </table>
-        {{ include('table/type/form/_delete_form.html.twig', {'button_label': 'Usuń typ'}) }}
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Id{% endtrans %}</div><div class="col-md-9 pad">{{ type.id }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Name{% endtrans %}</div><div class="col-md-9 pad">{{ type.name }}</div></div></div>
         </br>
-        <a href="{{ path('table_type_edit', {'id': type.id}) }}">Edytuj</a>
+        {{ include('table/type/form/_delete_form.html.twig') }}
         </br>
-        <a href="{{ path('table_type_index') }}">Wróć</a>
+        <a href="{{ path('table_type_edit', {'id': type.id}) }}" class="delete btn">{% trans %}Edytuj{% endtrans %}</a>
+        </br>
+        </br>
+        <a href="{{ path('table_type_index') }}" class="back">{% trans %}Wróć{% endtrans %}</a>
     </div>
 {% endblock %}

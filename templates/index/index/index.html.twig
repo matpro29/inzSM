@@ -1,43 +1,441 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Index{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
+    <div class="container mar">
 
-    <div class="example-wrapper">
-        <h1>Index ✅</h1>
-
-        </br>
-        Masz {{ countNewNotices }} nowych powiadomień!
-        </br>
-        <a href="{{ path('notice_index') }}">Zobacz wszystkie powiadomienia</a>
-        </br>
-        <a href="{{ path('grade_index') }}">Twoje oceny</a>
-        </br>
-        <a href="{{ path('admin_index') }}">Admin</a>
-        </br>
-        <a href="{{ path('course_index') }}">Twoje kursy</a>
-        </br>
-        <a href="{{ path('login') }}">Logowanie</a>
-        </br>
-        <a href="{{ path('profile') }}">Profil</a>
-        </br>
-        <a href="{{ path('table_subject_index') }}">Przedmioty</a>
-        </br>
-        <a href="{{ path('register') }}">Rejestracja</a>
-        </br>
-        <a href="{{ path('table_type_index') }}">Typy</a>
-        </br>
-        <a href="{{ path('table_grade_index') }}">Oceny</a>
-        </br>
-        <a href="{{ path('conversation_index') }}">Wiadomości</a>
-        </br>
-        <a href="{{ path('course_search') }}">Wszystkie kursy</a>
-        </br>
-        <a href="{{ path('logout') }}">Wylogowanie</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="row">
+            <div class="col-sm-6 col-lg-4">
+                <div class="card-flip">
+                    <div class="flip">
+                        <div class="front">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/online-learning.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Użytkownicy{% endtrans %}</div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nostrum!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backy">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/online-learning.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Użytkownicy{% endtrans %} </div>
+                                    <a class="btn" href="{{ path('admin_user_index') }}">{% trans %}Pokaż{% endtrans %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="card-flip">
+                    <div class="flip">
+                        <div class="front">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/elearning.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Przedmioty{% endtrans %}</div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nostrum!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backy">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/elearning.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Przedmioty{% endtrans %} </div>
+                                    <a class="btn" href="{{ path('table_subject_index') }}">{% trans %}Więcej{% endtrans %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="card-flip">
+                    <div class="flip">
+                        <div class="front">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/online-course.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Kursy{% endtrans %}</div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nostrum!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backy">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/online-course.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Kursy{% endtrans %}</div>
+                                    <a class="btn" href="{{ path('course_search') }}">{% trans %}Więcej{% endtrans %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div></div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="card-flip">
+                    <div class="flip">
+                        <div class="front">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/user.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Profil{% endtrans %}</div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nostrum!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backy">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/user.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock"> {% trans %}Mój profil{% endtrans %} </div>
+                                    <a class="btn" href="{{ path('profile') }}">Pokaż</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="card-flip">
+                    <div class="flip">
+                        <div class="front">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/settings.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Typy{% endtrans %}</div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nostrum!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backy">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/settings.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock"> {% trans %}Typy{% endtrans %} </div>
+                                    <a class="btn" href="{{ path('table_type_index') }}">{% trans %}Więcej{% endtrans %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="card-flip">
+                    <div class="flip">
+                        <div class="front">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/medal.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Oceny{% endtrans %}</div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nostrum!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backy">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/medal.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Oceny{% endtrans %} </div>
+                                    <a class="btn" href="{{ path('table_grade_index') }}">{% trans %}Więcej{% endtrans %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div></div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="card-flip">
+                    <div class="flip">
+                        <div class="front">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/advertisement.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Ogłoszenia{% endtrans %}</div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nostrum!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backy">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/advertisement.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock"> {% trans %}Ogłoszenia{% endtrans %} </div>
+                                    <a class="btn" href="{{ path('notice_index') }}">{% trans %}Więcej{% endtrans %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="card-flip">
+                    <div class="flip">
+                        <div class="front">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/speech-bubble.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Wiadomości{% endtrans %}</div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nostrum!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backy">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/speech-bubble.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock"> {% trans %}Wiadomości{% endtrans %} </div>
+                                    <a class="btn" href="{{ path('notice_index') }}">{% trans %}Więcej{% endtrans %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% elseif is_granted('ROLE_TEACHER') %}
+            <div class="row">
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card-flip">
+                        <div class="flip">
+                            <div class="front">
+                                <div class="cardmy">
+                                    <img src="{{ asset('img/elearning.png') }}">
+                                    <div class="card-block">
+                                        <div class="nameblock">{% trans %}Przedmioty{% endtrans %}</div>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nostrum!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backy">
+                                <div class="cardmy">
+                                    <img src="{{ asset('img/elearning.png') }}">
+                                    <div class="card-block">
+                                   <div class="nameblock"> {% trans %}Moje przedmioty{% endtrans %} </div>
+                                        <a class="btn" href="{{ path('table_subject_index') }}">{% trans %}Pokaż{% endtrans %}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card-flip">
+                        <div class="flip">
+                            <div class="front">
+                                <div class="cardmy">
+                                    <img src="{{ asset('img/online-course.png') }}">
+                                    <div class="card-block">
+                                        <div class="nameblock">{% trans %}Kursy{% endtrans %}</div>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nostrum!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backy">
+                                <div class="cardmy">
+                                    <img src="{{ asset('img/online-course.png') }}">
+                                    <div class="card-block">
+                                        <div class="nameblock">{% trans %}Moje kursy{% endtrans %} </div>
+                                        <a class="btn" href="{{ path('course_search') }}">{% trans %}Więcej{% endtrans %}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card-flip">
+                        <div class="flip">
+                            <div class="front">
+                                <div class="cardmy">
+                                    <img src="{{ asset('img/user.png') }}">
+                                    <div class="card-block">
+                                        <div class="nameblock">{% trans %}Profil{% endtrans %}</div>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nostrum!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backy">
+                                <div class="cardmy">
+                                    <img src="{{ asset('img/user.png') }}">
+                                    <div class="card-block">
+                                        <div class="nameblock"> {% trans %}Mój profil{% endtrans %} </div>
+                                        <a class="btn" href="{{ path('profile') }}">{% trans %}Pokaż{% endtrans %}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card-flip">
+                        <div class="flip">
+                            <div class="front">
+                                <div class="cardmy">
+                                    <img src="{{ asset('img/advertisement.png') }}">
+                                    <div class="card-block">
+                                        <div class="nameblock">{% trans %}Ogłoszenia{% endtrans %}</div>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nostrum!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backy">
+                                <div class="cardmy">
+                                    <img src="{{ asset('img/advertisement.png') }}">
+                                    <div class="card-block">
+                                        <div class="nameblock"> {% trans %}Ogłoszenia{% endtrans %} </div>
+                                        <a class="btn" href="{{ path('notice_index') }}">{% trans %}Więcej{% endtrans %}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card-flip">
+                        <div class="flip">
+                            <div class="front">
+                                <div class="cardmy">
+                                    <img src="{{ asset('img/speech-bubble.png') }}">
+                                    <div class="card-block">
+                                        <div class="nameblock">{% trans %}Wiadomości{% endtrans %}</div>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nostrum!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backy">
+                                <div class="cardmy">
+                                    <img src="{{ asset('img/speech-bubble.png') }}">
+                                    <div class="card-block">
+                                        <div class="nameblock">{% trans %}Wiadomości{% endtrans %}</div>
+                                        <a class="btn" href="{{ path('notice_index') }}">{% trans %}Więcej{% endtrans %}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div>
+            </div>
+    {% elseif is_granted('ROLE_USER') %}
+        <div class="row">
+            <div class="col-sm-6 col-lg-4">
+                <div class="card-flip">
+                    <div class="flip">
+                        <div class="front">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/elearning.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Przedmioty{% endtrans %}</div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nostrum!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backy">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/elearning.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock"> {% trans %}Moje przedmioty{% endtrans %} </div>
+                                    <a class="btn" href="{{ path('table_subject_index') }}">{% trans %}Pokaż{% endtrans %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="card-flip">
+                    <div class="flip">
+                        <div class="front">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/online-course.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Kursy{% endtrans %}</div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nostrum!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backy">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/online-course.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Moje kursy{% endtrans %}</div>
+                                    <a class="btn" href="{{ path('course_search') }}">{% trans %}Więcej{% endtrans %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div></div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="card-flip">
+                    <div class="flip">
+                        <div class="front">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/user.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Profil{% endtrans %}</div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nostrum!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backy">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/user.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock"> {% trans %}Mój profil{% endtrans %} </div>
+                                    <a class="btn" href="{{ path('profile') }}">{% trans %}Więcej{% endtrans %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div></div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="card-flip">
+                    <div class="flip">
+                        <div class="front">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/advertisement.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Ogłoszenia{% endtrans %}</div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nostrum!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backy">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/advertisement.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock"> {% trans %}Ogłoszenia{% endtrans %} </div>
+                                    <a class="btn" href="{{ path('notice_index') }}">{% trans %}Więcej{% endtrans %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div></div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="card-flip">
+                    <div class="flip">
+                        <div class="front">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/speech-bubble.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Wiadomości{% endtrans %}</div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, nostrum!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backy">
+                            <div class="cardmy">
+                                <img src="{{ asset('img/speech-bubble.png') }}">
+                                <div class="card-block">
+                                    <div class="nameblock">{% trans %}Wiadomości{% endtrans %}</div>
+                                    <a class="btn" href="{{ path('notice_index') }}">{% trans %}Więcej{% endtrans %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     </div>
 {% endblock %}

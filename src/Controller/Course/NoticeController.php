@@ -56,9 +56,12 @@ class NoticeController extends Controller
             return $this->redirectToRoute('course_show', $params);
         }
 
+        $user = $this->getUser();
+
         $params = [
             'course' => $course,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ];
 
         $params = $this->parameter->getParams($this, $params);

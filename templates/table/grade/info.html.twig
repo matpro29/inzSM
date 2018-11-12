@@ -3,30 +3,17 @@
 {% block title %}Informacje o ocenie{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
+    <div class="container">
+        <h1>{% trans %}Informacje o ocenie{% endtrans %}</h1>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Id{% endtrans %}</div><div class="col-md-9 pad"> {{ grade.id }}</div></div></div>
 
-    <div class="example-wrapper">
-        <h1>Informacje o ocenie ✅</h1>
-
-        <table class="table">
-            <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ grade.id }}</td>
-            </tr>
-            <tr>
-                <th>Ocena</th>
-                <td>{{ grade.grade }}</td>
-            </tr>
-            </tbody>
-        </table>
-        {{ include('table/grade/form/_delete_form.html.twig', {'button_label': 'Usuń ocenę'}) }}
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Ocena{% endtrans %}</div><div class="col-md-9 pad"> {{ grade.grade }}</div></div></div>
         </br>
-        <a href="{{ path('table_grade_edit', {'id': grade.id}) }}">Edytuj</a>
+        {{ include('table/grade/form/_delete_form.html.twig') }}
         </br>
-        <a href="{{ path('table_grade_index') }}">Wróć</a>
+        <a href="{{ path('table_grade_edit', {'id': grade.id}) }}" class="delete btn">{% trans %}Edytuj{% endtrans %}</a>
+        </br>
+        </br>
+        <a href="{{ path('table_grade_index') }}" class="back">{% trans %}Wróć{% endtrans %}</a>
     </div>
 {% endblock %}

@@ -3,35 +3,16 @@
 {% block title %}Użytkownik{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
 
-    <div class="example-wrapper">
-        <h1>Użytkownik ✅</h1>
+    <div class="container">
+        <h1>{% trans %}Użytkownik{% endtrans %}</h1>
 
-        <table>
-            <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ user.id }}</td>
-                </tr>
-                <tr>
-                    <th>Użytkownik</th>
-                    <td>{{ user.username }}</td>
-                </tr>
-                <tr>
-                    <th>Role</th>
-                    <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
-                </tr>
-                <tr>
-                    <th>Hasło</th>
-                    <td>{{ user.password }}</td>
-                </tr>
-            </tbody>
-        </table>
-        </br>
-        <a href="{{ path('index') }}">Wróć</a>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Id{% endtrans %}</div><div class="col-md-9 pad"> {{ user.id }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Użytkownik{% endtrans %}</div><div class="col-md-9 pad">{{ user.username }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Role{% endtrans %}</div><div class="col-md-9 pad"> {{ user.roles ? user.roles|join(', ') : '' }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Hasło{% endtrans %}</div><div class="col-md-9 pad">{{ user.password }}</div></div></div>
+
+        </br></br>
+        <a href="{{ path('index') }}"  class="back">{% trans %}Wróć{% endtrans %}</a>
     </div>
 {% endblock %}

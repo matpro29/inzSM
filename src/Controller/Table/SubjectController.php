@@ -60,9 +60,12 @@ class SubjectController extends Controller
             return $this->redirectToRoute('table_subject_edit', $params);
         }
 
+        $user = $this->getUser();
+
         $params = [
             'form' => $form->createView(),
-            'subject' => $subject
+            'subject' => $subject,
+            'user' => $user
         ];
 
         $params = $this->parameter->getParams($this, $params);
@@ -76,9 +79,11 @@ class SubjectController extends Controller
     public function index(SubjectRepository $subjectRepository): Response
     {
         $subjects = $subjectRepository->findAll();
+        $user = $this->getUser();
 
         $params = [
-            'subjects' => $subjects
+            'subjects' => $subjects,
+            'user' => $user
         ];
 
         $params = $this->parameter->getParams($this, $params);
@@ -91,8 +96,11 @@ class SubjectController extends Controller
      */
     public function info(Subject $subject): Response
     {
+        $user = $this->getUser();
+
         $params = [
-            'subject' => $subject
+            'subject' => $subject,
+            'user' => $user
         ];
 
         $params = $this->parameter->getParams($this, $params);
@@ -117,8 +125,11 @@ class SubjectController extends Controller
             return $this->redirectToRoute('table_subject_index');
         }
 
+        $user = $this->getUser();
+
         $params = [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ];
 
         $params = $this->parameter->getParams($this, $params);

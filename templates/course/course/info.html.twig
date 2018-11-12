@@ -3,50 +3,21 @@
 {% block title %}Informacje o kursie{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
 
-    <div class="example-wrapper">
-        <h1>Informacje o kursie ✅</h1>
-
-        <table class="table">
-            <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ course.id }}</td>
-            </tr>
-            <tr>
-                <th>Id właściciela</th>
-                <td>{{ course.owner.id }}</td>
-            </tr>
-            <tr>
-                <th>Id przedmiotu</th>
-                <td>{{ course.subject.id }}</td>
-            </tr>
-            <tr>
-                <th>Id typu</th>
-                <td>{{ course.type.id }}</td>
-            </tr>
-            <tr>
-                <th>Nazwa</th>
-                <td>{{ course.name }}</td>
-            </tr>
-            <tr>
-                <th>Opis</th>
-                <td>{{ course.description }}</td>
-            </tr>
-            <tr>
-                <th>Hasło</th>
-                <td>{{ course.password }}</td>
-            </tr>
-            </tbody>
-        </table>
-        {{ include('course/course/form/_delete_form.html.twig', {'button_label': 'Usuń kurs'}) }}
+    <div class="container">
+        <h1>{% trans %}Informacje o kursie{% endtrans %}</h1>
+<div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Id{% endtrans %}</div><div class="col-md-9 pad"> {{ course.id }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Id wlaściciela{% endtrans %}</div><div class="col-md-9 pad">{{ course.owner.id }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Id przedmiotu{% endtrans %}</div><div class="col-md-9 pad">{{ course.subject.id }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Id typu{% endtrans %}</div><div class="col-md-9 pad"> {{ course.type.id }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Nazwa{% endtrans %}</div><div class="col-md-9 pad">{{ course.name }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Opis{% endtrans %}</div><div class="col-md-9 pad">{{ course.description }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Hasło{% endtrans %}</div><div class="col-md-9 pad">{{ course.password }}</div></div></div>
         </br>
-        <a href="{{ path('course_edit', {'id': course.id}) }}">Edytuj</a>
+        {{ include('course/course/form/_delete_form.html.twig') }}
         </br>
-        <a href="{{ path('course_index') }}">Wróć</a>
+        <a class="btn" href="{{ path('course_edit', {'id': course.id}) }}">{% trans %}Edytuj{% endtrans %}</a>
+        </br>   </br>
+        <a href="{{ path('course_index') }}" class="back">{% trans %}Wróć{% endtrans %}</a>
     </div>
 {% endblock %}

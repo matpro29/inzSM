@@ -3,16 +3,13 @@
 {% block title %}Nowe zadanie{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
 
-    <div class="example-wrapper">
-        <h1>Nowe zadanie ✅</h1>
+
+    <div class="container">
+        <h1>{% trans %}Nowe zadanie{% endtrans %} </h1>
 
         {{ include('course/task/form/_new_form.html.twig') }}
         </br>
-        <a href="{{ path('course_show', {'id': course.id}) }}">Wróć</a>
+        <a href="{{ path('course_show', {'id': course.id}) }}" class="back">{% trans %}Wróć{% endtrans %}</a>
     </div>
 {% endblock %}
