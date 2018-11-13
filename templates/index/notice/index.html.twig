@@ -6,6 +6,17 @@
 
     <div class="container">
         <h1>{% trans %}Powiadomienia{% endtrans %}</h1>
+
+        <div class="headertable"> <div class="row"><div class="col-md-12">{% trans %}Powiadomienia Admina{% endtrans %}</div></div></div>
+        {% for notice in noticesAdmin %}
+            <div class="listtable">
+                <div class="row">
+
+                    <div class="col-md-9 pad">{{ notice.notice }}</div></div></div>
+        {% else %}
+            {% trans %}Nie znaleziono powiadomień od admina!{% endtrans %}
+        {% endfor %}
+        </br> </br>
         <div class="headertable"> <div class="row"><div class="col-md-3">{% trans %}Kurs{% endtrans %}</div><div class="col-md-9">{% trans %}Powiadomienie{% endtrans %}</div></div></div>
 
         {% if not is_granted('ROLE_TEACHER') %}
@@ -18,28 +29,13 @@
                 {% trans %}Nie znaleziono powiadomień!{% endtrans %}
             {% endfor %}
         {% endif %}
+
+
         </br>
         </br>
         <a href="{{ path('index') }}" class="back">{% trans %}Wróć{% endtrans %}</a>
         </br>
         </br>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Powiadomienie Admina</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for notice in noticesAdmin %}
-                <tr>
-                    <td>{{ notice.notice }}</td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="3">Nie znaleziono powiadomień od administratora!</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+
     </div>
 {% endblock %}

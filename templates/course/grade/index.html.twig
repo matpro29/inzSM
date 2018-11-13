@@ -36,10 +36,9 @@
             {% for grade in section.grades %}
                 {% if grade.user.id == userInfo.id %}
                     {{ grade.grade.grade }}
-                {% else %}
-                    <a href="{{ path('course_user_grade_new', {'sectionId': section.id, 'userId': userInfo.id}) }}">Dodaj ocenę cząstkową</a>
                 {% endif %}
             {% endfor %}
+            <a href="{{ path('course_user_grade_new', {'sectionId': section.id, 'userId': userInfo.id}) }}">Dodaj ocenę cząstkową</a>
             {% for task in section.tasks %}
                 <h3>{{ task.name }}</h3>
                 {% for file in task.files %}

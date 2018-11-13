@@ -85,14 +85,14 @@ class CourseController extends Controller
         $user = $this->getUser();
 
         if ($this->security->isGranted('ROLE_TEACHER')) {
-            $params['courses'] = $courseRepository->findAllByOwnerId($user->getId());
+            $courses = $courseRepository->findAllByOwnerId($user->getId());
         } else {
-            $params['courses'] = $courseRepository->findAllByUserId($user->getId());
+            $courses = $courseRepository->findAllByUserId($user->getId());
         }
 
         $params = [
-            'user' => $user,
-            'courses' => $courses
+            'courses' => $courses,
+            'user' => $user
         ];
 
         $params = $this->parameter->getCountNewNotices($params, $user);
@@ -223,7 +223,7 @@ class CourseController extends Controller
                     $userCourse->setUser($params['user']);
 
                     $dateTime = new \DateTime();
-                    $userCourse->setJoinDate($dateTime);
+                    $userCourse->setStartDate($dateTime);
 
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->persist($userCourse);

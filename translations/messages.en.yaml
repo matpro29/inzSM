@@ -11,7 +11,7 @@ Typy: Types
 Mój profil: My profile
 Ogłoszenia: Classifieds
 Oceny: Assessment
-Moje przedmioty: My items
+Moje przedmioty: My subjects
 Wiadomości: Messages
 Więcej: More
 Moje kursy: My Courses
@@ -23,7 +23,7 @@ Id wlaściciel: Owner's Id
 Nazwa: Name
 Id typu: Type Id
 Opis: Description
-Id przedmiotu: Item Id
+Id przedmiotu: Subject Id
 Hasło: Password
 Edytuj: Edit
 Dołącz do kursu: Join the course
@@ -54,11 +54,11 @@ Dodaj ocenę: Add a rating
 Ocena: Rating
 Informacje o ocenie: information about the assessment
 Zapisz: Save
-Przedmioty: Items
-Dodaj przedmiot: Add item
-Nie znaleziono przedmiotów!: No intems found!
-Informacje o przedmiocie: Information about the item
-Usuń przedmiot: Delete the item
+Przedmioty: Subjects
+Dodaj przedmiot: Add subject
+Nie znaleziono przedmiotów!: No subject found!
+Informacje o przedmiocie: Information about the subject
+Usuń przedmiot: Delete the subject
 Edytuj typ: Edit type
 Usuń typ: Delete type
 Nie znaleziono typów!: Types not found
@@ -67,4 +67,4 @@ Nie masz konta?: You do not have an account?
 Kliknij aby się zarejestrować: Click to register
 Role: Roles
 Zarejestruj: Register
-Edytuj przedmiot: Edit item
+Edytuj przedmiot: Edit subject

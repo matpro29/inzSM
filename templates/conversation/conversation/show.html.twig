@@ -35,6 +35,7 @@
             </tbody>
         </table>
         {{ include('conversation/conversation/form/_message_new_form.html.twig', {'button_label': 'Napisz'}) }}
+        <a href="{{ path('conversation_user_index', {'id': conversation.id}) }}">Użytkownicy zapisani</a>
         </br>
         <a href="{{ path('conversation_index') }}">Wróć</a>
     </div>

@@ -40,7 +40,6 @@ class NoticeController extends Controller
 
             $startDate = new \DateTime();
             $notice->setStartDate($startDate);
-            $notice->setEndDate($startDate);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($notice);

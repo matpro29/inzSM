@@ -7,6 +7,7 @@
 
     <div class="container">
         <h1>{% trans %}Wszystkie kursy{% endtrans %}</h1>
+        {{ include('course/course/form/_search_form.html.twig') }}
         </br>
         <a class="btn" href="{{ path('course_new') }}">{% trans %}Dodaj kurs{% endtrans %}</a>
         </br>

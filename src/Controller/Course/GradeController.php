@@ -10,8 +10,10 @@ use App\Entity\UserSectionGrade;
 use App\Form\Grade\NewCourseForm;
 use App\Form\Grade\NewSectionForm;
 use App\Repository\NoticeRepository;
+use App\Repository\UserCourseGradeRepository;
 use App\Repository\UserCourseRepository;
 use App\Repository\UserRepository;
+use App\Repository\UserSectionGradeRepository;
 use App\Service\Parameter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -76,6 +78,33 @@ class GradeController extends Controller
         $params = $this->parameter->getParams($this, $params);
 
         return $this->render('course/grade/end.html.twig', $params);
+    }
+
+    /**
+     * @Route("/{id}", name="course_grade", methods="GET")
+     */
+    public function grade(Course $course, UserCourseGradeRepository $userCourseGradeRepository, UserSectionGradeRepository $userSectionGradeRepository): Response
+    {
+        $user = $this->getUser();
+
+        $courseGrade = $userCourseGradeRepository->findOneByCourseIdUserId($course->getId(), $user->getId());
+        $sectionsGrades = $userSectionGradeRepository->findAllByCourseIdUserId($course->getId(), $user->getId());
+        if ($courseGrade && $courseGrade[0]) {
+            $courseGrade = $courseGrade[0];
+        } else {
+            $courseGrade = null;
+        }
+
+        $params = [
+            'course' => $course,
+            'courseGrade' => $courseGrade,
+            'sectionsGrades' => $sectionsGrades,
+            'user' => $user
+        ];
+
+        $params = $this->parameter->getCountNewNotices($params, $user);
+
+        return $this->render('course/grade/grade.html.twig', $params);
     }
 
     /**
