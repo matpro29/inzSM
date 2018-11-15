@@ -6,6 +6,7 @@ import 'bootstrap/dist/js/bootstrap';
 import 'owl.carousel/'
 
 
+
 $(document).ready(function(){
     $('.owl-carousel').owlCarousel({
         loop:true,

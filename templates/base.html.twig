@@ -5,7 +5,7 @@
     <title>{% block title %}Praca inżynierska!{% endblock %}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1">
     {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('build/layout.css') }}">
+        <link rel="stylesheet" href="{{ asset('build/layout-css.css') }}">
         {#<link rel="stylesheet" href="owl.carousel/dist/assets/owl.carousel.css" />#}
 
     {% endblock %}
@@ -396,7 +396,8 @@
             </div> <div class="col-md-6 text-right">Mateusz Proskura, Sylwia Podkościelna</div></div></div>
 </footer>
 {% block javascripts %}
-    {#<script src="owl.carousel/dist/owl.carousel"></script>#}
+    <script src="{{ asset('build/manifest.js') }}"></script>
+    <script src="{{ asset('build/layout.js') }}"></script>
 {% endblock %}
 
 </body>

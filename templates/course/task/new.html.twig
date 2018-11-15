@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}Nowe zadanie{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/js/flatpickr.css') }}">
+{% endblock %}
 
 {% block body %}
 
@@ -12,4 +18,9 @@
         </br>
         <a href="{{ path('course_show', {'id': course.id}) }}" class="back">{% trans %}Wróć{% endtrans %}</a>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/js/flatpickr.js') }}"></script>
 {% endblock %}

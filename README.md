@@ -24,6 +24,8 @@ Należy wykonać następujące polecenia:
 
   * yarn add owl.carousel jquery
   
+  * yarn add flatpickr
+  
   * yarn encore dev
   
   * W .env zamień "DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name"

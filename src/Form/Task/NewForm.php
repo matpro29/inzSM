@@ -27,8 +27,12 @@ class NewForm extends AbstractType
                 'label' => 'Ogranicz czas: ',
                 'required' => false
             ])
-            ->add('startDate', DateTimeType::class, [
-                'label' => 'Data początkowa: '
+            ->add('startDate', TextType::class, [
+                'label' => 'Data początkowa: ',
+	            'attr' => [
+	            	'class' => 'flatpickr'
+
+	            ]
             ])
             ->add('endDate', DateTimeType::class, [
                 'label' => 'Data końcowa: '

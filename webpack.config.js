@@ -9,11 +9,9 @@ Encore
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
     // .cleanupOutputBeforeBuild()
-    .autoProvidejQuery()
     // .enableSassLoader()
     // .enableSourceMaps(!Encore.isProduction())
-    .createSharedEntry('/build', './assets/js/layout.js')
-    // .createSharedEntry('app', './assets/js/layout.js')
+    .createSharedEntry('layout', './assets/js/layout.js')
     /*
      * ENTRY CONFIG
      *
@@ -24,10 +22,10 @@ Encore
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
     // .addEntry('layout-js', './assets/js/layout.js')
-    // .addEntry('page1', './assets/js/app.js')
-    //.addEntry('page2', './assets/js/page2.js')
+    .addEntry('/js/flatpickr', './assets/js/flatpickr-init.js')
 
-    .addStyleEntry('layout', './assets/scss/layout.scss')
+    //css
+    .addStyleEntry('layout-css', './assets/scss/layout.scss')
 
     /*
      * FEATURE CONFIG
