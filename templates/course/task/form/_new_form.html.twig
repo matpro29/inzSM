@@ -1,4 +1,34 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {#{{ form_widget(form) }}#}
+
+<div class="form-group">
+{{ form_label(form.name) }}
+{{ form_widget(form.name) }}
+</div>
+<div class="form-group che">
+    <div class="chec">
+    {{ form_label(form.isFile) }}
+    <div class="pinc">{{ form_widget(form.isFile) }}</div>
+</div></div>
+<div class="form-group che">
+    <div class="chec">
+    {{ form_label(form.isDate) }}    <div class="pinc">
+        {{ form_widget(form.isDate) }}</div>
+</div></div>
+<div class="form-group">
+    {{ form_label(form.startDate) }}
+    {{ form_widget(form.startDate) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.endDate) }}
+    {{ form_widget(form.endDate) }}
+
+</div>
+<div class="form-group">
+    {{ form_label(form.contents) }}
+    {{ form_widget(form.contents) }}
+
+</div>
+
     <button class="btn">{{ button_label|default('Dodaj') }}</button>
 {{ form_end(form) }}

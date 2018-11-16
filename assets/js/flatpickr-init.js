@@ -7,6 +7,7 @@ $(document).ready(function () {
        'locale': "pl",
        enableTime: true,
        time_24hr: true,
+       // wrap: true
        // dateFormat: 'Y-m-d H:i'
    });
 });

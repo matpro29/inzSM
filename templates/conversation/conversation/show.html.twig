@@ -3,34 +3,33 @@
 {% block title %}Wiadomości{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
 
-    <div class="example-wrapper">
-        <h1>Wiadomości ✅</h1>
+    <div class="container">
+        <h1>Wiadomości</h1>
 
-        <a href="{{ path('conversation_user_index', {'id': conversation.id}) }}">Użytkownicy</a>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Użytkownik</th>
-                <th>Wiadomość</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for message in messages %}
-                <tr>
-                    <td>{{ message.id }}</td>
-                    <td>{{ message.owner.username }}</td>
-                    <td>{{ message.message }}</td>
-                </tr>
+        <a href="{{ path('conversation_user_index', {'id': conversation.id}) }}" class="btn">Użytkownicy</a>
+        <div class="headertable"> <div class="row"><div class="col-md-2">{% trans %}Id{% endtrans %}</div><div
+                        class="col-md-2">{% trans %}Użytkownik{% endtrans %}</div><div class="col-md-8">{% trans
+                    %}Wiadomość{% endtrans %}</div></div></div>
+
+        {% for message in messages %}
+        <div class="listtable">
+            <div class="row">
+                <div class="col-md-2 pad">
+                    {{ message.id }}
+                </div>
+
+                <div class="col-md-2 pad">
+                    {{ message.owner.username }}
+                </div>
+
+                <div class="col-md-8 pad">
+                    {{ message.message }}
+                </div></div></div>
+
+
             {% else %}
-                <tr>
-                    <td colspan="3">Nie znaleziono wiadomości!</td>
-                </tr>
+             Nie znaleziono wiadomości!
             {% endfor %}
             </tbody>
         </table>

@@ -21,7 +21,8 @@ class NewForm extends AbstractType
             ])
             ->add('isFile', CheckboxType::class, [
                 'label' => 'Plik: ',
-                'required' => false
+                'required' => false,
+
             ])
             ->add('isDate', CheckboxType::class, [
                 'label' => 'Ogranicz czas: ',
@@ -31,11 +32,13 @@ class NewForm extends AbstractType
                 'label' => 'Data początkowa: ',
 	            'attr' => [
 	            	'class' => 'flatpickr'
-
 	            ]
             ])
-            ->add('endDate', DateTimeType::class, [
-                'label' => 'Data końcowa: '
+            ->add('endDate', TextType::class, [
+                'label' => 'Data końcowa: ',
+                'attr' => [
+	                'class' => 'flatpickr'
+                ]
             ])
             ->add('contents', TextareaType::class, [
                 'label' => 'Treść: '
