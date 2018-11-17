@@ -17,7 +17,7 @@ class NewForm extends AbstractType
             ->add('notice', TextareaType::class, [
                 'label' => 'Treść: '
             ])
-            ->add('endDate', DateTimeType::class, [
+            ->add('endDateString', DateTimeType::class, [
                 'label' => 'Data końcowa: '
             ]);
     }

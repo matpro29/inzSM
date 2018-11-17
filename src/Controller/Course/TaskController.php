@@ -91,6 +91,12 @@ class TaskController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $task->setSection($section);
 
+            $endDate = new \DateTime($task->getEndDateString());
+            $startDate = new \DateTime($task->getStartDateString());
+
+            $task->setEndDate($endDate);
+            $task->setStartDate($startDate);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($task);
             $entityManager->flush();

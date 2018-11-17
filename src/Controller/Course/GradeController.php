@@ -9,6 +9,7 @@ use App\Entity\UserCourseGrade;
 use App\Entity\UserSectionGrade;
 use App\Form\Grade\NewCourseForm;
 use App\Form\Grade\NewSectionForm;
+use App\Repository\GradeRepository;
 use App\Repository\NoticeRepository;
 use App\Repository\UserCourseGradeRepository;
 use App\Repository\UserCourseRepository;
@@ -41,9 +42,14 @@ class GradeController extends Controller
      * @ParamConverter("course", options={"id": "courseId"})
      * @ParamConverter("userInfo", options={"id": "userId"})
      */
-    public function end(Course $course, Request $request, User $userInfo, UserCourseRepository $userCourseRepository): Response
+    public function end(Course $course, GradeRepository $gradeRepository, Request $request, User $userInfo, UserCourseRepository $userCourseRepository, UserSectionGradeRepository $userSectionGradeRepository): Response
     {
         $userCourseGrade = new UserCourseGrade();
+
+        $endGrade =  $this->getEndGrade($course, $gradeRepository, $userInfo, $userSectionGradeRepository);
+        if ($endGrade) {
+            $userCourseGrade->setGrade($endGrade);
+        }
 
         $form = $this->createForm( NewCourseForm::class, $userCourseGrade);
         $form->handleRequest($request);
@@ -78,6 +84,48 @@ class GradeController extends Controller
         $params = $this->parameter->getParams($this, $params);
 
         return $this->render('course/grade/end.html.twig', $params);
+    }
+
+    private function getEndGrade(Course $course, GradeRepository $gradeRepository, User $userInfo, UserSectionGradeRepository $userSectionGradeRepository)
+    {
+        $sectionGrades = $userSectionGradeRepository->findAllByCourseIdUserId($course->getId(), $userInfo->getId());
+
+        if (empty($sectionGrades)) {
+            return null;
+        }
+
+        $sum= 0;
+        $weightSum = 0;
+
+        foreach ($sectionGrades as $sectionGrade) {
+            $weight= $sectionGrade->getSection()->getWeight();
+            $grade = $sectionGrade->getGrade()->getGrade();
+
+            $sum += $grade*$weight;
+            $weightSum += $weight;
+        }
+
+        $endGrade = $sum/$weightSum;
+
+        if ($endGrade >= 4.75) {
+            $endGrade = 5;
+        } elseif ($endGrade >= 4.25) {
+            $endGrade = 4.5;
+        } elseif ($endGrade >= 3.75) {
+            $endGrade = 4;
+        } elseif ($endGrade >= 3.25) {
+            $endGrade = 3.5;
+        } elseif ($endGrade >= 2.75) {
+            $endGrade = 3;
+        } else {
+            $endGrade = 2;
+        }
+
+        $endGrade = $gradeRepository->findOneBy([
+            'grade' => $endGrade
+        ]);
+
+        return $endGrade;
     }
 
     /**

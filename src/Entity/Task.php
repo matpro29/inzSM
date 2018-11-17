@@ -39,6 +39,8 @@ class Task
      */
     private $endDate;
 
+    private $endDateString;
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\File", mappedBy="task")
      */
@@ -59,6 +61,8 @@ class Task
      */
     private $startDate;
 
+    private $startDateString;
+
     public function __construct()
     {
         $this->files = new ArrayCollection();
@@ -72,6 +76,11 @@ class Task
     public function getEndDate()
     {
         return $this->endDate;
+    }
+
+    public function getEndDateString()
+    {
+        return $this->endDateString;
     }
 
     public function getFiles(): Collection
@@ -109,6 +118,11 @@ class Task
         return $this->startDate;
     }
 
+    public function getStartDateString()
+    {
+        return $this->startDateString;
+    }
+
     public function setContents($contents): void
     {
         $this->contents = $contents;
@@ -117,6 +131,11 @@ class Task
     public function setEndDate($endDate): void
     {
         $this->endDate = $endDate;
+    }
+
+    public function setEndDateString($endDateString): void
+    {
+        $this->endDateString = $endDateString;
     }
 
     public function setIsDate($isDate): void
@@ -142,5 +161,10 @@ class Task
     public function setStartDate($startDate): void
     {
         $this->startDate = $startDate;
+    }
+
+    public function setStartDateString($startDateString): void
+    {
+        $this->startDateString = $startDateString;
     }
 }

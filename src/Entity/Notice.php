@@ -20,6 +20,8 @@ class Notice
      */
     private $endDate;
 
+    private $endDateString;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -47,6 +49,11 @@ class Notice
         return $this->endDate;
     }
 
+    public function getEndDateString()
+    {
+        return $this->endDateString;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -70,6 +77,11 @@ class Notice
     public function setEndDate($endDate): void
     {
         $this->endDate = $endDate;
+    }
+
+    public function setEndDateString($endDateString): void
+    {
+        $this->endDateString = $endDateString;
     }
 
     public function setNotice($notice): void
