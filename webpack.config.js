@@ -23,6 +23,7 @@ Encore
      */
     // .addEntry('layout-js', './assets/js/layout.js')
     .addEntry('/js/flatpickr', './assets/js/flatpickr-init.js')
+    .addEntry('/js/owl', './assets/js/owl-carousel.js')
 
     //css
     .addStyleEntry('layout-css', './assets/scss/layout.scss')
