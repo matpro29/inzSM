@@ -4,6 +4,7 @@ $red_dark: #973f3c;
 $black: #28314A;
 $grey: #8E939F;
 $grey_dark:#60646d;
+$brown: #F8BA88;
 @import url('https://fonts.googleapis.com/css?family=Barlow:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=latin-ext');
 body{
  font-family: 'Barlow', sans-serif;
@@ -20,7 +21,12 @@ a{
  }
 
 }
-
+button{
+ background-color: transparent;
+ cursor: pointer;
+ border:none;
+ outline: none;
+}
  .btn{
   text-transform: uppercase;
   display: inline-block;
@@ -169,6 +175,68 @@ fill:$red;
 
 }
 
+/*course zadania */
+.crud_zad {
+ display: inline-block;
+ padding-top:40px;
+ .zad{ position:relative;
+  font-size: 28px;
+  float: left;
+  margin-right: 30px;
+  font-weight: bold;
+  &:before{
+   content: '';
+   position: absolute;
+   top: -15px;
+   height: 2px;
+   width: 64px;
+   background-color: $brown;
+  }
+ }
+ form, a{
+  float: left;
+ }
+}
+
+
+.task{
+ margin-top: 30px;
+ font-size: 20px;
+ ul{
+  list-style-type: none;
+  padding-left: 0px;
+
+ li::before {
+  content: "• ";
+  color: $red;
+ }}
+ a, form, ul{
+  margin-right: 15px;
+  float: left;
+ }
+}
+.task_content{
+ display: inline-block;
+ margin: 30px 0;
+ width: 100%;
+}
+.file{
+ display: inline-block;
+ a{
+  position:relative;
+  font-size: 20px;
+  margin-left: 30px;
+  &:before{
+   content: url("public/img/file.png");
+   position: absolute;
+   left: -30px;
+
+  }
+ }
+ a, form{
+  float: left;
+ }
+}
 
 /*checkboxy*/
 .pinc input[type="checkbox"]{

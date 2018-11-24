@@ -7,27 +7,13 @@
 
     <div class="container">
         <h1>Użytkownik</h1>
-        <table>
-            <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ userInfo.id }}</td>
-            </tr>
-            <tr>
-                <th>Użytkownik</th>
-                <td>{{ userInfo.username }}</td>
-            </tr>
-            <tr>
-                <th>Role</th>
-                <td>{{ userInfo.roles ? userInfo.roles|join(', ') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Hasło</th>
-                <td>{{ userInfo.password }}</td>
-            </tr>
-            </tbody>
-        </table>
-        </br>
-        <a href="{{ path('course_user', {'id': course.id}) }}">Wróć</a>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Id{% endtrans %}</div><div class="col-md-9 pad"> {{ userInfo.id }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Nr albumu{% endtrans
+                    %}</div><div class="col-md-9 pad"> nr albumu</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Użytkownik{% endtrans %}</div><div class="col-md-9 pad"> {{ userInfo.username }}</div></div></div>
+
+
+          
+        <a href="{{ path('course_user', {'id': course.id}) }}" class="back">Wróć</a>
     </div>
 {% endblock %}

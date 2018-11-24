@@ -41,6 +41,9 @@ class NoticeController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $notice->setCourse($course);
 
+            $endDate = new \DateTime($notice->getEndDateString());
+            $notice->setEndDate($endDate);
+
             $startDate = new \DateTime();
             $notice->setStartDate($startDate);
 

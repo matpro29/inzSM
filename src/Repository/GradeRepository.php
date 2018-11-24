@@ -21,6 +21,7 @@ class GradeRepository extends ServiceEntityRepository
 
     public function findAllQB()
     {
-        return $this->createQueryBuilder('g');
+        return $this->createQueryBuilder('g')
+            ->orderBy('g.grade', 'DESC');
     }
 }
