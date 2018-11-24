@@ -19,32 +19,6 @@ class NoticeRepository extends ServiceEntityRepository
         parent::__construct($registry, Notice::class);
     }
 
-    public function findNewAdminByUserId($userId, UserRepository $userRepository)
-    {
-        return $this->createQueryBuilder('n')
-            ->where('n.course IS NULL')
-            ->andWhere('n.startDate > :noticeDate')
-            ->setParameter('noticeDate', $userRepository->findOneBy([
-                    'id' => $userId
-                ])
-                ->getNoticeDate())
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findNewByUserId($userId)
-    {
-        return $this->createQueryBuilder('n')
-            ->innerJoin('n.course', 'c')
-            ->innerJoin('c.users', 'uc')
-            ->innerJoin('uc.user', 'u')
-            ->where('u.id = :userId')
-            ->andWhere('n.startDate > u.noticeDate')
-            ->setParameter('userId', $userId)
-            ->getQuery()
-            ->getResult();
-    }
-
     public function findAllAdmin()
     {
         return $this->createQueryBuilder('n')
@@ -67,6 +41,32 @@ class NoticeRepository extends ServiceEntityRepository
                 'nowDate' => new \DateTime(),
                 'userId' => $userId
             ])
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllNewAdminByUserId($userId, UserRepository $userRepository)
+    {
+        return $this->createQueryBuilder('n')
+            ->where('n.course IS NULL')
+            ->andWhere('n.startDate > :noticeDate')
+            ->setParameter('noticeDate', $userRepository->findOneBy([
+                'id' => $userId
+            ])
+                ->getNoticeDate())
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllNewByUserId($userId)
+    {
+        return $this->createQueryBuilder('n')
+            ->innerJoin('n.course', 'c')
+            ->innerJoin('c.users', 'uc')
+            ->innerJoin('uc.user', 'u')
+            ->where('u.id = :userId')
+            ->andWhere('n.startDate > u.noticeDate')
+            ->setParameter('userId', $userId)
             ->getQuery()
             ->getResult();
     }

@@ -42,6 +42,9 @@ class UserController extends Controller
         $userConversation->setUser($userInfo);
         $userConversation->setConversation($conversation);
 
+        $conversationDate = new \DateTime();
+        $userConversation->setConversationDate($conversationDate);
+
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($userConversation);
         $entityManager->flush();

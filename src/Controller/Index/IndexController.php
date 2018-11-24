@@ -2,6 +2,7 @@
 
 namespace App\Controller\Index;
 
+use App\Repository\ConversationRepository;
 use App\Repository\NoticeRepository;
 use App\Repository\UserRepository;
 use App\Service\Parameter;
@@ -18,10 +19,10 @@ class IndexController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository, NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
     {
         $this->security = $security;
-        $this->parameter = new Parameter($noticeRepository, $security, $userRepository);
+        $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
     }
 
     /**
@@ -30,6 +31,8 @@ class IndexController extends Controller
     public function index(): Response
     {
         $params = $this->parameter->getParams($this, []);
+
+        dump($params);
 
         return $this->render('index/index/index.html.twig', $params);
     }

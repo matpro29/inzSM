@@ -15,6 +15,11 @@ class Message
     private $conversation;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -36,6 +41,11 @@ class Message
         return $this->conversation;
     }
 
+    public function getDate()
+    {
+        return $this->date;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -54,6 +64,11 @@ class Message
     public function setConversation($conversation): void
     {
         $this->conversation = $conversation;
+    }
+
+    public function setDate($date): void
+    {
+        $this->date = $date;
     }
 
     public function setMessage($message): void

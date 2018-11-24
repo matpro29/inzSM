@@ -29,4 +29,18 @@ class ConversationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findAllNewByUserId($userId)
+    {
+        return $this->createQueryBuilder('c')
+            ->innerJoin('c.users', 'uc')
+            ->innerJoin('c.messages', 'm')
+            ->innerJoin('uc.user', 'u')
+            ->where('u.id = :userId')
+            ->andWhere('m.date > uc.conversationDate')
+            ->setParameter('userId', $userId)
+            ->distinct()
+            ->getQuery()
+            ->getResult();
+    }
 }
