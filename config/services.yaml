@@ -7,6 +7,7 @@ parameters:
     locale: 'pl'
     app_locales: en|pl
     files_directory: '%kernel.project_dir%/public/files'
+    website_domain: '127.0.0.1:8000'
 
 services:
     # default configuration for services in *this* file

@@ -32,6 +32,6 @@ class UserCourseGradeRepository extends ServiceEntityRepository
                 'userId' => $userId
             ])
             ->getQuery()
-            ->getResult();
+            ->getOneOrNullResult();
     }
 }

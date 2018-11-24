@@ -60,7 +60,6 @@ class GradeController extends Controller
 
             $dateTime = new \DateTime();
             $userCourse = $userCourseRepository->findOneByCourseIdUserId($course->getId(), $userInfo->getId());
-            $userCourse = $userCourse[0];
             $userCourse->setEndDate($dateTime);
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -137,11 +136,6 @@ class GradeController extends Controller
 
         $courseGrade = $userCourseGradeRepository->findOneByCourseIdUserId($course->getId(), $user->getId());
         $sectionsGrades = $userSectionGradeRepository->findAllByCourseIdUserId($course->getId(), $user->getId());
-        if ($courseGrade && $courseGrade[0]) {
-            $courseGrade = $courseGrade[0];
-        } else {
-            $courseGrade = null;
-        }
 
         $params = [
             'course' => $course,

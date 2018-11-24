@@ -79,12 +79,18 @@ class Course
      */
     private $users;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Webinar", mappedBy="course")
+     */
+    private $webinars;
+
     public function __construct()
     {
         $this->grades = new ArrayCollection();
         $this->notices = new ArrayCollection();
         $this->sections = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->webinars = new ArrayCollection();
     }
 
     public function getDescription()
@@ -150,6 +156,11 @@ class Course
     public function getUsers(): Collection
     {
         return $this->users;
+    }
+
+    public function getWebinars(): Collection
+    {
+        return $this->webinars;
     }
 
     public function setDescription($description): void

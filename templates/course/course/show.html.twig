@@ -7,7 +7,7 @@
 
     <div class="container">
         <h1>Kurs</h1>
-        {% if is_granted('ROLE_TEACHER') or is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER') %}
         <a href="{{ path('course_user', {'id': course.id}) }}" class="btn">{% trans %}Użytkownicy kursu{% endtrans
             %}</a>
 
@@ -20,6 +20,9 @@
                 endtrans
             %}</a>
         {% endif %}
+        <a href="{{ path('course_webinar_index', {'id': course.id}) }}" class="btn">{% trans %}Webinar{%
+                endtrans
+            %}</a>
         </br>
         {% for section in course.sections %}
           <div class="crud_zad"><span class="zad">{{ section.name }} </span>

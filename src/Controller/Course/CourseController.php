@@ -12,6 +12,7 @@ use App\Repository\CourseRepository;
 use App\Repository\NoticeRepository;
 use App\Repository\UserCourseRepository;
 use App\Repository\UserRepository;
+use App\Repository\WebinarRepository;
 use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,6 +58,12 @@ class CourseController extends Controller
 
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $password = password_hash($course->getPlainPassword(), PASSWORD_BCRYPT, [
+                'cost' => 13
+            ]);
+
+            $course->setPassword($password);
+
             $this->getDoctrine()->getManager()->flush();
 
             $params = [
@@ -201,14 +208,13 @@ class CourseController extends Controller
      */
     public function show(Course $course, Request $request, UserCourseRepository $userCourseRepository): Response
     {
-        $params = [
-            'course' => $course
-        ];
-        $params = $this->parameter->getParams($this, $params);
+        $params = $this->parameter->getParams($this, []);
 
         if ($params['user']->getId() == $course->getOwner()->getId()
             || $userCourseRepository->findOneByCourseIdUserId($course->getId(), $params['user']->getId())
             || $this->security->isGranted('ROLE_ADMIN')) {
+
+            $params['course'] = $course;
 
             return $this->render('course/course/show.html.twig', $params);
         } else {
@@ -229,7 +235,11 @@ class CourseController extends Controller
                     $entityManager->persist($userCourse);
                     $entityManager->flush();
 
-                    return $this->render('course/course/show.html.twig', $params);
+                    $params = [
+                        'id' => $course->getId()
+                    ];
+
+                    return $this->redirectToRoute('course_show', $params);
                 }
             }
 
