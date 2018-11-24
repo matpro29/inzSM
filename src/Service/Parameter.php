@@ -24,28 +24,9 @@ class Parameter extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function getCountNewNotices($params, $user)
-    {
-        if ($user && $this->security->isGranted('ROLE_TEACHER')) {
-            $newAdminNotices = $this->noticeRepository->findAllNewAdminByUserId($user->getId(), $this->userRepository);
-            $countNewAdminNotices = count($newAdminNotices);
-            $params['countNewNotices'] = $countNewAdminNotices;
-        } elseif ($user && $this->security->isGranted('ROLE_USER')) {
-            $newNotices = $this->noticeRepository->findAllNewByUserId($user->getId());
-            $newAdminNotices = $this->noticeRepository->findAllNewAdminByUserId($user->getId(), $this->userRepository);
-            $countNewNotices = count($newNotices);
-            $countNewAdminNotices = count($newAdminNotices);
-            $params['countNewNotices'] = $countNewNotices + $countNewAdminNotices;
-        } else {
-            $params['countNewNotices'] = null;
-        }
-
-        return $params;
-    }
-
     public function getParams($context, $params)
     {
-        $countNewNotices = 0;
+        $countNewCourseNotices = 0;
 
         $user = $context->getUser();
 
@@ -54,14 +35,14 @@ class Parameter extends Controller
 
         if ($user && $this->security->isGranted('ROLE_USER')) {
             $newNotices = $this->noticeRepository->findAllNewByUserId($user->getId());
-            $countNewNotices = count($newNotices);
+            $countNewCourseNotices = count($newNotices);
         }
 
         $newConversations = $this->conversationRepository->findAllNewByUserId($user->getId());
         $countNewConversations = count($newConversations);
 
         $params['countNewConversations'] = $countNewConversations;
-        $params['countNewNotices'] = $countNewNotices + $countNewAdminNotices;
+        $params['countNewNotices'] = $countNewCourseNotices + $countNewAdminNotices;
         $params['user'] = $user;
 
         return $params;

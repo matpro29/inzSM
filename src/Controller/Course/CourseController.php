@@ -8,6 +8,7 @@ use App\Form\Course\EnterForm;
 use App\Form\Course\NewAdminForm;
 use App\Form\Course\NewTeacherForm;
 use App\Form\Course\SearchForm;
+use App\Repository\ConversationRepository;
 use App\Repository\CourseRepository;
 use App\Repository\NoticeRepository;
 use App\Repository\UserCourseRepository;
@@ -28,10 +29,10 @@ class CourseController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository, NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
     {
         $this->security = $security;
-        $this->parameter = new Parameter($noticeRepository, $security, $userRepository);
+        $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
     }
 
     /**
@@ -98,11 +99,10 @@ class CourseController extends Controller
         }
 
         $params = [
-            'courses' => $courses,
-            'user' => $user
+            'courses' => $courses
         ];
 
-        $params = $this->parameter->getCountNewNotices($params, $user);
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('course/course/index.html.twig', $params);
     }

@@ -9,6 +9,7 @@ use App\Entity\UserCourseGrade;
 use App\Entity\UserSectionGrade;
 use App\Form\Grade\NewCourseForm;
 use App\Form\Grade\NewSectionForm;
+use App\Repository\ConversationRepository;
 use App\Repository\GradeRepository;
 use App\Repository\NoticeRepository;
 use App\Repository\UserCourseGradeRepository;
@@ -31,10 +32,10 @@ class GradeController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository, NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
     {
         $this->security = $security;
-        $this->parameter = new Parameter($noticeRepository, $security, $userRepository);
+        $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
     }
 
     /**
@@ -140,11 +141,10 @@ class GradeController extends Controller
         $params = [
             'course' => $course,
             'courseGrade' => $courseGrade,
-            'sectionsGrades' => $sectionsGrades,
-            'user' => $user
+            'sectionsGrades' => $sectionsGrades
         ];
 
-        $params = $this->parameter->getCountNewNotices($params, $user);
+        $params = $this->parameter->getParams($this, $params);
 
         return $this->render('course/grade/grade.html.twig', $params);
     }
