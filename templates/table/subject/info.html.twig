@@ -10,9 +10,10 @@
         <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Id{% endtrans %}</div><div class="col-md-9 pad"> {{ subject.id }}</div></div></div>
         <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Nazwa{% endtrans %}</div><div class="col-md-9 pad"> {{ subject.name }}</div></div></div>
         <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Opis{% endtrans %}</div><div class="col-md-9 pad">{{ subject.description }}</div></div></div>
-        </br>
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER') %}</br>
+
         <a href="{{ path('table_subject_edit', {'id': subject.id}) }}" class="btn delete">{% trans %}Edytuj{% endtrans %}</a></br></br>
-        {{ include('table/subject/form/_delete_form.html.twig') }}
+        {{ include('table/subject/form/_delete_form.html.twig') }}{% endif %}
         </br>   </br>
         <a href="{{ path('table_subject_index') }}" class="back">{% trans %}Wróć{% endtrans %}</a>
     </div>
