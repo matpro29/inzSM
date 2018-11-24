@@ -57,10 +57,13 @@ class WebinarController extends Controller
         $webinar = $webinarRepository->findOneByCourseId($course->getId());
         $webinars = $webinarRepository->findAllByCourseId($course->getId());
 
+        $websiteDomain = $this->getParameter('website_domain');
+
         $params = [
             'course' => $course,
             'webinar' => $webinar,
-            'webinars' => $webinars
+            'webinars' => $webinars,
+            'websiteDomain' => $websiteDomain
         ];
 
         $params = $this->parameter->getParams($this, $params);
