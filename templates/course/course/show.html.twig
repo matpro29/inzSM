@@ -7,7 +7,8 @@
 
     <div class="container">
         <h1>Kurs</h1>
-        {% if is_granted('ROLE_TEACHER') or is_granted('ROLE_ADMIN') %}
+
+        {% if is_granted('ROLE_TEACHER' or is_granted('ROLE_ADMIN') %}
             <a href="{{ path('course_user', {'id': course.id}) }}" class="btn">{% trans %}Użytkownicy kursu{% endtrans
                 %}</a>
 
@@ -20,13 +21,18 @@
                     endtrans
                 %}</a>
         {% endif %}
+        <a href="{{ path('course_webinar_index', {'id': course.id}) }}" class="btn">{% trans %}Webinar{%
+                endtrans
+            %}</a>
         </br>
         {% for section in course.sections %}
             <div class="crud_zad"><span class="zad">{{ section.name }} </span>
                 {% if is_granted('ROLE_TEACHER') or is_granted('ROLE_ADMIN') %}
                     {{ include ('course/section/form/_delete_form.html.twig') }}
                     <a href="{{ path('course_task_new', {'id': section.id}) }}" class="btn">{% trans %}Nowe zadanie w sekcji
-                        {% endtrans %} {{ section.name }}</a>  {% endif %}
+                        {% endtrans %} {{ section.name }}</a>
+                    <a href="{{ path('course_section_edit', {'id': section.id}) }}">Edytuj sekcję</a>
+                {% endif %}
             </div>
             </br>
             {% for task in section.tasks %}
@@ -57,18 +63,18 @@
                 <div class="task_content">
                     {{ task.contents }}</div>
                 {% for file in task.files %}
-                    {% if file.user.id == course.owner.id %}
+                    {% if file.user.id == course.owner.id or file.user.id == user.id %}
                         </br>
                         <div class="file">
                             <a href="{{ asset('files/' ~ file.file) }}">{{ file.name }}</a>
-                            {% if is_granted('ROLE_TEACHER') or is_granted('ROLE_ADMIN') %} {{ include('course/file/form/_delete_form.html.twig') }}{% endif %}</div>
+                            {% if is_granted('ROLE_TEACHER') or is_granted('ROLE_ADMIN') or file.user.id == user.id %} {{ include('course/file/form/_delete_form.html.twig') }}{% endif %}</div>
                     {% endif %}
                 {% endfor %}
                 {% if task.isFile == true %}
                     </br>
-                    {% if is_granted('ROLE_TEACHER') or is_granted('ROLE_ADMIN') %}   <a href="{{ path('course_file_new', {'id': task.id}) }}" class="btn send_file">{% trans %}Prześlij
+                    <a href="{{ path('course_file_new', {'id': task.id}) }}" class="btn send_file">{% trans %}Prześlij
                         plik{% endtrans
-                    %}</a>{% endif %}
+                    %}</a>
                 {% endif %}
 
 

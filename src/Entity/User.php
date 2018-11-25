@@ -34,6 +34,11 @@ class User implements UserInterface, \Serializable
     private $coursesOwn;
 
     /**
+     * @ORM\Column(type="string", length=256)
+     */
+    private $email;
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -54,6 +59,11 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="datetime")
      */
     private $noticeDate;
+
+    /**
+     * @Assert\Length(max=4096)
+     */
+    private $oldPassword;
 
     /**
      * @ORM\Column(type="string", length=96)
@@ -116,6 +126,11 @@ class User implements UserInterface, \Serializable
         return $this->coursesOwn;
     }
 
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -134,6 +149,11 @@ class User implements UserInterface, \Serializable
     public function getNoticeDate()
     {
         return $this->noticeDate;
+    }
+
+    public function getOldPassword()
+    {
+        return $this->oldPassword;
     }
 
     public function getPassword()
@@ -176,9 +196,19 @@ class User implements UserInterface, \Serializable
         ));
     }
 
+    public function setEmail($email): void
+    {
+        $this->email = $email;
+    }
+
     public function setNoticeDate($noticeDate): void
     {
         $this->noticeDate = $noticeDate;
+    }
+
+    public function setOldPassword($oldPassword): void
+    {
+        $this->oldPassword = $oldPassword;
     }
 
     public function setPassword($password): void

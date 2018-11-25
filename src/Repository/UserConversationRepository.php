@@ -18,4 +18,19 @@ class UserConversationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, UserConversation::class);
     }
+
+    public function findOneByConversationIdUserId($conversationId, $userId)
+    {
+        return $this->createQueryBuilder('uc')
+            ->innerJoin('uc.conversation', 'c')
+            ->innerJoin('uc.user', 'u')
+            ->where('c.id = :conversationId')
+            ->andWhere('u.id = :userId')
+            ->setParameters([
+                'conversationId' => $conversationId,
+                'userId' => $userId
+            ])
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

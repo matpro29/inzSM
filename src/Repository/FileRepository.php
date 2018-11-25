@@ -18,4 +18,14 @@ class FileRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, File::class);
     }
+
+    public function findAllByTaskId($taskId)
+    {
+        return $this->createQueryBuilder('f')
+            ->innerJoin('f.task', 't')
+            ->where('t.id = :taskId')
+            ->setParameter('taskId', $taskId)
+            ->getQuery()
+            ->getResult();
+    }
 }

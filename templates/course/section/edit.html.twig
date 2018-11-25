@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edytuj sekcję{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>{% trans %}Edytuj sekcję{% endtrans %}</h1>
+
+        {{ include('course/section/form/_edit_form.html.twig') }}
+        </br>
+        {{ include('course/section/form/_delete_form.html.twig') }}
+        </br>
+        <a href="{{ path('course_show', {'id': section.course.id}) }}" class="back">{% trans %}Wróć{% endtrans %}</a>
+    </div>
+{% endblock %}

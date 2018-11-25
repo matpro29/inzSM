@@ -4,6 +4,7 @@ namespace App\Controller\Table;
 
 use App\Entity\Subject;
 use App\Form\Subject\NewForm;
+use App\Repository\ConversationRepository;
 use App\Repository\NoticeRepository;
 use App\Repository\SubjectRepository;
 use App\Repository\UserRepository;
@@ -22,16 +23,20 @@ class SubjectController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository,
+                                NoticeRepository $noticeRepository,
+                                Security $security,
+                                UserRepository $userRepository)
     {
         $this->security = $security;
-        $this->parameter = new Parameter($noticeRepository, $security, $userRepository);
+        $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
     }
 
     /**
      * @Route("/{id}", name="table_subject_delete", methods="DELETE")
      */
-    public function delete(Request $request, Subject $subject): Response
+    public function delete(Request $request,
+                           Subject $subject): Response
     {
         if ($this->isCsrfTokenValid('delete'.$subject->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -45,7 +50,8 @@ class SubjectController extends Controller
     /**
      * @Route("/edit/{id}", name="table_subject_edit", methods="GET|POST")
      */
-    public function edit(Request $request, Subject $subject): Response
+    public function edit(Request $request,
+                         Subject $subject): Response
     {
         $form = $this->createForm(NewForm::class, $subject);
         $form->handleRequest($request);

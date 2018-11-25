@@ -4,6 +4,7 @@ namespace App\Controller\Table;
 
 use App\Entity\Type;
 use App\Form\Type\NewForm;
+use App\Repository\ConversationRepository;
 use App\Repository\NoticeRepository;
 use App\Repository\TypeRepository;
 use App\Repository\UserRepository;
@@ -22,16 +23,20 @@ class TypeController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository,
+                                NoticeRepository $noticeRepository,
+                                Security $security,
+                                UserRepository $userRepository)
     {
         $this->security = $security;
-        $this->parameter = new Parameter($noticeRepository, $security, $userRepository);
+        $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
     }
 
     /**
      * @Route("/{id}", name="table_type_delete", methods="DELETE")
      */
-    public function delete(Request $request, Type $type): Response
+    public function delete(Request $request,
+                           Type $type): Response
     {
         if ($this->isCsrfTokenValid('delete'.$type->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -45,7 +50,8 @@ class TypeController extends Controller
     /**
      * @Route("/edit/{id}", name="table_type_edit", methods="GET|POST")
      */
-    public function edit(Request $request, Type $type): Response
+    public function edit(Request $request,
+                         Type $type): Response
     {
         $form = $this->createForm(NewForm::class, $type);
         $form->handleRequest($request);

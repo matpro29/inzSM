@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Repository\ConversationRepository;
 use App\Repository\NoticeRepository;
 use App\Repository\UserRepository;
 use App\Service\Parameter;
@@ -20,10 +21,13 @@ class UserController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository,
+                                NoticeRepository $noticeRepository,
+                                Security $security,
+                                UserRepository $userRepository)
     {
         $this->security = $security;
-        $this->parameter = new Parameter($noticeRepository, $security, $userRepository);
+        $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
     }
 
     /**
@@ -59,7 +63,8 @@ class UserController extends Controller
     /**
      * @Route("/user/{id}", name="admin_user_promote", methods="PROMOTE")
      */
-    public function promote(Request $request, User $userInfo): Response
+    public function promote(Request $request,
+                            User $userInfo): Response
     {
         if ($this->isCsrfTokenValid('promote'.$userInfo->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

@@ -19,6 +19,16 @@ class UserCourseGradeRepository extends ServiceEntityRepository
         parent::__construct($registry, UserCourseGrade::class);
     }
 
+    public function findAllByCourseId($courseId)
+    {
+        return $this->createQueryBuilder('ucg')
+            ->innerJoin('ucg.course', 'c')
+            ->where('c.id = :courseId')
+            ->setParameter('courseId', $courseId)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findOneByCourseIdUserId($courseId, $userId)
     {
         return $this->createQueryBuilder('ucg')
@@ -32,6 +42,6 @@ class UserCourseGradeRepository extends ServiceEntityRepository
                 'userId' => $userId
             ])
             ->getQuery()
-            ->getResult();
+            ->getOneOrNullResult();
     }
 }

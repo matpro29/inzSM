@@ -9,6 +9,8 @@ use App\Form\Message\NewForm;
 use App\Repository\ConversationRepository;
 use App\Repository\MessageRepository;
 use App\Repository\NoticeRepository;
+use App\Repository\UserConversationRepository;
+use App\Repository\UserCourseGradeRepository;
 use App\Repository\UserRepository;
 use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -25,10 +27,13 @@ class ConversationController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository,
+                                NoticeRepository $noticeRepository,
+                                Security $security,
+                                UserRepository $userRepository)
     {
         $this->security = $security;
-        $this->parameter = new Parameter($noticeRepository, $security, $userRepository);
+        $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
     }
 
     /**
@@ -45,7 +50,10 @@ class ConversationController extends Controller
     /**
      * @Route("/{id}", name="conversation_show", methods="GET|POST")
      */
-    public function show(Conversation $conversation, MessageRepository $messageRepository, Request $request): Response
+    public function show(Conversation $conversation,
+                         MessageRepository $messageRepository,
+                         Request $request,
+                         UserConversationRepository $userConversationRepository): Response
     {
         $message = new Message();
         $form = $this->createForm(NewForm::class, $message);
@@ -54,6 +62,9 @@ class ConversationController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $message->setConversation($conversation);
             $message->setOwner($this->getUser());
+
+            $date = new \DateTime();
+            $message->setDate($date);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($message);
@@ -69,6 +80,14 @@ class ConversationController extends Controller
         ];
 
         $params = $this->parameter->getParams($this, $params);
+        
+        $userConversation = $userConversationRepository->findOneByConversationIdUserId($conversation->getId(), $params['user']->getId());
+        
+        $conversationDate = new \DateTime();
+        $userConversation->setConversationDate($conversationDate);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
 
         return $this->render('conversation/conversation/show.html.twig', $params);
     }
@@ -80,9 +99,13 @@ class ConversationController extends Controller
     {
         $conversation = new Conversation();
         $user = $this->getUser();
+
         $userConversation = new UserConversation();
         $userConversation->setConversation($conversation);
         $userConversation->setUser($user);
+
+        $conversationDate = new \DateTime();
+        $userConversation->setConversationDate($conversationDate);
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($conversation);

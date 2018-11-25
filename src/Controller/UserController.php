@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\User\LoginForm;
 use App\Form\User\RegisterForm;
+use App\Repository\ConversationRepository;
 use App\Repository\NoticeRepository;
 use App\Repository\UserRepository;
 use App\Service\Parameter;
@@ -24,10 +25,13 @@ class UserController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository,
+                                NoticeRepository $noticeRepository,
+                                Security $security,
+                                UserRepository $userRepository)
     {
         $this->security = $security;
-        $this->parameter = new Parameter($noticeRepository, $security, $userRepository);
+        $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
     }
 
     /**
@@ -63,19 +67,10 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/profile", name="profile")
-     */
-    public function profile(): Response
-    {
-        $params = $this->parameter->getParams($this, []);
-
-        return $this->render('user/profile.html.twig', $params);
-    }
-
-    /**
      * @Route("/register", name="register", methods="GET|POST")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function register(Request $request,
+                             UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
         $form = $this->createForm(RegisterForm::class, $user);

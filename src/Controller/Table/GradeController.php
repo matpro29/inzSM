@@ -4,6 +4,7 @@ namespace App\Controller\Table;
 
 use App\Entity\Grade;
 use App\Form\Grade\NewForm;
+use App\Repository\ConversationRepository;
 use App\Repository\GradeRepository;
 use App\Repository\NoticeRepository;
 use App\Repository\UserRepository;
@@ -22,16 +23,20 @@ class GradeController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository,
+                                NoticeRepository $noticeRepository,
+                                Security $security,
+                                UserRepository $userRepository)
     {
         $this->security = $security;
-        $this->parameter = new Parameter($noticeRepository, $security, $userRepository);
+        $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
     }
 
     /**
      * @Route("/{id}", name="table_grade_delete", methods="DELETE")
      */
-    public function delete(Grade $grade, Request $request): Response
+    public function delete(Grade $grade,
+                           Request $request): Response
     {
         if ($this->isCsrfTokenValid('delete'.$grade->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -45,7 +50,8 @@ class GradeController extends Controller
     /**
      * @Route("/edit/{id}", name="table_grade_edit", methods="GET|POST")
      */
-    public function edit(Grade $grade, Request $request): Response
+    public function edit(Grade $grade,
+                         Request $request): Response
     {
         $form = $this->createForm(NewForm::class, $grade);
         $form->handleRequest($request);

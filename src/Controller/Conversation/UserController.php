@@ -6,6 +6,7 @@ use App\Entity\Conversation;
 use App\Entity\User;
 use App\Entity\UserConversation;
 use App\Form\User\SearchForm;
+use App\Repository\ConversationRepository;
 use App\Repository\NoticeRepository;
 use App\Repository\UserRepository;
 use App\Service\Parameter;
@@ -24,10 +25,13 @@ class UserController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository,
+                                NoticeRepository $noticeRepository,
+                                Security $security,
+                                UserRepository $userRepository)
     {
         $this->security = $security;
-        $this->parameter = new Parameter($noticeRepository, $security, $userRepository);
+        $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
     }
 
     /**
@@ -35,12 +39,16 @@ class UserController extends Controller
      * @ParamConverter("conversation", options={"id": "conversationId"})
      * @ParamConverter("userInfo", options={"id": "userId"})
      */
-    public function add(Conversation $conversation, User $userInfo)
+    public function add(Conversation $conversation,
+                        User $userInfo)
     {
         $userConversation = new UserConversation();
 
         $userConversation->setUser($userInfo);
         $userConversation->setConversation($conversation);
+
+        $conversationDate = new \DateTime();
+        $userConversation->setConversationDate($conversationDate);
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($userConversation);
@@ -56,7 +64,8 @@ class UserController extends Controller
     /**
      * @Route("/{id}", name="conversation_user_index", methods="GET")
      */
-    public function index(Conversation $conversation, UserRepository $userRepository): Response
+    public function index(Conversation $conversation,
+                          UserRepository $userRepository): Response
     {
         $users = $userRepository->findAllByConversationId($conversation->getId());
 
@@ -73,7 +82,9 @@ class UserController extends Controller
     /**
      * @Route("/search/{id}", name="conversation_user_search", methods="GET|POST")
      */
-    public function search(Conversation $conversation, Request $request, UserRepository $userRepository): Response
+    public function search(Conversation $conversation,
+                           Request $request,
+                           UserRepository $userRepository): Response
     {
         $user = new User();
 
