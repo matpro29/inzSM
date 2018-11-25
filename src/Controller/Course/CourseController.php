@@ -4,6 +4,9 @@ namespace App\Controller\Course;
 
 use App\Entity\Course;
 use App\Entity\UserCourse;
+use App\Form\Course\ChangePasswordForm;
+use App\Form\Course\EditAdminForm;
+use App\Form\Course\EditTeacherForm;
 use App\Form\Course\EnterForm;
 use App\Form\Course\NewAdminForm;
 use App\Form\Course\NewTeacherForm;
@@ -13,7 +16,6 @@ use App\Repository\CourseRepository;
 use App\Repository\NoticeRepository;
 use App\Repository\UserCourseRepository;
 use App\Repository\UserRepository;
-use App\Repository\WebinarRepository;
 use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,11 +56,20 @@ class CourseController extends Controller
      */
     public function edit(Request $request, Course $course): Response
     {
-        $form = $this->createForm(NewAdminForm::class, $course);
-        $form->handleRequest($request);
+        $passwordForm = $this->createForm(ChangePasswordForm::class, $course);
+        $passwordForm->handleRequest($request);
+
+        $editForm = null;
+
+        if ($this->security->isGranted('ROLE_TEACHER')) {
+            $editForm = $this->createForm(EditTeacherForm::class, $course);
+        } else {
+            $editForm = $this->createForm(EditAdminForm::class, $course);
+        }
+        $editForm->handleRequest($request);
 
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($passwordForm->isSubmitted() && $passwordForm->isValid()) {
             $password = password_hash($course->getPlainPassword(), PASSWORD_BCRYPT, [
                 'cost' => 13
             ]);
@@ -72,11 +83,20 @@ class CourseController extends Controller
             ];
 
             return $this->redirectToRoute('course_edit', $params);
+        } else if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            $params = [
+                'id' => $course->getId()
+            ];
+
+            return $this->redirectToRoute('course_edit', $params);
         }
 
         $params = [
             'course' => $course,
-            'form' => $form->createView()
+            'editForm' => $editForm->createView(),
+            'passwordForm' => $passwordForm->createView()
         ];
 
         $params = $this->parameter->getParams($this, $params);
