@@ -23,7 +23,10 @@ class UserController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(ConversationRepository $conversationRepository, NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository,
+                                NoticeRepository $noticeRepository,
+                                Security $security,
+                                UserRepository $userRepository)
     {
         $this->security = $security;
         $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
@@ -32,7 +35,8 @@ class UserController extends Controller
     /**
      * @Route("/edit", name="profile_edit")
      */
-    public function edit(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function edit(Request $request,
+                         UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = $this->getUser();
 

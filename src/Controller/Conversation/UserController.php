@@ -25,7 +25,10 @@ class UserController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(ConversationRepository $conversationRepository, NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository,
+                                NoticeRepository $noticeRepository,
+                                Security $security,
+                                UserRepository $userRepository)
     {
         $this->security = $security;
         $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
@@ -36,7 +39,8 @@ class UserController extends Controller
      * @ParamConverter("conversation", options={"id": "conversationId"})
      * @ParamConverter("userInfo", options={"id": "userId"})
      */
-    public function add(Conversation $conversation, User $userInfo)
+    public function add(Conversation $conversation,
+                        User $userInfo)
     {
         $userConversation = new UserConversation();
 
@@ -60,7 +64,8 @@ class UserController extends Controller
     /**
      * @Route("/{id}", name="conversation_user_index", methods="GET")
      */
-    public function index(Conversation $conversation, UserRepository $userRepository): Response
+    public function index(Conversation $conversation,
+                          UserRepository $userRepository): Response
     {
         $users = $userRepository->findAllByConversationId($conversation->getId());
 
@@ -77,7 +82,9 @@ class UserController extends Controller
     /**
      * @Route("/search/{id}", name="conversation_user_search", methods="GET|POST")
      */
-    public function search(Conversation $conversation, Request $request, UserRepository $userRepository): Response
+    public function search(Conversation $conversation,
+                           Request $request,
+                           UserRepository $userRepository): Response
     {
         $user = new User();
 

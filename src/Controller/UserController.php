@@ -25,7 +25,10 @@ class UserController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(ConversationRepository $conversationRepository, NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository,
+                                NoticeRepository $noticeRepository,
+                                Security $security,
+                                UserRepository $userRepository)
     {
         $this->security = $security;
         $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
@@ -66,7 +69,8 @@ class UserController extends Controller
     /**
      * @Route("/register", name="register", methods="GET|POST")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function register(Request $request,
+                             UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
         $form = $this->createForm(RegisterForm::class, $user);

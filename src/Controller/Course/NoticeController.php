@@ -23,7 +23,10 @@ class NoticeController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(ConversationRepository $conversationRepository, NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository,
+                                NoticeRepository $noticeRepository,
+                                Security $security,
+                                UserRepository $userRepository)
     {
         $this->security = $security;
         $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
@@ -33,7 +36,8 @@ class NoticeController extends Controller
     /**
      * @Route("/new/{id}", name="course_notice_new", methods="GET|POST")
      */
-    public function new(Course $course, Request $request): Response
+    public function new(Course $course,
+                        Request $request): Response
     {
         $notice = new Notice();
         $form = $this->createForm(NewForm::class, $notice);

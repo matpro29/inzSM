@@ -32,7 +32,10 @@ class GradeController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(ConversationRepository $conversationRepository, NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository,
+                                NoticeRepository $noticeRepository,
+                                Security $security,
+                                UserRepository $userRepository)
     {
         $this->security = $security;
         $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
@@ -43,7 +46,11 @@ class GradeController extends Controller
      * @ParamConverter("course", options={"id": "courseId"})
      * @ParamConverter("userInfo", options={"id": "userId"})
      */
-    public function end(Course $course, GradeRepository $gradeRepository, Request $request, User $userInfo, UserCourseRepository $userCourseRepository, UserSectionGradeRepository $userSectionGradeRepository): Response
+    public function end(Course $course,
+                        GradeRepository $gradeRepository,
+                        Request $request, User $userInfo,
+                        UserCourseRepository $userCourseRepository,
+                        UserSectionGradeRepository $userSectionGradeRepository): Response
     {
         $userCourseGrade = new UserCourseGrade();
 
@@ -86,7 +93,10 @@ class GradeController extends Controller
         return $this->render('course/grade/end.html.twig', $params);
     }
 
-    private function getEndGrade(Course $course, GradeRepository $gradeRepository, User $userInfo, UserSectionGradeRepository $userSectionGradeRepository)
+    private function getEndGrade(Course $course,
+                                 GradeRepository $gradeRepository,
+                                 User $userInfo,
+                                 UserSectionGradeRepository $userSectionGradeRepository)
     {
         $sectionGrades = $userSectionGradeRepository->findAllByCourseIdUserId($course->getId(), $userInfo->getId());
 
@@ -131,7 +141,9 @@ class GradeController extends Controller
     /**
      * @Route("/{id}", name="course_grade", methods="GET")
      */
-    public function grade(Course $course, UserCourseGradeRepository $userCourseGradeRepository, UserSectionGradeRepository $userSectionGradeRepository): Response
+    public function grade(Course $course,
+                          UserCourseGradeRepository $userCourseGradeRepository,
+                          UserSectionGradeRepository $userSectionGradeRepository): Response
     {
         $user = $this->getUser();
 
@@ -154,7 +166,8 @@ class GradeController extends Controller
      * @ParamConverter("course", options={"id": "courseId"})
      * @ParamConverter("userInfo", options={"id": "userId"})
      */
-    public function index(Course $course, User $userInfo): Response
+    public function index(Course $course,
+                          User $userInfo): Response
     {
         $params = [
             'course' => $course,
@@ -171,7 +184,9 @@ class GradeController extends Controller
      * @ParamConverter("section", options={"id": "sectionId"})
      * @ParamConverter("userInfo", options={"id": "userId"})
      */
-    public function new(Request $request, Section $section, User $userInfo): Response
+    public function new(Request $request,
+                        Section $section,
+                        User $userInfo): Response
     {
         $userSectionGrade = new UserSectionGrade();
 

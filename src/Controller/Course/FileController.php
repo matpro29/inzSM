@@ -25,7 +25,10 @@ class FileController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(ConversationRepository $conversationRepository, NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository,
+                                NoticeRepository $noticeRepository,
+                                Security $security,
+                                UserRepository $userRepository)
     {
         $this->security = $security;
         $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
@@ -34,7 +37,8 @@ class FileController extends Controller
     /**
      * @Route("/{id}", name="course_file_delete", methods="DELETE")
      */
-    public function delete(Request $request, File $file): Response
+    public function delete(Request $request,
+                           File $file): Response
     {
         $course = $file->getTask()->getSection()->getCourse();
 
@@ -59,7 +63,8 @@ class FileController extends Controller
     /**
      * @Route("/new/{id}", name="course_file_new", methods="GET|POST")
      */
-    public function new(Request $request, Task $task): Response
+    public function new(Request $request,
+                        Task $task): Response
     {
         $file = new File();
         $form = $this->createForm(NewForm::class, $file);

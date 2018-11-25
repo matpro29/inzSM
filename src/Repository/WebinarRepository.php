@@ -24,13 +24,23 @@ class WebinarRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('w')
             ->innerJoin('w.course', 'c')
             ->where('c.id = :courseId')
+            ->setParameter('courseId', $courseId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllNotActiveByCourseId($courseId)
+    {
+        return $this->createQueryBuilder('w')
+            ->innerJoin('w.course', 'c')
+            ->where('c.id = :courseId')
             ->andWhere('w.isActive = false')
             ->setParameter('courseId', $courseId)
             ->getQuery()
             ->getResult();
     }
 
-    public function findOneByCourseId($courseId)
+    public function findOneActiveByCourseId($courseId)
     {
         return $this->createQueryBuilder('w')
             ->innerJoin('w.course', 'c')

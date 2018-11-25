@@ -24,7 +24,10 @@ class WebinarController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(ConversationRepository $conversationRepository, NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository,
+                                NoticeRepository $noticeRepository,
+                                Security $security,
+                                UserRepository $userRepository)
     {
         $this->security = $security;
         $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
@@ -33,9 +36,10 @@ class WebinarController extends Controller
     /**
      * @Route("/end/{id}", name="course_webinar_end", methods="GET|POST")
      */
-    public function end(Course $course, WebinarRepository $webinarRepository): Response
+    public function end(Course $course,
+                        WebinarRepository $webinarRepository): Response
     {
-        $webinar = $webinarRepository->findOneByCourseId($course->getId());
+        $webinar = $webinarRepository->findOneActiveByCourseId($course->getId());
         $webinar->setIsActive(false);
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -52,10 +56,11 @@ class WebinarController extends Controller
     /**
      * @Route("/{id}", name="course_webinar_index", methods="GET|POST")
      */
-    public function index(Course $course, WebinarRepository $webinarRepository): Response
+    public function index(Course $course,
+                          WebinarRepository $webinarRepository): Response
     {
-        $webinar = $webinarRepository->findOneByCourseId($course->getId());
-        $webinars = $webinarRepository->findAllByCourseId($course->getId());
+        $webinar = $webinarRepository->findOneActiveByCourseId($course->getId());
+        $webinars = $webinarRepository->findAllNotActiveByCourseId($course->getId());
 
         $websiteDomain = $this->getParameter('website_domain');
 
@@ -74,7 +79,8 @@ class WebinarController extends Controller
     /**
      * @Route("/new/{id}", name="course_webinar_new", methods="GET|POST")
      */
-    public function new(Course $course, Request $request): Response
+    public function new(Course $course,
+                        Request $request): Response
     {
         $webinar = new Webinar();
 

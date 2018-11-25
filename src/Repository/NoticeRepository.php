@@ -29,6 +29,16 @@ class NoticeRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findAllByCourseId($courseId)
+    {
+        return $this->createQueryBuilder('n')
+            ->innerJoin('n.course', 'c')
+            ->where('c.id = :courseId')
+            ->setParameter('courseId', $courseId)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findAllByUserId($userId)
     {
         return $this->createQueryBuilder('n')

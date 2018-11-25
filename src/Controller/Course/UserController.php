@@ -20,7 +20,10 @@ class UserController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(ConversationRepository $conversationRepository, NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository,
+                                NoticeRepository $noticeRepository,
+                                Security $security,
+                                UserRepository $userRepository)
     {
         $this->security = $security;
         $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
@@ -29,7 +32,8 @@ class UserController extends Controller
     /**
      * @Route("/{id}", name="course_user", methods="GET|POST")
      */
-    public function index(Course $course, UserRepository $userRepository): Response
+    public function index(Course $course,
+                          UserRepository $userRepository): Response
     {
         $users = $userRepository->findAllByCourseId($course->getId());
 

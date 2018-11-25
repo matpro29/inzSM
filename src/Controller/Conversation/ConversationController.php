@@ -27,7 +27,10 @@ class ConversationController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(ConversationRepository $conversationRepository, NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository,
+                                NoticeRepository $noticeRepository,
+                                Security $security,
+                                UserRepository $userRepository)
     {
         $this->security = $security;
         $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
@@ -47,7 +50,10 @@ class ConversationController extends Controller
     /**
      * @Route("/{id}", name="conversation_show", methods="GET|POST")
      */
-    public function show(Conversation $conversation, MessageRepository $messageRepository, Request $request, UserConversationRepository $userConversationRepository): Response
+    public function show(Conversation $conversation,
+                         MessageRepository $messageRepository,
+                         Request $request,
+                         UserConversationRepository $userConversationRepository): Response
     {
         $message = new Message();
         $form = $this->createForm(NewForm::class, $message);
