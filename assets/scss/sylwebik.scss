@@ -63,6 +63,19 @@ button{
  }
 
 //koniec buttona
+.send_file{
+ display:table;
+}
+.half_grade{
+ display:table;
+}
+.gade_half{
+ font-size: 20px;
+ color: $orange;
+ .pad{
+  padding-right: 15px;
+ }
+}
 //inputy:
 
 input,textarea{
