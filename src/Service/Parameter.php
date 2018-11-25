@@ -28,7 +28,15 @@ class Parameter extends Controller
     {
         $countNewCourseNotices = 0;
 
-        $user = $context->getUser();
+        $user = $context && $context->getUser() ? $context->getUser() : null;
+
+        if (!$user) {
+            $params['countNewConversations'] = 0;
+            $params['countNewNotices'] = 0;
+            $params['user'] = 0;
+
+            return $params;
+        }
 
         $newAdminNotices = $this->noticeRepository->findAllNewAdminByUserId($user->getId(), $this->userRepository);
         $countNewAdminNotices = count($newAdminNotices);

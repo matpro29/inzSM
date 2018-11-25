@@ -32,8 +32,6 @@ class IndexController extends Controller
     {
         $params = $this->parameter->getParams($this, []);
 
-        dump($params);
-
         return $this->render('index/index/index.html.twig', $params);
     }
 
