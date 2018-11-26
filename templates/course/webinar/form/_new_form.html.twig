@@ -1,4 +1,19 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+   {# {{ form_widget(form) }}#}
+<div class="form-group">
+    {{ form_label(form.name) }}
+    {{ form_widget(form.name) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.video) }}
+    {{ form_widget(form.video) }}
+</div>
+<div class="form-group che">
+    <div class="chec">
+        {{ form_label(form.isActive) }}
+        <div class="pinc">{{ form_widget(form.isActive) }}</div>
+    </div></div>
+
     <button class="btn">{% trans %}Dodaj webinar{% endtrans %}</button>
 {{ form_end(form) }}
+

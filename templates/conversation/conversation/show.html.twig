@@ -8,34 +8,50 @@
         <h1>Wiadomości</h1>
 
         <a href="{{ path('conversation_user_index', {'id': conversation.id}) }}" class="btn">Użytkownicy</a>
-        <div class="headertable"> <div class="row"><div class="col-md-2">{% trans %}Id{% endtrans %}</div><div
-                        class="col-md-2">{% trans %}Użytkownik{% endtrans %}</div><div class="col-md-8">{% trans
-                    %}Wiadomość{% endtrans %}</div></div></div>
+
+        </br>
+        <a href="{{ path('conversation_user_index', {'id': conversation.id}) }}" class="btn delete">Użytkownicy zapisani</a> </br>
 
         {% for message in messages %}
-        <div class="listtable">
-            <div class="row">
-                <div class="col-md-2 pad">
-                    {{ message.id }}
-                </div>
 
-                <div class="col-md-2 pad">
+            <div class="row chat">
+
+                <section class="them">
+                    <img  src='https://ioneglobalgrind.files.wordpress.com/2014/03/screen-shot-2014-03-05-at-1-00-58-pm.png' /></br>
                     {{ message.owner.username }}
-                </div>
+                    {#{% if ( user.id ) === ( userInfo.id ) %}#}
+                    {#<section class="me">#}
+                    {#<section class="msgs">#}
+                    {#<p>#}
+                    {#Sure, JJ.  Which part are you getting stuck with?#}
+                    {#</p>#}
+                    {#</section>#}
+                    {#</section>#}
+                        DUPA XD
+                    {#{% endif %}#}
+                    <section class="msgs">
+                        <p>
+                            {{ message.message }}
+                        </p>
+                    </section>
+                </section>
 
-                <div class="col-md-8 pad">
-                    {{ message.message }}
-                </div></div></div>
+
+
+
+
+
+
+
+               </div>
 
 
             {% else %}
              Nie znaleziono wiadomości!
             {% endfor %}
-            </tbody>
-        </table>
-        {{ include('conversation/conversation/form/_message_new_form.html.twig', {'button_label': 'Napisz'}) }}
-        <a href="{{ path('conversation_user_index', {'id': conversation.id}) }}">Użytkownicy zapisani</a>
         </br>
-        <a href="{{ path('conversation_index') }}">Wróć</a>
+        {{ include('conversation/conversation/form/_message_new_form.html.twig', {'button_label': 'Napisz'}) }}
+        </br>  </br>
+        <a href="{{ path('conversation_index') }}" class="back">Wróć</a>
     </div>
 {% endblock %}

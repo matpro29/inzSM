@@ -7,28 +7,20 @@
     <div class="container">
         <h1>Użytkownicy rozmowy</h1>
 
-        <a href="{{ path('conversation_user_search', {'id': conversation.id}) }}">Szukaj użytkowników</a>
-        <table>
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Użytkownik</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for user in users %}
-                <tr>
-                    <td>{{ user.id }}</td>
-                    <td>{{ user.username }}</td>
-                </tr>
+        <a href="{{ path('conversation_user_search', {'id': conversation.id}) }}" class="btn">Szukaj użytkowników</a> </br> </br>
+        <div class="headertable"> <div class="row"><div class="col-md-2">{% trans %}Id{% endtrans %}</div><div class="col-md-10">{% trans %}Użytkownik{% endtrans %}</div></div></div>
+
+        {% for user in users %}
+        <div class="listtable">
+            <div class="row">
+                <div class="col-md-2 pad">{{ user.id }}</div>
+                <div class="col-md-10 pad">{{ user.username }}</div>
+            </div></div>
             {% else %}
-                <tr>
-                    <td colspan="5">Nie znaleziono użytkowników!</td>
-                </tr>
+               Nie znaleziono użytkowników!
             {% endfor %}
-            </tbody>
-        </table>
-        </br>
+
+                </br>   </br>
         <a href="{{ path('conversation_show', {'id': conversation.id}) }}" class="back">{% trans %}Wróć{% endtrans %}</a>
     </div>
 {% endblock %}

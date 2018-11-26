@@ -6,8 +6,8 @@
 
     <div class="container">
         <h1>{% trans %}Przedmioty{% endtrans %}</h1>
-
-        <a class="btn" href="{{ path('table_subject_new') }}">{% trans %}Dodaj przedmiot{% endtrans %}</a>
+        {% if is_granted('ROLE_TEACHER') or is_granted('ROLE_ADMIN') %}
+        <a class="btn" href="{{ path('table_subject_new') }}">{% trans %}Dodaj przedmiot{% endtrans %}</a>{% endif %}
         </br>
         </br>
 <div class="headertable">

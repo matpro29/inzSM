@@ -486,10 +486,94 @@ padding-top:20px;
 
 
 /*--------------
-  CONTACT
+  czat
 --------------*/
 
+.chat {
+ margin: 0 auto;
+ max-width: 420px;
+ position: relative;
+ display: block;
 
+ img {
+ border-radius: 50%;
+ width: 32px;
+ height: 32px;
+ position: absolute;
+ bottom: -6px;
+}
+ .them img {
+ border: 4px solid #e5e5ea;
+ left: -42px;
+}
+
+ p {
+ display: flex;
+ margin: 0 0 2px;
+ padding: 0.5em 1em 0.65em;
+ border-radius: 4px;
+ background: #e5e5ea;
+ max-width: 65%;
+ clear: both;
+ position: relative;
+}
+.them p {
+ width:auto;
+ border-top-right-radius: 1em;
+ border-bottom-right-radius: 1em;
+}
+.them p:last-child::after {
+ //content: "";
+ //position: absolute;
+
+ border-right: 0.5em solid #e5e5ea;
+
+ content: "";
+ position: absolute;
+ z-index: 3;
+ bottom: -2px;
+ left: -15px;
+ width: 26px;
+ height: 20px;
+
+ border-bottom-right-radius: 10px;
+ transform: rotate(50deg);
+ transform-origin: 60% 40%;
+}
+
+.me p {
+ float: right;
+ background-color: #1289fe;
+ color: white;
+ border-top-left-radius: 1em;
+ border-bottom-left-radius: 1em;
+}
+.me p:last-child::after {
+ content: "";
+ position: absolute;
+ right: -0.5em;
+ bottom: 0;
+ width: 0.5em;
+ height: 1em;
+ border-left: 0.5em solid #1289fe;
+ border-bottom-left-radius: 1em 0.5em;
+}
+
+p:first-child {
+ border-top-right-radius: 1em;
+ border-top-left-radius: 1em;
+}
+
+p:last-child {
+ border-bottom-left-radius: 1em;
+ margin-bottom: 8px;
+}
+.me p:last-child {
+ border-bottom-left-radius: 1em;
+ border-bottom-right-radius: 1em;
+ margin-bottom: 8px;
+}
+}
 /*--------------
   FOOTER
 --------------*/
