@@ -11,10 +11,10 @@
 
         </br>
         <a href="{{ path('conversation_user_index', {'id': conversation.id}) }}" class="btn delete">Użytkownicy zapisani</a> </br>
-
+        <div class="row chat">
         {% for message in messages %}
 
-            <div class="row chat">
+
 
 
             {% if user.id == message.owner.id %}
@@ -44,12 +44,12 @@
 
 
 
-               </div>
+
 
 
             {% else %}
              Nie znaleziono wiadomości!
-            {% endfor %}
+            {% endfor %} </div>
         </br>
         {{ include('conversation/conversation/form/_message_new_form.html.twig', {'button_label': 'Napisz'}) }}
         </br>  </br>

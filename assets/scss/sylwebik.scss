@@ -493,7 +493,11 @@ padding-top:20px;
  margin: 0 auto;
  max-width: 420px;
  position: relative;
+ overflow-x: hidden;
+ overflow-y: scroll;
  display: block;
+ max-width: 600px;
+ padding: 0 30px;
 
  img {
  border-radius: 50%;
@@ -552,13 +556,14 @@ padding-top:20px;
  content: "";
  position: absolute;
  right: -0.5em;
- bottom: 0;
- width: 0.5em;
- height: 1em;
+ bottom: -2px;
+ width: 26px;
+ height: 20px;
  border-left: 0.5em solid #1289fe;
- border-bottom-left-radius: 1em 0.5em;
- transform: rotate(50deg);
- transform-origin: 60% 40%;
+ border-bottom-left-radius: 10px;
+ transform: rotate(315deg);
+ transform-origin: 53% -20%;
+
 }
 
 p:first-child {
