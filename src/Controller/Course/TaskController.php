@@ -73,6 +73,14 @@ class TaskController extends Controller
     public function edit(Request $request,
                          Task $task): Response
     {
+        $endDate = $task->getEndDate();
+        $endDateString = $endDate->format('Y-m-d H:i:s');
+        $task->setEndDateString($endDateString);
+
+        $startDate = $task->getStartDate();
+        $startDateString = $startDate->format('Y-m-d H:i:s');
+        $task->setStartDateString($startDateString);
+
         $form = $this->createForm(NewForm::class, $task);
         $form->handleRequest($request);
 

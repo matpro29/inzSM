@@ -42,6 +42,6 @@ class UserCourseRepository extends ServiceEntityRepository
                 'userId' => $userId
             ])
             ->getQuery()
-            ->getResult();
+            ->getOneOrNullResult();
     }
 }

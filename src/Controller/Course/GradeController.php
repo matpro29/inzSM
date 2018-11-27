@@ -42,6 +42,108 @@ class GradeController extends Controller
     }
 
     /**
+     * @Route("/c/{id}", name="course_grade_delete_c", methods="DELETE")
+     */
+    public function deleteC(Request $request,
+                            UserCourseGrade $userCourseGrade): Response
+    {
+        $params = [
+            'courseId' => $userCourseGrade->getCourse()->getId(),
+            'userId' => $userCourseGrade->getUser()->getId()
+        ];
+
+        if ($this->isCsrfTokenValid('delete'.$userCourseGrade->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($userCourseGrade);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('course_user_grade', $params);
+    }
+
+    /**
+     * @Route("/s/{id}", name="course_grade_delete_s", methods="DELETE")
+     */
+    public function deleteS(Request $request,
+                            UserSectionGrade $userSectionGrade): Response
+    {
+        $params = [
+            'courseId' => $userSectionGrade->getSection()->getCourse()->getId(),
+            'userId' => $userSectionGrade->getUser()->getId()
+        ];
+
+        if ($this->isCsrfTokenValid('delete'.$userSectionGrade->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($userSectionGrade);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('course_user_grade', $params);
+    }
+
+    /**
+     * @Route("/editc/{id}", name="course_grade_edit_c")
+     */
+    public function editC(Request $request,
+                          UserCourseGrade $userCourseGrade): Response
+    {
+        $form = $this->createForm(NewCourseForm::class, $userCourseGrade);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            $params = [
+                'courseId' => $userCourseGrade->getCourse()->getId(),
+                'userId' => $userCourseGrade->getUser()->getId()
+            ];
+
+            return $this->redirectToRoute('course_user_grade', $params);
+        }
+
+        $params = [
+            'course' => $userCourseGrade->getCourse(),
+            'form' => $form->createView(),
+            'userInfo' => $userCourseGrade->getUser()
+        ];
+
+        $params = $this->parameter->getParams($this, $params);
+
+        return $this->render('course/grade/edit_c.html.twig', $params);
+    }
+
+    /**
+     * @Route("/edits/{id}", name="course_grade_edit_s")
+     */
+    public function editS(Request $request,
+                          UserSectionGrade $userSectionGrade): Response
+    {
+        $form = $this->createForm(NewSectionForm::class, $userSectionGrade);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            $params = [
+                'courseId' => $userSectionGrade->getSection()->getCourse()->getId(),
+                'userId' => $userSectionGrade->getUser()->getId()
+            ];
+
+            return $this->redirectToRoute('course_user_grade', $params);
+        }
+
+        $params = [
+            'form' => $form->createView(),
+            'section' => $userSectionGrade->getSection(),
+            'userInfo' => $userSectionGrade->getUser()
+        ];
+
+        $params = $this->parameter->getParams($this, $params);
+
+        return $this->render('course/grade/edit_s.html.twig', $params);
+    }
+
+    /**
      * @Route("/end/{courseId}/{userId}", name="course_user_grade_end")
      * @ParamConverter("course", options={"id": "courseId"})
      * @ParamConverter("userInfo", options={"id": "userId"})
@@ -167,10 +269,14 @@ class GradeController extends Controller
      * @ParamConverter("userInfo", options={"id": "userId"})
      */
     public function index(Course $course,
-                          User $userInfo): Response
+                          User $userInfo,
+                          UserCourseGradeRepository $userCourseGradeRepository): Response
     {
+        $courseGrade = $userCourseGradeRepository->findOneByCourseIdUserId($course->getId(), $userInfo->getId());
+
         $params = [
             'course' => $course,
+            'courseGrade' => $courseGrade,
             'userInfo' => $userInfo
         ];
 

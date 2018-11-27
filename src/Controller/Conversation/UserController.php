@@ -8,6 +8,7 @@ use App\Entity\UserConversation;
 use App\Form\User\SearchForm;
 use App\Repository\ConversationRepository;
 use App\Repository\NoticeRepository;
+use App\Repository\UserConversationRepository;
 use App\Repository\UserRepository;
 use App\Service\Parameter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -62,6 +63,28 @@ class UserController extends Controller
     }
 
     /**
+     * @Route("/delete/{conversationId}/{userId}", name="conversation_user_delete", methods="GET")
+     * @ParamConverter("conversation", options={"id": "conversationId"})
+     * @ParamConverter("userInfo", options={"id": "userId"})
+     */
+    public function delete(Conversation $conversation,
+                           User $userInfo,
+                           UserConversationRepository $userConversationRepository)
+    {
+        $userConversation = $userConversationRepository->findOneByConversationIdUserId($conversation->getId(), $userInfo->getId());
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($userConversation);
+        $entityManager->flush();
+
+        $params = [
+            'id' => $conversation->getId()
+        ];
+
+        return $this->redirectToRoute('conversation_user_index', $params);
+    }
+
+    /**
      * @Route("/{id}", name="conversation_user_index", methods="GET")
      */
     public function index(Conversation $conversation,
@@ -96,7 +119,7 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $users = $userRepository->findAllBySearchForm($user->getUsername());
         } else {
-            $users = $userRepository->findAll();
+            $users = $userRepository->findAllWithoutByConversatrionId($conversation->getId());
         }
 
         $params = [

@@ -7,6 +7,7 @@ use App\Entity\UserCourseGrade;
 use App\Repository\GradeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,6 +23,9 @@ class NewCourseForm extends AbstractType
                 'query_builder' => function (GradeRepository $gradeRepository) {
                     return $gradeRepository->findAllQB();
                 }
+            ])
+            ->add('comment', TextareaType::class, [
+                'label' => 'Komentarz: '
             ]);
     }
 
