@@ -31,7 +31,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/user", name="admin_user_index", methods="GET")
+     * @Route("/", name="admin_user_index", methods="GET")
      */
     public function index(UserRepository $userRepository): Response
     {
@@ -47,7 +47,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/user/{id}", name="admin_user_info", methods="GET")
+     * @Route("/{id}", name="admin_user_info", methods="GET")
      */
     public function info(User $userInfo): Response
     {
@@ -61,7 +61,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/user/{id}", name="admin_user_promote", methods="PROMOTE")
+     * @Route("/{id}", name="admin_user_promote", methods="PROMOTE")
      */
     public function promote(Request $request,
                             User $userInfo): Response

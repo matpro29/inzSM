@@ -87,6 +87,12 @@ class TaskController extends Controller
         $course = $task->getSection()->getCourse();
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $endDate = new \DateTime($task->getEndDateString());
+            $startDate = new \DateTime($task->getStartDateString());
+
+            $task->setEndDate($endDate);
+            $task->setStartDate($startDate);
+
             $this->getDoctrine()->getManager()->flush();
 
             $params = [
