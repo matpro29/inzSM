@@ -16,19 +16,20 @@
 
             <div class="row chat">
 
+
+            {% if user.id == message.owner.id %}
+            <section class="me">
+                <section class="msgs">
+                    <p>
+                        {{ message.message }}
+                    </p>
+                </section>
+            </section>
+
+            {% else %}
                 <section class="them">
                     <img  src='https://ioneglobalgrind.files.wordpress.com/2014/03/screen-shot-2014-03-05-at-1-00-58-pm.png' /></br>
-                    {{ message.owner.username }}
-                    {#{% if ( user.id ) === ( userInfo.id ) %}#}
-                    {#<section class="me">#}
-                    {#<section class="msgs">#}
-                    {#<p>#}
-                    {#Sure, JJ.  Which part are you getting stuck with?#}
-                    {#</p>#}
-                    {#</section>#}
-                    {#</section>#}
-                        DUPA XD
-                    {#{% endif %}#}
+                    {#{{ message.owner.username }}#}
                     <section class="msgs">
                         <p>
                             {{ message.message }}
@@ -36,7 +37,7 @@
                     </section>
                 </section>
 
-
+{% endif %}
 
 
 

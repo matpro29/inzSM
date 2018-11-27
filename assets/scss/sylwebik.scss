@@ -508,7 +508,7 @@ padding-top:20px;
 }
 
  p {
- display: flex;
+ //display: flex;
  margin: 0 0 2px;
  padding: 0.5em 1em 0.65em;
  border-radius: 4px;
@@ -557,6 +557,8 @@ padding-top:20px;
  height: 1em;
  border-left: 0.5em solid #1289fe;
  border-bottom-left-radius: 1em 0.5em;
+ transform: rotate(50deg);
+ transform-origin: 60% 40%;
 }
 
 p:first-child {
