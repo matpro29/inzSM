@@ -19,13 +19,13 @@ class NewSectionForm extends AbstractType
             ->add('grade', EntityType::class, [
                 'choice_label' => 'grade',
                 'class' => Grade::class,
-                'label' => 'Ocena: ',
+                'label' => 'Ocena',
                 'query_builder' => function (GradeRepository $gradeRepository) {
                     return $gradeRepository->findAllQB();
                 }
             ])
             ->add('comment', TextareaType::class, [
-                'label' => 'Komentarz: '
+                'label' => 'Komentarz'
             ]);
     }
 

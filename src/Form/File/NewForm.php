@@ -15,10 +15,10 @@ class NewForm extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nazwa: '
+                'label' => 'Nazwa'
             ])
             ->add('file', FileType::class, [
-                'label' => 'Plik: '
+                'label' => 'Plik'
             ]);
     }
 

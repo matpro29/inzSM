@@ -15,10 +15,10 @@ class NewForm extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nazwa: '
+                'label' => 'Nazwa'
             ])
             ->add('weight', NumberType::class, [
-                'label' => 'Waga: '
+                'label' => 'Waga'
             ]);
     }
 

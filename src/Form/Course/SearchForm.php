@@ -14,7 +14,7 @@ class SearchForm extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Wyszukaj kurs po nazwie:'
+                'label' => 'Wyszukaj kurs po nazwie'
             ]);
     }
 

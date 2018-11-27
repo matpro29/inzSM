@@ -16,12 +16,12 @@ class NewForm extends AbstractType
     {
         $builder
             ->add('notice', TextareaType::class, [
-                'label' => 'Treść: '
+                'label' => 'Treść'
             ])
 
 
             ->add('endDateString', TextType::class, [
-                'label' => 'Data końcowa: ',
+                'label' => 'Data końcowa',
                 'attr' => [
                     'class' => 'flatpickr'
                 ]

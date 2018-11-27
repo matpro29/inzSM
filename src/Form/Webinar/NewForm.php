@@ -18,10 +18,10 @@ class NewForm extends AbstractType
                 'label' => 'Nazwa'
             ])
             ->add('video', TextType::class, [
-                'label' => 'Wideo: '
+                'label' => 'Wideo'
             ])
             ->add('isActive', CheckboxType::class, [
-                'label' => 'Transmisja: ',
+                'label' => 'Transmisja',
                 'required' => false
             ]);
     }

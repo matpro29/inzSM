@@ -17,10 +17,41 @@ class EditForm extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                'label' => 'Nazwa użytkownika: '
+                'label' => 'Nazwa użytkownika'
+            ])
+            ->add('index', TextType::class, [
+                'label' => 'Index',
+                'required' => false
+            ])
+            ->add('firstName', TextType::class, [
+                'label' => 'Imię'
+            ])
+            ->add('secondName', TextType::class, [
+                'label' => 'Drugie imię',
+                'required' => false
+            ])
+            ->add('lastName', TextType::class, [
+                'label' => 'Nazwisko'
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email: '
+                'label' => 'Email'
+            ])
+            ->add('city', TextType::class, [
+                'label' => 'Miejscowość'
+            ])
+            ->add('street', TextType::class, [
+                'label' => 'Ulica',
+                'required' => false
+            ])
+            ->add('house', TextType::class, [
+                'label' => 'Nr domu'
+            ])
+            ->add('flat', TextType::class, [
+                'label' => 'Nr mieszkania',
+                'required' => false
+            ])
+            ->add('PESEL', TextType::class, [
+                'label' => 'PESEL'
             ]);
     }
 

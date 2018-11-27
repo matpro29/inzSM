@@ -14,7 +14,7 @@ class NewForm extends AbstractType
     {
         $builder
             ->add('message', TextareaType::class, [
-                'label' => 'Treść: ',
+                'label' => 'Treść',
                   'attr' => array('placeholder' => 'Napisz wiadomość...')
             ]);
     }

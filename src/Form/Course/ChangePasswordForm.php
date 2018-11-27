@@ -25,10 +25,10 @@ class ChangePasswordForm extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'label' => 'Nowe hasło: '
+                    'label' => 'Nowe hasło'
                 ],
                 'second_options' =>  [
-                    'label' => 'Powtórz nowe hasło: '
+                    'label' => 'Powtórz nowe hasło'
                 ]
             ]);
     }

@@ -25,7 +25,7 @@ class NewCourseForm extends AbstractType
                 }
             ])
             ->add('comment', TextareaType::class, [
-                'label' => 'Komentarz: '
+                'label' => 'Komentarz'
             ]);
     }
 
