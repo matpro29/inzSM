@@ -19,7 +19,7 @@ class EditForm extends AbstractType
             ->add('username', TextType::class, [
                 'label' => 'Nazwa użytkownika'
             ])
-            ->add('index', TextType::class, [
+            ->add('indeks', TextType::class, [
                 'label' => 'Index',
                 'required' => false
             ])

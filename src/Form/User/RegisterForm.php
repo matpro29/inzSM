@@ -28,7 +28,7 @@ class RegisterForm extends AbstractType
                     'label' => 'Powtórz hasło'
                 ]
             ])
-            ->add('index', TextType::class, [
+            ->add('indeks', TextType::class, [
                 'label' => 'Index',
                 'required' => false
             ])

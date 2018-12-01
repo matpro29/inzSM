@@ -73,7 +73,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=20)
      */
-    private $index;
+    private $indeks;
 
     /**
      * @ORM\Column(type="string", length=256)
@@ -206,9 +206,9 @@ class User implements UserInterface, \Serializable
         return $this->id;
     }
 
-    public function getIndex()
+    public function getIndeks()
     {
-        return $this->index;
+        return $this->indeks;
     }
 
     public function getLastName()
@@ -311,9 +311,9 @@ class User implements UserInterface, \Serializable
         $this->house = $house;
     }
 
-    public function setIndex($index): void
+    public function setIndeks($indeks): void
     {
-        $this->index = $index;
+        $this->indeks = $indeks;
     }
 
     public function setLastName($lastName): void
