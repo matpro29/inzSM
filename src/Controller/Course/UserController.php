@@ -3,6 +3,7 @@
 namespace App\Controller\Course;
 
 use App\Entity\Course;
+use App\Repository\ConversationRepository;
 use App\Repository\NoticeRepository;
 use App\Repository\UserRepository;
 use App\Service\Parameter;
@@ -19,16 +20,20 @@ class UserController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository,
+                                NoticeRepository $noticeRepository,
+                                Security $security,
+                                UserRepository $userRepository)
     {
         $this->security = $security;
-        $this->parameter = new Parameter($noticeRepository, $security, $userRepository);
+        $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
     }
 
     /**
      * @Route("/{id}", name="course_user", methods="GET|POST")
      */
-    public function index(Course $course, UserRepository $userRepository): Response
+    public function index(Course $course,
+                          UserRepository $userRepository): Response
     {
         $users = $userRepository->findAllByCourseId($course->getId());
 

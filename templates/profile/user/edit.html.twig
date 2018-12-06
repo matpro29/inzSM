@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edytuj swoje dane{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>{% trans %}Edytuj swoje dane{% endtrans %}</h1>
+
+        {{ include('profile/user/form/_change_password_form.html.twig') }}
+        </br>
+        {{ include('profile/user/form/_edit_form.html.twig') }}
+        </br>
+        <a href="{{ path('profile_index') }}"  class="back">{% trans %}Wróć{% endtrans %}</a>
+    </div>
+{% endblock %}

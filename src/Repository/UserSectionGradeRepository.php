@@ -34,4 +34,14 @@ class UserSectionGradeRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findAllBySectionId($sectionId)
+    {
+        return $this->createQueryBuilder('usg')
+            ->innerJoin('usg.section', 's')
+            ->where('s.id = :sectionId')
+            ->setParameter('sectionId', $sectionId)
+            ->getQuery()
+            ->getResult();
+    }
 }

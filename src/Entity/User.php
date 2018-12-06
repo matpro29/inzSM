@@ -14,6 +14,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface, \Serializable
 {
     /**
+     * @ORM\Column(type="string", length=256)
+     */
+    private $city;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserConversation", mappedBy="user")
      */
     private $conversations;
@@ -34,6 +39,31 @@ class User implements UserInterface, \Serializable
     private $coursesOwn;
 
     /**
+     * @ORM\Column(type="string", length=256)
+     */
+    private $email;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\File", mappedBy="user")
+     */
+    private $files;
+
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $flat;
+
+    /**
+     * @ORM\Column(type="string", length=256)
+     */
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $house;
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -41,9 +71,14 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\File", mappedBy="user")
+     * @ORM\Column(type="string", length=20)
      */
-    private $files;
+    private $indeks;
+
+    /**
+     * @ORM\Column(type="string", length=256)
+     */
+    private $lastName;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="owner")
@@ -56,9 +91,19 @@ class User implements UserInterface, \Serializable
     private $noticeDate;
 
     /**
+     * @Assert\Length(max=4096)
+     */
+    private $oldPassword;
+
+    /**
      * @ORM\Column(type="string", length=96)
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=11)
+     */
+    private $PESEL;
 
     /**
      * @Assert\Length(max=4096)
@@ -71,9 +116,19 @@ class User implements UserInterface, \Serializable
     private $roles;
 
     /**
+     * @ORM\Column(type="string", length=256)
+     */
+    private $secondName;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserSectionGrade", mappedBy="user")
      */
     private $sectionsGrades;
+
+    /**
+     * @ORM\Column(type="string", length=256)
+     */
+    private $street;
 
     /**
      * @ORM\Column(type="string", length=64, unique=true)
@@ -96,6 +151,11 @@ class User implements UserInterface, \Serializable
     {
     }
 
+    public function getCity()
+    {
+        return $this->city;
+    }
+
     public function getConversations(): Collection
     {
         return $this->conversations;
@@ -116,14 +176,44 @@ class User implements UserInterface, \Serializable
         return $this->coursesOwn;
     }
 
-    public function getId()
+    public function getEmail()
     {
-        return $this->id;
+        return $this->email;
     }
 
     public function getFiles(): Collection
     {
         return $this->files;
+    }
+
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    public function getFlat()
+    {
+        return $this->flat;
+    }
+
+    public function getHouse()
+    {
+        return $this->house;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getIndeks()
+    {
+        return $this->indeks;
+    }
+
+    public function getLastName()
+    {
+        return $this->lastName;
     }
 
     public function getMessagesSend(): Collection
@@ -136,9 +226,19 @@ class User implements UserInterface, \Serializable
         return $this->noticeDate;
     }
 
+    public function getOldPassword()
+    {
+        return $this->oldPassword;
+    }
+
     public function getPassword()
     {
         return $this->password;
+    }
+
+    public function getPESEL()
+    {
+        return $this->PESEL;
     }
 
     public function getPlainPassword()
@@ -156,9 +256,19 @@ class User implements UserInterface, \Serializable
         return null;
     }
 
+    public function getSecondName()
+    {
+        return $this->secondName;
+    }
+
     public function getSectionsGrades(): Collection
     {
         return $this->sectionsGrades;
+    }
+
+    public function getStreet()
+    {
+        return $this->street;
     }
 
     public function getUsername()
@@ -176,14 +286,59 @@ class User implements UserInterface, \Serializable
         ));
     }
 
+    public function setCity($city): void
+    {
+        $this->city = $city;
+    }
+
+    public function setEmail($email): void
+    {
+        $this->email = $email;
+    }
+
+    public function setFlat($flat): void
+    {
+        $this->flat = $flat;
+    }
+
+    public function setFirstName($firstName): void
+    {
+        $this->firstName = $firstName;
+    }
+
+    public function setHouse($house): void
+    {
+        $this->house = $house;
+    }
+
+    public function setIndeks($indeks): void
+    {
+        $this->indeks = $indeks;
+    }
+
+    public function setLastName($lastName): void
+    {
+        $this->lastName = $lastName;
+    }
+
     public function setNoticeDate($noticeDate): void
     {
         $this->noticeDate = $noticeDate;
     }
 
+    public function setOldPassword($oldPassword): void
+    {
+        $this->oldPassword = $oldPassword;
+    }
+
     public function setPassword($password): void
     {
         $this->password = $password;
+    }
+
+    public function setPESEL($PESEL): void
+    {
+        $this->PESEL = $PESEL;
     }
 
     public function setPlainPassword($password): void
@@ -194,6 +349,16 @@ class User implements UserInterface, \Serializable
     public function setRoles($roles): void
     {
         $this->roles = array($roles);
+    }
+
+    public function setSecondName($secondName): void
+    {
+        $this->secondName = $secondName;
+    }
+
+    public function setStreet($street): void
+    {
+        $this->street = $street;
     }
 
     public function setUsername($username): void

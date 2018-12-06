@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Webinar{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Webinar</h1>
+
+        {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER')) and webinar is null %}
+            <a href="{{ path('course_webinar_new', {'id': course.id}) }}" class="btn">{% trans %}Nowa transmisja{% endtrans %}</a>
+        {% else %}
+            <a href="{{ path('course_webinar_end', {'id': course.id}) }}" class="btn">{% trans %}Zakończ transmisję{% endtrans %}</a>
+        {% endif %}
+        </br>
+        {% if webinar is not null %}
+            Na żywo: {{ webinar.name }}
+            <table>
+                <tr>
+                    <td>
+                        <iframe width="854" height="480" src="https://www.youtube.com/embed/{{ webinar.video }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </td>
+                    <td>
+                        <iframe width="250" height="480" src="https://www.youtube.com/live_chat?v={{ webinar.video }}&embed_domain={{ websiteDomain }}"></iframe>
+                    </td>
+                </tr>
+            </table>
+            </br>
+        {% endif %}
+        <div class="crud_zad"><div class="zad">Starsze webinary:</div></div>
+        </br>
+        {% for webinar in webinars %}
+            {{ webinar.name }}
+            </br>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ webinar.video }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </br>
+        {% else %}
+            Nie ma nic!
+            </br>
+        {% endfor %}</br></br>
+        <a href="{{ path('course_show', {'id': course.id}) }}" class="back">{% trans %}Wróć{% endtrans %}</a>
+    </div>
+{% endblock %}

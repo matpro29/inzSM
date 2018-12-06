@@ -28,7 +28,6 @@ class Task
      */
     private $isFile;
 
-
     /**
      * @ORM\Column(type="string", length=4096)
      */

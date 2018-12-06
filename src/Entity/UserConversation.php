@@ -15,6 +15,11 @@ class UserConversation
     private $conversation;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $conversationDate;
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -31,6 +36,11 @@ class UserConversation
         return $this->conversation;
     }
 
+    public function getConversationDate()
+    {
+        return $this->conversationDate;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -44,6 +54,11 @@ class UserConversation
     public function setConversation($conversation): void
     {
         $this->conversation = $conversation;
+    }
+
+    public function setConversationDate($conversationDate): void
+    {
+        $this->conversationDate = $conversationDate;
     }
 
     public function setUser($user): void

@@ -14,7 +14,7 @@ class EnterForm extends AbstractType
     {
         $builder
             ->add('plainPassword', PasswordType::class, [
-                'label' => 'Hasło: '
+                'label' => 'Hasło'
             ]);
     }
 

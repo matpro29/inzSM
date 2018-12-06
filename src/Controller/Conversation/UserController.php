@@ -6,7 +6,9 @@ use App\Entity\Conversation;
 use App\Entity\User;
 use App\Entity\UserConversation;
 use App\Form\User\SearchForm;
+use App\Repository\ConversationRepository;
 use App\Repository\NoticeRepository;
+use App\Repository\UserConversationRepository;
 use App\Repository\UserRepository;
 use App\Service\Parameter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -24,10 +26,13 @@ class UserController extends Controller
     private $security;
     private $parameter;
 
-    public function __construct(NoticeRepository $noticeRepository, Security $security, UserRepository $userRepository)
+    public function __construct(ConversationRepository $conversationRepository,
+                                NoticeRepository $noticeRepository,
+                                Security $security,
+                                UserRepository $userRepository)
     {
         $this->security = $security;
-        $this->parameter = new Parameter($noticeRepository, $security, $userRepository);
+        $this->parameter = new Parameter($conversationRepository, $noticeRepository, $security, $userRepository);
     }
 
     /**
@@ -35,12 +40,16 @@ class UserController extends Controller
      * @ParamConverter("conversation", options={"id": "conversationId"})
      * @ParamConverter("userInfo", options={"id": "userId"})
      */
-    public function add(Conversation $conversation, User $userInfo)
+    public function add(Conversation $conversation,
+                        User $userInfo)
     {
         $userConversation = new UserConversation();
 
         $userConversation->setUser($userInfo);
         $userConversation->setConversation($conversation);
+
+        $conversationDate = new \DateTime();
+        $userConversation->setConversationDate($conversationDate);
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($userConversation);
@@ -54,9 +63,32 @@ class UserController extends Controller
     }
 
     /**
+     * @Route("/delete/{conversationId}/{userId}", name="conversation_user_delete", methods="GET")
+     * @ParamConverter("conversation", options={"id": "conversationId"})
+     * @ParamConverter("userInfo", options={"id": "userId"})
+     */
+    public function delete(Conversation $conversation,
+                           User $userInfo,
+                           UserConversationRepository $userConversationRepository)
+    {
+        $userConversation = $userConversationRepository->findOneByConversationIdUserId($conversation->getId(), $userInfo->getId());
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($userConversation);
+        $entityManager->flush();
+
+        $params = [
+            'id' => $conversation->getId()
+        ];
+
+        return $this->redirectToRoute('conversation_user_index', $params);
+    }
+
+    /**
      * @Route("/{id}", name="conversation_user_index", methods="GET")
      */
-    public function index(Conversation $conversation, UserRepository $userRepository): Response
+    public function index(Conversation $conversation,
+                          UserRepository $userRepository): Response
     {
         $users = $userRepository->findAllByConversationId($conversation->getId());
 
@@ -73,7 +105,9 @@ class UserController extends Controller
     /**
      * @Route("/search/{id}", name="conversation_user_search", methods="GET|POST")
      */
-    public function search(Conversation $conversation, Request $request, UserRepository $userRepository): Response
+    public function search(Conversation $conversation,
+                           Request $request,
+                           UserRepository $userRepository): Response
     {
         $user = new User();
 
@@ -85,7 +119,7 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $users = $userRepository->findAllBySearchForm($user->getUsername());
         } else {
-            $users = $userRepository->findAll();
+            $users = $userRepository->findAllWithoutByConversatrionId($conversation->getId());
         }
 
         $params = [

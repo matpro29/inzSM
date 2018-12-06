@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('course_task_delete', {'id': task.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('course_task_delete', {'id': task.id}) }}" onsubmit="return confirm('Czy na pweno chcesz usunąć zadanie wraz z wszystkimi plikami?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.id) }}">
     <button class=""> <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"

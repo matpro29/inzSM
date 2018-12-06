@@ -75,4 +75,13 @@ class UserRepository extends ServiceEntityRepository
             ->where('u.id = :id')
             ->setParameter('id', $id);
     }
+
+    public function findAllWithoutByConversatrionId($conversationId)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.id NOT IN (:users)')
+            ->setParameter('users', $this->findAllByConversationId($conversationId))
+            ->getQuery()
+            ->getResult();
+    }
 }

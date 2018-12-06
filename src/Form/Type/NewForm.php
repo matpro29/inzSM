@@ -14,7 +14,7 @@ class NewForm extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nazwa: '
+                'label' => 'Nazwa'
             ]);
     }
 

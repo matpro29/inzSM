@@ -6,9 +6,9 @@
 
 
     <div class="container">
-        <h1>Szukaj użytkowników ✅</h1>
+        <h1>Szukaj użytkowników</h1>
 
-        {{ include('conversation/user/form/_search_form.html.twig', {'button_label': 'Szukaj'}) }}
+        {{ include('conversation/user/form/_search_form.html.twig', {'button_label': 'Szukaj'}) }}</br></br>
         <div class="headertable"> <div class="row"><div class="col-md-9">{% trans %}Użytkownik{% endtrans %}</div><div class="col-md-3">{% trans %}Akcje{% endtrans %}</div></div></div>
 
         {% for user in users %}
@@ -24,6 +24,6 @@
             {% endfor %}
 
         </br> </br>
-        <a href="{{ path('conversation_user_index', {'id': conversation.id}) }}" class="back">{% trans %}Wróć{% endtrans %}</a>
+        <a href="{{ path('conversation_show', {'id': conversation.id}) }}" class="back">{% trans %}Wróć{% endtrans %}</a>
     </div>
 {% endblock %}

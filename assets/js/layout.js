@@ -8,7 +8,7 @@ import 'owl.carousel/'
 
 
 $(document).ready(function(){
-
+    $('.chat').scrollTop(10000000000);
 
 });
 

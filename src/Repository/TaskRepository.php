@@ -18,4 +18,14 @@ class TaskRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Task::class);
     }
+
+    public function findAllBySectionId($sectionId)
+    {
+        return $this->createQueryBuilder('t')
+            ->innerJoin('t.section', 's')
+            ->where('s.id = :sectionId')
+            ->setParameter('sectionId', $sectionId)
+            ->getQuery()
+            ->getResult();
+    }
 }

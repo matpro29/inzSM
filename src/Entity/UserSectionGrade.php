@@ -10,6 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 class UserSectionGrade
 {
     /**
+     * @ORM\Column(type="string", length=4096)
+     */
+    private $comment;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Grade", inversedBy="sectionsGrades")
      */
     private $grade;
@@ -31,6 +36,11 @@ class UserSectionGrade
      */
     private $user;
 
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
     public function getGrade()
     {
         return $this->grade;
@@ -49,6 +59,11 @@ class UserSectionGrade
     public function getUser()
     {
         return $this->user;
+    }
+
+    public function setComment($comment): void
+    {
+        $this->comment = $comment;
     }
 
     public function setGrade($grade): void

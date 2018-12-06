@@ -26,12 +26,8 @@
 
 
 
-            {% for grade in section.grades %}
-                {% if grade.user.id == userInfo.id %}
-                    {{ grade.grade.grade }}
-                {% endif %}
-            {% endfor %}
-            <a href="{{ path('course_user_grade_new', {'sectionId': section.id, 'userId': userInfo.id}) }}">Dodaj ocenę cząstkową</a>
+
+
             {% for task in section.tasks %}
                 <h3>{{ task.name }}</h3>
                 {% for file in task.files %}
@@ -41,9 +37,29 @@
                     {% endif %}
                 {% endfor %}
             {% endfor %}
+           <div class="gade_half">
+               </br>
+               <h4><i>Oceny:</i></h4>
+
+               {% for sectionGrade in section.grades %}
+                {% if sectionGrade.user.id == userInfo.id %}
+                    {{ sectionGrade.grade.grade }} {{ sectionGrade.comment }} <a href="{{ path('course_grade_edit_s', {'id': sectionGrade.id}) }}">Edytuj{{ include('course/grade/form/_delete_s_form.html.twig', {'id': sectionGrade.id}) }}</a><span class="pad"></span>
+                {% endif %}
+            {% endfor %}
+            </div>
+            </br>
+            <a href="{{ path('course_user_grade_new', {'sectionId': section.id, 'userId': userInfo.id}) }}" class="btn delete half_grade">Dodaj ocenę cząstkową</a>
         {% endfor %}
         </br>
-        <a href="{{ path('course_user_grade_end', {'courseId': course.id, 'userId': userInfo.id}) }}">Dodaj ocenę końcową</a>
+        {% if courseGrade is null %}
+            <a href="{{ path('course_user_grade_end', {'courseId': course.id, 'userId': userInfo.id}) }}" class="btn">Dodaj ocenę końcową</a>
+        {% else %}
+            <h4><i>Ocena końcowa:</i></h4>
+            {{ courseGrade.grade.grade }} <a href="{{ path('course_grade_edit_c', {'id': courseGrade.id}) }}">Edytuj</a>{{ include('course/grade/form/_delete_c_form.html.twig', {'id': courseGrade.id}) }}
+            </br>
+            {{ courseGrade.comment }}
+        {% endif %}
+        </br>
         </br>
         <a href="{{ path('course_user', {'id': course.id}) }}" class="back">{% trans %}Wróć{% endtrans %}</a>
     </div>

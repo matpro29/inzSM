@@ -17,31 +17,31 @@ class NewForm extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nazwa: '
+                'label' => 'Nazwa'
             ])
             ->add('isFile', CheckboxType::class, [
-                'label' => 'Plik: ',
+                'label' => 'Plik',
                 'required' => false,
 
             ])
             ->add('isDate', CheckboxType::class, [
-                'label' => 'Ogranicz czas: ',
+                'label' => 'Ogranicz czas',
                 'required' => false
             ])
             ->add('startDateString', TextType::class, [
-                'label' => 'Data początkowa: ',
+                'label' => 'Data początkowa',
 	            'attr' => [
 	            	'class' => 'flatpickr'
 	            ]
             ])
             ->add('endDateString', TextType::class, [
-                'label' => 'Data końcowa: ',
+                'label' => 'Data końcowa',
                 'attr' => [
 	                'class' => 'flatpickr'
                 ]
             ])
             ->add('contents', TextareaType::class, [
-                'label' => 'Treść: '
+                'label' => 'Treść'
             ]);
     }
 

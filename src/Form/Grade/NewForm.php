@@ -14,7 +14,7 @@ class NewForm extends AbstractType
     {
         $builder
             ->add('grade', DecimalType::class, [
-                'label' => 'Ocena: '
+                'label' => 'Ocena'
             ]);
     }
 

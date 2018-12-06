@@ -25,27 +25,27 @@ class NewAdminForm extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nazwa: '
+                'label' => 'Nazwa'
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Opis: '
+                'label' => 'Opis'
             ])
             ->add('ects', NumberType::class, [
-                'label' => 'ECTS: '
+                'label' => 'ECTS'
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'label' => 'Hasło: '
+                    'label' => 'Hasło'
                 ],
                 'second_options' =>  [
-                    'label' => 'Powtórz hasło: '
+                    'label' => 'Powtórz hasło'
                 ]
             ])
             ->add('owner', EntityType::class, [
                 'choice_label' => 'username',
                 'class' => User::class,
-                'label' => 'Właścicel: ',
+                'label' => 'Właścicel',
                 'query_builder' => function (UserRepository $userRepository) {
                     return $userRepository->findAllByRoleQB('ROLE_TEACHER');
                 }
@@ -53,7 +53,7 @@ class NewAdminForm extends AbstractType
             ->add('subject', EntityType::class, [
                 'choice_label' => 'name',
                 'class' => Subject::class,
-                'label' => 'Przedmiot: ',
+                'label' => 'Przedmiot',
                 'query_builder' => function (SubjectRepository $subjectRepository) {
                     return $subjectRepository->findAllQB();
                 }
@@ -61,7 +61,7 @@ class NewAdminForm extends AbstractType
             ->add('type', EntityType::class, [
                 'choice_label' => 'name',
                 'class' => Type::class,
-                'label' => 'Typ: ',
+                'label' => 'Typ',
                 'query_builder' => function (TypeRepository $typeRepository) {
                     return $typeRepository->findAllQB();
                 }
