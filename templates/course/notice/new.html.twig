@@ -2,6 +2,11 @@
 
 {% block title %}Nowe powiadomienie{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/js/flatpickr.css') }}">
+{% endblock %}
+
 {% block body %}
     <div class="container">
         <h1>{% trans %}Nowe powiadomienie{% endtrans %}</h1>
@@ -12,3 +17,7 @@
     </div>
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/js/flatpickr.js') }}"></script>
+{% endblock %}

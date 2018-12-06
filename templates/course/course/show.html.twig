@@ -20,10 +20,10 @@
             <a href="{{ path('course_section_new', {'id': course.id}) }}" class="btn">{% trans %}Nowa sekcja w kursie{%
                     endtrans
                 %}</a>
-        {% endif %}
-        <a href="{{ path('course_webinar_index', {'id': course.id}) }}" class="btn">{% trans %}Webinar{%
+
+        <a href="{{ path('course_webinar_index', {'id': course.id}) }}" class="btn delete">{% trans %}Webinar{%
                 endtrans
-            %}</a>
+            %}</a>{% endif %}
         </br>
         {% for section in course.sections %}
             <div class="crud_zad"><span class="zad">{{ section.name }} </span>
@@ -80,9 +80,9 @@
                         {% endif %}
                     {% else %}
                         </br>
+
                         <a href="{{ path('course_file_new', {'id': task.id}) }}" class="btn send_file">{% trans %}Prześlij
-                            plik{% endtrans
-                        %}</a>
+                            plik{% endtrans %}</a>
                     {% endif %}
                 {% endif %}
 

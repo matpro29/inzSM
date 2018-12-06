@@ -61,7 +61,18 @@ button{
    color:$white;
   }
  }
-
+.left{
+ float: left;
+}
+.my_end_grade{
+ color: red;
+ font-weight: bold;
+ margin-right:20px;
+ font-size: 18px;
+}
+.pad_r{
+ padding-right: 20px;
+}
 //koniec buttona
 .send_file{
  display:table;
@@ -75,6 +86,7 @@ button{
  .pad{
   padding-right: 15px;
  }
+
 }
 //inputy:
 
@@ -230,7 +242,7 @@ fill:$red;
 }
 .task_content{
  display: inline-block;
- margin: 30px 0;
+ margin: 15px 0;
  width: 100%;
 }
 .file{
@@ -490,7 +502,7 @@ padding-top:20px;
 --------------*/
 
 .chat {
- margin: 0 auto;
+ margin: 30px auto 0;
  max-width: 420px;
  position: relative;
  overflow-x: hidden;
