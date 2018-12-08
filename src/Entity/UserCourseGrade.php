@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class UserCourseGrade
 {
     /**
-     * @ORM\Column(type="string", length=4096)
+     * @ORM\Column(type="string", length=4096, nullable=true)
      */
     private $comment;
 
