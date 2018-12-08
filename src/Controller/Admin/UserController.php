@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Form\User\SearchForm;
 use App\Repository\ConversationRepository;
 use App\Repository\NoticeRepository;
 use App\Repository\UserRepository;
@@ -31,14 +32,27 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/", name="admin_user_index", methods="GET")
+     * @Route("/", name="admin_user_index", methods="GET|POST")
      */
-    public function index(UserRepository $userRepository): Response
+    public function index(Request $request,
+                          UserRepository $userRepository): Response
     {
-        $users = $userRepository->findAll();
+        $user = new User();
+
+        $form = $this->createForm(SearchForm::class, $user);
+        $form->handleRequest($request);
+
+        $users = null;
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $users = $userRepository->findAllBySearchForm($user->getUsername());
+        } else {
+            $users = $userRepository->findAll();
+        }
 
         $params = [
-            'users' => $users
+            'users' => $users,
+            'form' => $form->createView()
         ];
 
         $params = $this->parameter->getParams($this, $params);

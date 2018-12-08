@@ -23,4 +23,14 @@ class SubjectRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('s');
     }
+
+    public function findAllBySearchForm($search)
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.name LIKE :search')
+            ->orWhere('s.description LIKE :search')
+            ->setParameter('search', '%'.$search.'%')
+            ->getQuery()
+            ->getResult();
+    }
 }

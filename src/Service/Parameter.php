@@ -33,7 +33,7 @@ class Parameter extends Controller
         if (!$user) {
             $params['countNewConversations'] = 0;
             $params['countNewNotices'] = 0;
-            $params['user'] = 0;
+            $params['user'] = null;
 
             return $params;
         }

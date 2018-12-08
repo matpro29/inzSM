@@ -51,7 +51,7 @@ class NoticeController extends Controller
             $entityManager->persist($notice);
             $entityManager->flush();
 
-            return $this->redirectToRoute('admin_index');
+            return $this->redirectToRoute('index');
         }
 
         $params = [

@@ -4,6 +4,7 @@ namespace App\Controller\Table;
 
 use App\Entity\Subject;
 use App\Form\Subject\NewForm;
+use App\Form\Subject\SearchForm;
 use App\Repository\ConversationRepository;
 use App\Repository\NoticeRepository;
 use App\Repository\SubjectRepository;
@@ -80,14 +81,30 @@ class SubjectController extends Controller
     }
 
     /**
-     * @Route("/", name="table_subject_index", methods="GET")
+     * @Route("/", name="table_subject_index", methods="GET|POST")
      */
-    public function index(SubjectRepository $subjectRepository): Response
+    public function index(Request $request,
+                          SubjectRepository $subjectRepository): Response
     {
-        $subjects = $subjectRepository->findAll();
         $user = $this->getUser();
 
+        $subject = new Subject();
+
+        $form = $this->createForm(SearchForm::class, $subject);
+        $form->handleRequest($request);
+
+        $subjects = null;
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $subjects = $subjectRepository->findAllBySearchForm($subject->getName());
+        } else {
+            $subjects = $subjectRepository->findAll();
+        }
+
+
+
         $params = [
+            'form' => $form->createView(),
             'subjects' => $subjects,
             'user' => $user
         ];

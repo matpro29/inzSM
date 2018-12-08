@@ -10,7 +10,6 @@ use App\Repository\ConversationRepository;
 use App\Repository\MessageRepository;
 use App\Repository\NoticeRepository;
 use App\Repository\UserConversationRepository;
-use App\Repository\UserCourseGradeRepository;
 use App\Repository\UserRepository;
 use App\Service\Parameter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

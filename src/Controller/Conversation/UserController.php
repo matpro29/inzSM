@@ -117,7 +117,7 @@ class UserController extends Controller
         $users = null;
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $users = $userRepository->findAllBySearchForm($user->getUsername());
+            $users = $userRepository->findAllWithoutByCourseIdSearchForm($conversation->getId(), $user->getUsername());
         } else {
             $users = $userRepository->findAllWithoutByConversatrionId($conversation->getId());
         }

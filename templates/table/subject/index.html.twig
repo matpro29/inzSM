@@ -6,6 +6,7 @@
 
     <div class="container">
         <h1>{% trans %}Przedmioty{% endtrans %}</h1>
+        {{ include('table/subject/form/_search_form.html.twig', {'button_label': 'Szukaj'}) }}</br></br>
         {% if is_granted('ROLE_TEACHER') or is_granted('ROLE_ADMIN') %}
         <a class="btn" href="{{ path('table_subject_new') }}">{% trans %}Dodaj przedmiot{% endtrans %}</a>{% endif %}
         </br>

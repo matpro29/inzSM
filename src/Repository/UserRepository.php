@@ -57,11 +57,16 @@ class UserRepository extends ServiceEntityRepository
             ->setParameter('role', '%'.$role.'%');
     }
 
-    public  function findAllBySearchForm($username)
+    public function findAllBySearchForm($search)
     {
         return $this->createQueryBuilder('u')
-            ->where('u.username LIKE :username')
-            ->setParameter('username', '%'.$username.'%')
+            ->where('u.email LIKE :search')
+            ->orWhere('u.firstName LIKE :search')
+            ->orWhere('u.lastName LIKE :search')
+            ->orWhere('u.roles LIKE :search')
+            ->orWhere('u.secondName LIKE :search')
+            ->orWhere('u.username LIKE :search')
+            ->setParameter('search', '%'.$search.'%')
             ->getQuery()
             ->getResult();
     }
@@ -74,6 +79,19 @@ class UserRepository extends ServiceEntityRepository
             ->innerJoin('c.owner', 'o')
             ->where('u.id = :id')
             ->setParameter('id', $id);
+    }
+
+    public function findAllWithoutByCourseIdSearchForm($conversationId, $search)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.id NOT IN (:users)')
+            ->andWhere('u.id IN (:searchUsers)')
+            ->setParameters([
+                'users' => $this->findAllByConversationId($conversationId),
+                'searchUsers' => $this->findAllBySearchForm($search)
+            ])
+            ->getQuery()
+            ->getResult();
     }
 
     public function findAllWithoutByConversatrionId($conversationId)
