@@ -101,8 +101,6 @@ class SubjectController extends Controller
             $subjects = $subjectRepository->findAll();
         }
 
-
-
         $params = [
             'form' => $form->createView(),
             'subjects' => $subjects,
