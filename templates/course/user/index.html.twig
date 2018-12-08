@@ -16,7 +16,7 @@
         {% for user in users %}
         <div class="listtable">
             <div class="row"><div class="col-md-2 pad">{{ user.id }}</div>
-                <div class="col-md-2 pad">nr albumu</div>
+                <div class="col-md-2 pad">{{ user.indeks }}</div>
                 <div class="col-md-4 pad">{{ user.username }}</div>
                 <div class="col-md-4 pad">   <a href="{{ path('course_user_grade', {'courseId': course.id, 'userId':
                         user.id}) }}"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" width="30px" viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve">
