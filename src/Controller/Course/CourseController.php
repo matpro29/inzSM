@@ -202,12 +202,28 @@ class CourseController extends Controller
     }
 
     /**
-     * @Route("/info/{id}", name="course_info", methods="GET")
+     * @Route("/info/i/{id}", name="course_info_i", methods="GET")
      */
-    public function info(Course $course): Response
+    public function infoI(Course $course): Response
     {
         $params = [
             'course' => $course,
+            'info' => 0
+        ];
+
+        $params = $this->parameter->getParams($this, $params);
+
+        return $this->render('course/course/info.html.twig', $params);
+    }
+
+    /**
+     * @Route("/info/s/{id}", name="course_info_s", methods="GET")
+     */
+    public function infoS(Course $course): Response
+    {
+        $params = [
+            'course' => $course,
+            'info' => 1
         ];
 
         $params = $this->parameter->getParams($this, $params);

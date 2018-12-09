@@ -72,6 +72,9 @@
                 {% endfor %}
                 {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER')) or (task.isFile == true and (task.isDate == false or (task.isDate == true and date() < date(task.endDate) and date() > date(task.startDate)))) %}
                     </br>
+                    {% if is_granted('ROLE_USER') and task.isDate %}
+                        {% trans %}Ostateczny termin:{% endtrans %} {{ date(task.endDate)|date("d-m-Y H:i") }}
+                    {% endif %}
                     <a href="{{ path('course_file_new', {'id': task.id}) }}" class="btn send_file">{% trans %}Prześlij plik{% endtrans %}</a>
                 {% endif %}
             {%  else %}

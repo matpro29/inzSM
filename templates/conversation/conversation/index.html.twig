@@ -9,12 +9,18 @@
         <h1>Rozmowy użytkownika</h1>
 
         {{ include('conversation/conversation/form/_new_form.html.twig', {'button_label': 'Nowa rozmowa'}) }}</br></br>
-        <div class="headertable"> <div class="row"><div class="col-md-10">{% trans %}Id{% endtrans %}</div><div class="col-md-2">Akcje</div></div></div>
+        <div class="headertable"> <div class="row"><div class="col-md-10">{% trans %}Użytkownicy{% endtrans %}</div><div class="col-md-2">Akcje</div></div></div>
 
         {% for conversation in conversations %}
         <div class="listtable">
             <div class="row">
-                <div class="col-md-10 pad">{{ conversation.id }}</div>
+                <div class="col-md-10 pad">
+                    {% for user in conversation.users %}
+                        {{ user.user.firstName }}
+                        {{ user.user.secondName }}
+                        {{ user.user.lastName }},
+                    {% endfor %}
+                </div>
                 <div class="col-md-2 pad"> <a href="{{ path('conversation_show', {'id': conversation.id}) }}"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" width="30px" x="0px" y="0px" viewBox="0 0 178.833 178.833" style="enable-background:new 0 0 178.833 178.833;" xml:space="preserve">
 <path d="M33.441,178.833c-0.012,0-0.023,0-0.034,0H16.396c-1.381,0-2.5-1.119-2.5-2.5V2.5  c0-1.381,1.119-2.5,2.5-2.5h146.04c1.381,0,2.5,1.119,2.5,2.5v173.832c0,1.381-1.119,2.5-2.5,2.5h-17.049  c-1.381,0-2.5-1.119-2.5-2.5V22.048H84.796l47.439,4.63c1.28,0.125,2.257,1.202,2.257,2.488V164.5c0,1.266-0.945,2.332-2.202,2.482  L33.78,178.81c-0.063,0.009-0.127,0.015-0.191,0.019C33.539,178.831,33.49,178.833,33.441,178.833z M147.887,173.832h12.049V5  H18.896v168.832h12.048V19.58c-0.001-0.049,0-0.098,0.003-0.147c0.014-0.301,0.08-0.588,0.191-0.853  c0.136-0.323,0.337-0.61,0.585-0.845c0.282-0.268,0.626-0.47,1.009-0.583c0.235-0.07,0.489-0.103,0.74-0.103h111.915  c1.381,0,2.5,1.119,2.5,2.5V173.832z M35.944,22.304v151.209l93.548-11.231V31.435L35.944,22.304z M116.541,104.531  c-4.25,0-7.708-4.187-7.708-9.333s3.458-9.333,7.708-9.333s7.708,4.187,7.708,9.333S120.791,104.531,116.541,104.531z   M116.541,90.864c-1.281,0-2.708,1.78-2.708,4.333s1.427,4.333,2.708,4.333s2.708-1.78,2.708-4.333S117.822,90.864,116.541,90.864z"/>
 
