@@ -9,8 +9,23 @@
 
         <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Id{% endtrans %}</div><div class="col-md-9 pad"> {{ user.id }}</div></div></div>
         <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Użytkownik{% endtrans %}</div><div class="col-md-9 pad">{{ user.username }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Piersze imie{% endtrans %}</div><div class="col-md-9 pad">{{ user.firstName }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Drugie imię{% endtrans %}</div><div class="col-md-9 pad">{{ user.lastName }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Nazwisko{% endtrans %}</div><div class="col-md-9 pad">{{ user.secondName }}</div></div></div>
         <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Role{% endtrans %}</div><div class="col-md-9 pad"> {{ user.roles ? user.roles|join(', ') : '' }}</div></div></div>
-        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Hasło{% endtrans %}</div><div class="col-md-9 pad">{{ user.password }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}E-mail{% endtrans %}</div><div class="col-md-9 pad">{{ user.email }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Pesel{% endtrans %}</div><div class="col-md-9 pad">{{ user.pesel }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Miasto{% endtrans %}</div><div class="col-md-9 pad">{{ user.city }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Ulica{% endtrans %}</div><div class="col-md-9 pad">{{ user.street }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Dom{% endtrans %}</div><div class="col-md-9 pad">{{ user.house }}</div></div></div>
+        <div class="listtable"><div class="row"><div class="col-md-3 pad bold">{% trans %}Mieszkanie{% endtrans %}</div><div class="col-md-9 pad">{{ user.flat }}</div></div></div>
+
+
+
+
+
+
+
         </br>
         <a href="{{ path('profile_edit') }}"  class="btn">Edytuj swoje dane</a>
         </br>
