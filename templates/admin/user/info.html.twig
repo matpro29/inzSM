@@ -10,10 +10,12 @@
         <div class="listtable"><div class="row"><div class="col-md-3 pad bold">Użytkownik</div><div class="col-md-9 pad">{{ userInfo.username }}</div></div></div>
         <div class="listtable"><div class="row"><div class="col-md-3 pad bold">Role</div><div class="col-md-9 pad">{{ userInfo.roles ? userInfo.roles|join(', ') : '' }}</div></div></div>
         <div class="listtable"><div class="row"><div class="col-md-3 pad bold">Hasło</div><div class="col-md-9 pad">{{ userInfo.password }}</div></div></div>
-
         </br>
-        {{ include('admin/user/form/_promote_form.html.twig', {'button_label': 'Awansuj użytkownika'}) }}
-        </br>   </br>
+        {% if 'ROLE_USER' in userInfo.roles %}
+            {{ include('admin/user/form/_promote_form.html.twig', {'button_label': 'Awansuj użytkownika'}) }}
+        {% endif %}
+        </br>
+        </br>
         <a href="{{ path('admin_user_index') }}" class="back">Wróć</a>
     </div>
 {% endblock %}
