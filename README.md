@@ -1,14 +1,18 @@
-inzSM
+praca-inzynierska
 ========================
 
 Praca inżynierska
+
+Temat: Internetowy system wspomagający prowadzenie studiów wirtualnych
+
+Autorzy: Sylwia Podkościelna, Mateusz Proskura
 
 Jak uruchomić?
 --------------
 
 Należy wykonać następujące polecenia:
 
-  * git clone git@github.com:matpro29/inzSM.git
+  * git clone git@github.com:matpro29/praca-inzynierska.git
 
   * cd inzSM
 

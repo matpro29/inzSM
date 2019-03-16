@@ -49,7 +49,7 @@ class User implements UserInterface, \Serializable
     private $files;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $flat;
 
@@ -71,7 +71,7 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $indeks;
 
@@ -116,7 +116,7 @@ class User implements UserInterface, \Serializable
     private $roles;
 
     /**
-     * @ORM\Column(type="string", length=256)
+     * @ORM\Column(type="string", length=256, nullable=true)
      */
     private $secondName;
 
@@ -126,7 +126,7 @@ class User implements UserInterface, \Serializable
     private $sectionsGrades;
 
     /**
-     * @ORM\Column(type="string", length=256)
+     * @ORM\Column(type="string", length=256, nullable=true)
      */
     private $street;
 

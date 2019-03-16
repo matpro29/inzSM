@@ -65,34 +65,16 @@ class DatabaseFixtures extends Fixture
         $grade6->setGrade('5.0');
 
         $user1 = new User();
-        $user1->setUsername('admin');
-        $user1->setPassword($this->userPasswordEncoder->encodePassword($user1, 'admin'));
-        $user1->setRoles('ROLE_ADMIN');
+        $user1->setCity('admin');
+        $user1->setEmail('admin');
+        $user1->setFirstName('admin');
+        $user1->setHouse('admin');
+        $user1->setLastName('admin');
         $user1->setNoticeDate($dateTime);
-
-        $user2 = new User();
-        $user2->setUsername('janek');
-        $user2->setPassword($this->userPasswordEncoder->encodePassword($user2, '123'));
-        $user2->setRoles('ROLE_TEACHER');
-        $user2->setNoticeDate($dateTime);
-
-        $user3 = new User();
-        $user3->setUsername('tomek');
-        $user3->setPassword($this->userPasswordEncoder->encodePassword($user3, '123'));
-        $user3->setRoles('ROLE_TEACHER');
-        $user3->setNoticeDate($dateTime);
-
-        $user4 = new User();
-        $user4->setUsername('marcin');
-        $user4->setPassword($this->userPasswordEncoder->encodePassword($user4, '123'));
-        $user4->setRoles('ROLE_USER');
-        $user4->setNoticeDate($dateTime);
-
-        $user5 = new User();
-        $user5->setUsername('edek');
-        $user5->setPassword($this->userPasswordEncoder->encodePassword($user5, '123'));
-        $user5->setRoles('ROLE_USER');
-        $user5->setNoticeDate($dateTime);
+        $user1->setPassword($this->userPasswordEncoder->encodePassword($user1, 'admin'));
+        $user1->setPESEL('admin');
+        $user1->setRoles('ROLE_ADMIN');
+        $user1->setUsername('admin');
 
         $objectManager->persist($subject1);
         $objectManager->persist($subject2);
@@ -111,10 +93,6 @@ class DatabaseFixtures extends Fixture
         $objectManager->persist($grade6);
 
         $objectManager->persist($user1);
-        $objectManager->persist($user2);
-        $objectManager->persist($user3);
-        $objectManager->persist($user4);
-        $objectManager->persist($user5);
 
         $objectManager->flush();
     }
